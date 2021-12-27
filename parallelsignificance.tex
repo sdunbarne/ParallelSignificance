@@ -1,0 +1,890 @@
+\documentclass[12pt]{article}
+
+\input{../../../../etc/macros}
+%\input{../../../../etc/mzlatex_macros}
+\input{../../../../etc/pdf_macros}
+
+\bibliographystyle{plain}
+
+\begin{document}
+
+\myheader
+\mytitle
+
+\hr
+
+\sectiontitle{Parallel Two-Chain Significance}
+
+\hr
+
+\usefirefox
+
+\hr
+
+% \visual{Study Tip}{../../../../CommonInformation/Lessons/studytip.png}
+% \section*{Study Tip}
+
+% \hr
+
+\visual{Rating}{../../../../CommonInformation/Lessons/rating.png}
+\section*{Rating} %one of 
+% Everyone: contains no mathematics.
+% Student: contains scenes of mild algebra or calculus that may require guidance.
+Mathematically Mature: may contain mathematics beyond calculus with proofs.
+% Mathematicians Only: prolonged scenes of intense rigor.
+
+\hr
+
+\visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
+\section*{Section Starter Question}
+
+\hr
+
+\visual{Key Concepts}{../../../../CommonInformation/Lessons/keyconcepts.png}
+\section*{Key Concepts}
+
+\begin{enumerate}
+  \item 
+  \item 
+  \item 
+\end{enumerate}
+
+\hr
+
+\visual{Vocabulary}{../../../../CommonInformation/Lessons/vocabulary.png}
+\section*{Vocabulary}
+\begin{enumerate}
+  \item 
+  \item 
+\end{enumerate}
+
+\hr
+
+\section*{Notation}
+\begin{enumerate}
+\item \( n \) -- integer number of steps for a Markov chain
+    \item
+        \( X \), \( X_0 \), \( X_n \) -- Markov chain, starting state,
+        general step of the chain.
+    \item
+        \( \mathcal{X} \) -- State space of a Markov chain
+    \item
+        \( v :  \mathcal{X} \to \Reals \) -- value or label function
+    \item
+        \( \pi \) -- stationary distribution
+    \item
+        \( x_0 \) -- a given state from the state space
+      \item $\sigma_0$ -- starting state from the stationary
+        distribution
+      \item
+            \( Y_0 , Y_1 \dots \) and \(
+            Z_0, Z_1, \dots \) -- two independent trajectories  starting from \( Y_0 = Z_0 = \sigma_0 \).
+
+    \item
+        \( \alpha_0, \alpha_1, \dots \alpha_n \) -- arbitrary real
+        numbers for the definition of outliers
+      \item   \( \xi \) -- Integer chosen uniformly in \( \set{0,\dots, k}
+            \).
+
+    \item
+        \( \epsilon \) -- small real number
+    \item
+        \[
+            \rho(j; \ell, n) = \Prob{X_j \text{ is among- $\ell$
+            -smallest from } X_0, \dots, X_n }
+        \]
+    \item
+        \( \rho(j; 0, n \given \sigma) \) -- the probability \( X_j =
+        \sigma \) has the unique minimum value in the Markov chain of
+        length \( n \) given the Markov passes through \( \sigma \) at
+        step \( j \).
+\end{enumerate}
+\visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
+\section*{Mathematical Ideas}
+
+\subsection*{Serial Test}
+
+A 1989 paper of Besag and Clifford
+\cite{besag89} described a test related to the \( \sqrt{\epsilon} \)
+test based on Proposition~%
+\ref{thm:significance:basethm}.  Recall, a real number \( \alpha_0 \) is
+an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
+\[
+    \card{\setof{i \in 0, \dots, n}{ \alpha_i \le \alpha_0 }} \le
+    \epsilon(k+1).
+\]
+
+\begin{theorem}[Besag-Clifford Test]
+    \label{thm:significance:bc1}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain on \( \mathcal{X} \)
+            with a stationary distribution \( \pi \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a label function.
+        \item
+            Fix a positive integer \( n \).
+        \item
+            Suppose that \( \sigma_0 \sim \pi \).
+        \item
+            Integer \( \xi \) is chosen uniformly in \( \set{0,\dots, k}
+            \).
+        \item
+            Let two independent trajectories \( Y_0 , Y_1 \dots \) and \(
+            Z_0, Z_1, \dots \) start from \( Y_0 = Z_0 = \sigma_0 \).
+    \end{enumerate}
+    Then for any \( n \)
+    \[
+        \Prob{(v(\sigma_0)) \text{ is an $\epsilon$-outlier among } v
+        (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_{k-\xi}
+        )} \le \epsilon.
+    \]
+\end{theorem}
+\index{Besag-Clifford Test}
+
+\begin{remark}
+    See Figure~%
+    \ref{fig:significance:test} for a schematic diagram of the
+    Besag-Clifford Test.
+\end{remark}
+
+\begin{proof}
+    See below, following the proof of Theorem~%
+    \ref{thm:significance:thm6}
+\end{proof}
+
+% The following figure is drawn with the primitive LaTeX picture
+% environment rather than the more sophisticated Asymptote, since it
+% is mostly math environments.  All positions, lengths, and parameters
+% are established by experimentation,  I should probably use \shortparallel
+% instead of \parallel, but it seemed to not be available.
+\begin{figure}
+    \centering
+    \begin{picture}(100,60)(0,-25)
+        \put(0,30){\( Y_0 \rightarrow Y_1 \rightarrow \cdots \rightarrow
+        Y_{\xi} \rightarrow \cdots \rightarrow Y_k \)}
+        \put(0,15){\( \parallel \)}
+        \put(0,0){\( \sigma_0 \)}
+        \put(0,-15){\( \parallel \)}
+        \put(0,-30){\( Z_0 \rightarrow Z_1 \rightarrow \cdots
+        \rightarrow Z_{k - \xi} \rightarrow \cdots \rightarrow Z_k \)}
+        \put(90,27){\vector(-1,-1){45}}
+    \end{picture}
+    \caption{Schematic diagram of the Besag-Clifford Test.  The
+    short wide-head arrows are the Markov chain transitions, the long
+    narrow-head arrow represents the switch from the $ Y $ trajectory
+    to the $ Z $ trajectory.}%
+    \label{fig:significance:BCtest}
+\end{figure}
+
+\begin{remark}
+    An intuitive interpretation of the theorem is that typical, i.e.\ %
+    stationary, states are unlikely to change, as measured by \( v \),
+    in a consistent way under two sequences of chain transitions of
+    random complementary lengths.
+\end{remark}
+
+\begin{remark}
+    Notice that \( \epsilon \) would be the correct value of the
+    probability if, for example, the Markov chain is simply a collection
+    of independent random uniform samples from \( [0,1] \) with the
+    identity as the value function.  The values of the \( Y \) and \( Z \)
+    trajectories would then be a collection of \( 2n + 1 \) random
+    uniform samples from \( [0,1] \) and the probability of \( \Prob{v(\sigma_0)}
+    \) is an \( \epsilon \)-outlier would be \( \epsilon \).
+
+    The striking thing about Theorem~%
+    \ref{thm:significance:bc1} is that it achieves a best-possible
+    dependence on the parameter \( \epsilon \).  The sacrifice is in the
+    theorem's more complicated intuitive interpretation.
+
+    In applications of these statistical tests to aspects of public
+    policy such as the gerrymandering example in , it is desirable to have tests with simple, intuitive
+    interpretations.  To enable better significance testing in this
+    sphere, one goal of this section is to prove a theorem enabling
+    Markov chain significance testing which is intuitively interpretable
+    in the sense of Proposition~%
+    \ref{thm:significance:basethm} while having linear dependence on \(
+    \epsilon \), as in Theorem~%
+    \ref{thm:significance:bc1}.
+\end{remark}
+
+\begin{remark}
+    One common feature of the tests based on Proposition~%
+    \ref{thm:significance:basethm} and~%
+    \ref{thm:significance:bc1} is the use of randomness.  In particular,
+    the probability space at play in these theorems includes both the
+    random choice of \( \sigma_0 \) assumed by the null hypothesis and
+    the random steps taken by the Markov chain from \( \sigma_0 \).
+    Thus the measures of ``how (globally) unusual'' \( \sigma_0 \) is
+    with respect to its performance in the local outlier test and ``how
+    sure'' we are that \( \sigma_0 \) is unusual in this respect are
+    intertwined in the final significance-value.  In particular, the effect
+    size and the statistical significance are not explicitly separated.
+\end{remark}
+
+To simplify the interpretation of these tests, the approach in this
+subsection will show these tests can efficiently separate the measure of
+statistical significance from the question of the magnitude of the
+effect.  Recall from step~%
+\ref{enum:significance:basethm3} in the proof of
+Proposition~%
+\ref{thm:significance:basethm} the definition for \( 0 \le j \le n \) of
+\[
+    \rho(j; \ell, n) = \Prob{X_j \text{ is among-$\ell$-smallest
+    among } X_0, \dots, X_n }
+\] and
+\[
+  \rho(j; \ell, n \given \sigma) = \Prob{X_j
+    \text{ is among-$\ell$-smallest among } X_0, \dots, X_n%
+    \given X_j = \sigma }.
+\] With a slight change in the parameter notation, define the \( n+1 \)-vector
+\[ (\rho(0, \epsilon, n), \rho(1, \epsilon, n), \dots, \rho(1, \epsilon,
+  n)) \]
+where for each \( i \), \( \rho(i; \epsilon, n) \) is the
+probability that in a \( n \)-step stationary trajectory \( X_0, X_1,
+\dots X_k \), \( v(X_i) \) is among the smallest \( \epsilon
+\)-fraction of indices
+in the list \( v(X_0), v(X_1), \dots, v(X_n) \).  Define the probability
+\( \rho(0; \epsilon, k \given \sigma_0) \) to be the probability that on a
+trajectory \( \sigma_0 = X_0, X_1, \dots, X_n \), \( v(\sigma_0) \) is
+among the smallest \( \epsilon \)-fraction of values in the list \( v(X_0),
+v(X_1), \dots, v(X_k) \).
+% first edit to here, Mon Dec 27 08:02:31 AM CST 2021
+
+\begin{definition}
+    For a fixed value of \( n \), the state \( \sigma_0 \) is an \defn{\(
+    (\epsilon, \alpha) \)-outlier} in \( \mathcal{X} \) if, among all
+    states in \( \mathcal{X} \), \( \rho(0; \epsilon, n \given \sigma_{0})
+    \) is in the largest \( \alpha \) fraction of the values of \( \rho(0;
+    \epsilon, k \given \sigma_{0}) \) over all states \( \sigma \in
+    \mathcal{X} \), weighted according to \( \pi \).  In particular,
+    being an \( (\epsilon, \alpha) \)-outlier measures the likelihood of
+    \( \sigma_0 \) failing the local outlier test, ranked against all
+    other states \( \sigma \sim \pi \) of the chain \( X \).
+\end{definition}
+
+Whether \( \sigma_0 \) is an \( (\epsilon, \alpha) \)-outlier is a
+deterministic question about the properties of \( \sigma_0 \), \( X \),
+and \( v \).  Thus it is a deterministic measure (defined in terms of
+certain probabilities) of the extent to which \( \sigma_0 \) is unusual
+(globally, in all of \( \mathcal{X} \)) with respect to its local
+fragility in the chain.
+
+\begin{example}
+    For example, fix \( n = 10^9 \).  If \( \sigma_0 \) is a \( (10^{-6},
+    10^{-5}) \)-outlier in \( X \) and \( \pi \) is the uniform
+    distribution, this means that among all states \( \sigma \in
+    \mathcal{X} \), \( \sigma_0 \) is more likely than all but a \( 10^{-5}
+    \)-fraction of states to have an \( v \)-value in the least \( 10^{-6}
+    \)-fraction of values \( v(X_0), v(X_1 ), \dots , v(X_{10^9} ) \).
+    The probability space underlying the ``more likely'' claim here just
+    concerns the choice of the random trajectory \( X_1, \dots, X_{10^9}
+    \) from \( X \).
+\end{example}
+[Is it possible to make a graphic of what this means?]
+
+The following theorem enables asserting statistical significance for the
+property of being an \( (\epsilon, \alpha) \)-outlier.  In particular,
+while tests based on Proposition~%
+\ref{thm:significance:basethm} and Theorem~%
+\ref{thm:significance:powerthm} take as their null hypothesis that \(
+\sigma_0 \sim \pi \), the following theorem takes as its null hypothesis
+merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
+
+\begin{theorem}
+    \label{thm:significance:thm3point1}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+            \end{align*}
+            be \( m \) independent trajectories of length \( n \) from \(
+            X \) starting from a common starting point \( X_0^1 = X_0^2
+            = \cdots X_0^m = \sigma_0 \). 
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\mathcal{N} \ge m \sqrt{\frac{2\epsilon}{\alpha}} + r} \le
+        \EulerE^{-\min(r^2 \frac{\sqrt{\alpha/(2\epsilon)}}{3m}, \frac{r}
+        {3})}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    The proof is below following some preliminary Theorems.
+\end{proof}
+
+\begin{remark}
+    Apart from separating measures of statistical significance from the
+    quantification of a local outlier, Theorem~%
+    \ref{thm:significance:thm3point1} connects the intuitive Local
+    Outlier Test tied to Proposition~%
+    \ref{thm:significance:basethm}, which motivates the definition of \(
+    (\epsilon, \alpha) \)-outlier, to the better quantitative dependence
+    on \( \epsilon \) in Theorem~%
+    \ref{thm:significance:bc1} [Not sure what this is trying to say.]
+\end{remark}
+
+\begin{remark}
+    When \( m \) is a reasonable size for calculation, it may make more
+    sense to use the exact binomial tail in place of the Chernoff bound.
+    That is the content of the following Corollary.
+\end{remark}
+
+\begin{corollary}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+            \end{align*}
+            be \( m \) independent trajectories of length \( n \) from \(
+            X \) starting from a common starting point \( X_0^1 = X_0^2
+            = \cdots X_0^m = \sigma_0 \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\mathcal{N} \ge K} \le \sum\limits_ {\nu=K}^m \binom{m}{\nu}
+        \left( \sqrt{\frac{2\epsilon} {\alpha}} \right)^k \left( 1 - \sqrt{\frac
+        {2\epsilon}{\alpha}} \right)^ {m-k}.
+    \]
+\end{corollary}
+
+\begin{example}
+    To compare the quantitative performance of Theorem~%
+    \ref{thm:significance:thm3point1} to Proposition~%
+    \ref{thm:significance:basethm} and Theorem~%
+    \ref{thm:significance:bc1}, consider the case of a state \( \sigma_0
+    \) for which a random trajectory \( \sigma_0 = X_0 , X_1 , \dots X_n
+    \) is likely (say with some constant probability \( p' \)) to find \(
+    \sigma_0 \) an \( \epsilon' \)-outlier.  For Proposition~%
+    \ref{thm:significance:basethm}, significance at \( p \approx \sqrt{2\epsilon}
+    \) would be obtained, while using Theorem~%
+    \ref{thm:significance:bc1}, one would hope to obtain significance
+    approximately \( O(\epsilon') \).  Applying Theorem~%
+    \ref{thm:significance:thm3point1}, we would expect to see \( p \)
+    around \( m p' \).  In particular, we could demonstrate that \(
+    \sigma_0 \) is an \( (\epsilon', \alpha) \)-outlier for \( \alpha =
+    \frac{3\epsilon} {(p')^2} \) (a linear relation on \( \epsilon \))
+    at a \( p \)-value which can be made arbitrarily small (at an
+    exponential rate) as we increase the number of observed trajectories
+    \( m \).  [This needs more explanation.]
+\end{example}
+
+\begin{theorem}
+    \label{thm:significance:thm5}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+            \end{align*}
+            be \( m \) independent trajectories of length \( n \) from \(
+            X \) starting from a common starting point \( X_0^1 = X_0^2
+            = \cdots X_0^m = \sigma_0 \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\sigma_0 \text{ is an $\epsilon$ -outlier on all of } \mathbf
+        {X}^1, \dots \mathbf{X}^m } \le \left( \frac{2\epsilon}{\alpha}
+        \right)^{m/2}.
+    \]
+
+  \end{theorem}
+
+\begin{remark}
+    To prove Theorem~%
+    \ref{thm:significance:thm3point1}, first prove the following, which
+    has a quantitative dependence on \( \epsilon \) which is nearly as
+    strong as in Theorem~%
+    \ref{thm:significance:bc1}, while eliminating the need for the
+    random choice of \( \xi \).
+\end{remark}
+
+\begin{theorem}
+    \label{thm:significance:thm6}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let \( Y_0, Y_1 \dots, Y_n \) and \( Z_0, Z_1, \dots Z_n \)
+            be \( 2 \) independent trajectories of length \( n \) from \(
+            X \) from a common starting point \( Y_0 = Z_0 = \sigma_0 \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Suppose \( \sigma_0 \sim \pi \).
+    \end{enumerate}
+    Then for any \( n \)
+    \[
+        \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier among } v(\sigma_0),
+        v(Y_0), v(Y_1) \dots, v(Y_k), v(Z_1), \dots, v(Z_k)} < 2
+        \epsilon.
+    \]
+\end{theorem}
+
+\begin{remark}
+    Note that Theorem~%
+    \ref{thm:significance:thm6} is equivalent to the statement that the
+    probabilities \( \rho(i; \epsilon, n) \) always satisfy \( \rho(n;
+    \epsilon, 2k) < 2\epsilon \). [Why?]  The remaining theoretical question is
+    what is the largest possible value of \( p(n; \epsilon, 2k) \) as a
+    function of \( \epsilon \).
+\end{remark}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Given a Markov chain \( X \) with values \( v:  \mathcal{X}
+            \to \Reals \) and stationary distribution \( \pi \), define
+            for each \( j, \ell \le n \) the probability \( \rho(j; \ell,
+            k) \) that for a \( \pi \)-stationary trajectory \( X_1, X_2,
+            \dots, X_k \) the value \( v(X_j) \) is among-\( \ell \)-smallest
+            among \( v(X_1), v(X_2), \dots, v(X_n) \). Note that all \(
+            \pi \)-stationary trajectories \( X_1, X_2, \dots, X_n \) of
+            fixed length \( n \) are all identical in distribution so
+            that \( \rho(j; \ell, n) \) is well-defined. See the
+            exercises.
+        \item
+            Observe that if the sequence \( X_1, X_2, \dots X_n \) is a \(
+            \pi \)-stationary trajectory for \( X \), then \( (X_{n-j},
+            \dots X_k, \dots, X_{2k-j}) \), is an identically
+            distributed sequence.  Thus the probability that \( v(X_n) \)
+            is among-\( \ell \)-smallest among \( v(X_{n-j}), \dots, v(X_k),
+            \dots v(X_{2k-j}) \) is equal to \( \rho(j; \ell, n) \).  In
+            particular, since the event
+            \[
+                [v(X_k) \text{ is among-$\ell$-smallest among } v(X_
+                {k-j}), \dots, v(X_k), \dots, v(X_{2k-j})]
+            \] is a sub-event of the event
+            \[
+                [v(X_k) \text{ is among-$\ell$-smallest among } v(X_0),
+                \dots, v(X_k), \dots, v(X_{2k})]
+            \] for all \( j = 0, \dots n \) it follows that \( \rho(n;
+            \ell, 2k) \le \rho(j; \ell, k) \).
+        \item
+            By linearity of expectation, the sum \( \sum_{\nu=0}^n \rho(
+            \nu; \ell, k) \) is the expected number of indices \( j \in
+            \set{0, \dots, k} \) such that \( v(X_j) \) is \( \ell \)-small
+            among \( v(X_0), \dots, v(X_n) \), so \( \sum_{\nu=0}^n \rho
+            (\nu; \ell, k) \le \ell + 1 \).
+        \item
+            Averaging the left and right sides over \( j \) from \( 0 \)
+            to \( n \),
+            \[
+                \rho(k; \ell, 2k) = \frac{1}{k+1} \sum_{\nu=0}^k \rho(\nu;
+                \ell, k) \le \frac{\ell + 1}{k+1} < 2 \cdot \frac{\ell+1}
+                {2k+1}.
+            \]
+        \item
+            Claim:  Under the hypotheses of Theorem~%
+            \ref{thm:significance:thm6}
+            \[
+                Y_k, Y_{k-1}, \dots, Y_1, \sigma_0, Z_1, Z_2, \dots, Z_k
+            \] is a \( \pi \)-stationary trajectory.
+            \begin{enumerate}
+                \item
+                    The hypothesis is that \( Y_0, Y_1, \dots, Y_n \)
+                    and \( Z_0, Z_1, \dots, Z_n \) are independent
+                    trajectories of length \( n \) in the reversible
+                    Markov chain \( X \) from the common initial state \(
+                    \sigma_0 \) chosen from the stationary distribution \(
+                    \pi \).
+                \item
+                    Stationarity implies that
+                    \[
+                        (Z_0, Z_1, \dots, Z_k) \sim (X_k, X_{k+1}, \dots,
+                        X_{2k})
+                    \] and stationarity and reversibility imply that
+                    \[
+                        (Y_k, Y_{k-1}, \dots, Y_1, Y_0) \sim (X_0, X_1,
+                        \dots, X_k).
+                    \]
+                \item
+                    The assumption that \( Y_1, Y_2, \dots \) and \( Z_1,
+                    Z_2, \dots \) are independent trajectories from \(
+                    \sigma_0 \) is equivalent to the condition that
+                    \begin{align*}
+                        & \Prob{ Z_j = z_j \given Z_{j-1}, \dots, Z_1 =
+                        z_1, Z_0 = Y_0=\sigma_0, Y_1=y_1, \dots, Y_k = y_k}
+                        \\
+                        & \qquad = \Prob{ Z_j = z_j \given Z_{j-1},
+                        \dots, Z_1 = z_1, Z_0 = \sigma_0} \\
+                        & \qquad = \Prob{ Z_j = z_j \given Z_{j-1}} \\
+                        &\qquad = \Prob{ X_{k+j} = z_j \given X_{k+j-1}}.
+                    \end{align*}
+                \item
+                    By induction on \( j \ge 1 \),
+                    \[
+                        (Y_k, Y_{k-1}, \dots, Y_0=Z_0, Z_1, \dots, Z_j)
+                        \sim (X_0, X_1, \dots, X_k, X_{k+1}, \dots, X_{k+j}).
+                    \]
+                \item
+                    In particular, taking \( j = n \)
+                    \[
+                        (Y_k, Y_{k-1}, \dots, \sigma_0, Z_1, \dots, Z_k)
+                        \sim (X_0, X_1, \dots, X_k, X_{k+1}, \dots, X_{2k}).
+                    \]
+                \item
+                    This establishes the claim.
+            \end{enumerate}
+        \item
+            The claim establishes the proof of Theorem~%
+            \ref{thm:significance:thm6} by noting that \( \rho(n; \ell,
+            2k) \) is a lower bound on each \( \rho(j; \ell, n) \) and
+            then applying the simple inequality
+            \begin{equation}
+                \label{eq:significance:eight} \sum\limits_{j=0}^k \rho(j;
+                \ell, k) \le \ell + 1.
+            \end{equation}
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:significance:bc1}]
+    \begin{enumerate}
+        \item
+            The proof uses only equation~%
+            \eqref{eq:significance:eight}
+        \item
+            Recall from the proof of Theorem~%
+            \ref{thm:significance:thm6} that the \( \rho(j; \ell, n) \)
+            are fixed real numbers associated to a stationary Markov
+            chain.
+        \item
+            If \( \ell \) and \( n \) are fixed, and \( \xi \) is chosen
+            uniformly at random from \( \set{0, \dots, n} \), then the
+            resulting \( \rho(j; \xi, n) \) is a random variable
+            uniformly distributed on the set of real numbers \( \set{\rho
+            (0; \ell, k), \dots, \rho(k; \ell, k)} \).
+        \item
+            Now write the probability that \( v(\sigma_0) \) is among-\(
+            \ell \)-smallest among \( v(\sigma_0), v(Y_1), \dots, v(Y_{\xi}),
+            v(Z_1), \dots, v(Z_ {k-\xi}) \) is
+            \[
+                \frac{1}{k+1} (\rho(0; \ell, k)+ \rho(1; \ell, k) +
+                \cdots + \rho(k; \ell, k) ) \le \frac{\ell + 1}{k + 1}
+            \] using equation~\eqref{eq:significance:eight}.
+        \item
+            This observation uses a variant of the step in the proof
+            that for any \( j \), \( Y_j, \dots, Y_1, \sigma_0, Z_1,
+            \dots, Z_{k-j} \) is a \( \pi \)-stationary trajectory.
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:significance:thm3point1}]
+    \begin{enumerate}
+        \item
+            Recall that for a \( \pi \)-stationary trajectory the
+            probability \( p(0; \epsilon, n \given \sigma_0) \) is the
+            probability that on a trajectory \( \sigma_0 = X_0, X_1,
+            \dots, X_k \), \( v(\sigma_0) \) is among the smallest
+            values in the list \( v(X_0), v(X_1), \dots, v(X_n) \).
+        \item
+            The claim is that if \( \sigma_0 \) is not an \( (\epsilon,
+            \alpha) \)-outlier, then
+            \begin{equation}
+                \label{eq:significance:nine} p(0; \epsilon, k \given
+                \sigma_0) \le \sqrt{\frac{2e}{\alpha}}.
+            \end{equation}
+        \item
+            Given the claim is true, recall the random variable \(
+            \mathcal{N} \) is the number of trajectories \( X^i \) from \(
+            \sigma_0 \) on which \( \sigma_0 \) is observed to be an
+            outlier with respect to the valueing \( v \).  The random
+            variable \( \mathcal{N} \) is thus the sum of \( m \)
+            independent Bernoulli random variables, each of which takes
+            value \( 1 \) with probability less than \( \sqrt{\frac{2
+            \epsilon}{\alpha}} \).  By Chernoff's bound
+            \[
+                \Prob{\mathcal{N} \ge (1 - \delta) m \sqrt{\frac{2e}{\alpha}}
+                } \le \EulerE^{ -\min (\delta, \delta^2 m \sqrt{\frac{2e}
+                {\alpha}}/3)}
+            \] giving the theorem.
+        \item
+            To prove the claim, consider a \( \pi \)-stationary
+            trajectory \( X_0, \dots, X_n, \dots, X_{2k} \) and
+            condition on the event that \( X_n = \sigma \) for some
+            arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
+            reversible, we can view this trajectory as two independent
+            trajectories, \( X_{n+1}, \dots, X_{2k} \) and \( X_{n-1}, X_
+            {k-2}, \dots, X_0 \) both beginning from \( \sigma \).
+        \item
+            Let \( A \) and \( B \) be the events that \( v(X_n) \) is
+            an \( \epsilon \)-outlier among the lists \( v(X_0), \dots,
+            v(X_k) \) and \( v(X_n), \dots, v(X_{2k}) \), respectively.
+            Then
+            \begin{equation}
+                \label{eq:significance:eleven} (p(0; \epsilon, k \given
+                \sigma))^2 = \Prob{ A \intersect B} \le (p(k; \epsilon,
+                2k \given \sigma))^2.
+            \end{equation}
+        \item
+            The assumption that the given \( \sigma_0 \in \mathcal{X} \)
+            is not an \( (\epsilon, \alpha) \)-outlier means that for a
+            random \( \sigma \sim \pi \)
+            \begin{equation}
+                \label{eq:significance:twelve} \Prob{ p(0; \epsilon, k
+                \given \sigma) \ge p(0; \epsilon, k \given \sigma_0) }
+                \ge \alpha.
+            \end{equation}
+        \item
+            Equations~\eqref{eq:significance:eleven} and~\eqref{eq:significance:twelve}
+            gives \( (p(0; \epsilon, n \given \sigma))^2 \le (p(k,
+            \epsilon, 2k \given \sigma))^2 \) while Theorem~%
+            \ref{thm:significance:thm6} gives \( (p(0; \epsilon, n
+            \given \sigma))^2 \le 2\epsilon \).
+        \item
+            Taking expectations with respect to a random \( \sigma \sim
+            \pi \) gives
+            \[
+                \Esub{\sigma \sim \pi}{(p(0; \epsilon, k \given \sigma))^2
+                } \le \Esub{\sigma \sim \pi}{p(k; \epsilon, 2k \given
+                \sigma) } = p(k; \epsilon, 2k) \le 2\epsilon.
+            \]
+        \item
+            On the other hand, with~\eqref{eq:significance:twelve}
+            \[
+                \Esub{\sigma \sim \pi}{(p(0; \epsilon, k \given \sigma))^2
+                } \ge \alpha \cdot (p(0; \epsilon, k \given \sigma))^2
+            \] so that
+            \[
+                (p(0; \epsilon, k \given \sigma))^2 \le \frac{2\epsilon}
+                {\alpha}.
+            \]
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    When \( m \) is not large, using the exact binomial tail in place of
+    the Chernoff bound in~\eqref{eq:significance:eleven} may be
+    sensible.  This gives the following Corollaries.
+\end{remark}
+
+\begin{corollary}
+    Given the hypotheses in Theorem~%
+    \ref{thm:significance:thm3point1}, then
+    \[
+        \Prob{\mathcal{N} \ge K} \le \sum\limits_{\nu=K}^m \binom{m}{\nu}
+        \left( \sqrt{\frac{2\epsilon}{\alpha}} \right)^{k} \left( 1 -
+        \sqrt{\frac{2\epsilon}{\alpha}} \right)^{m-k}.
+    \]
+\end{corollary}
+
+\subsection*{Multiple Comparisons Correction}
+
+Performing several tests, then allowing a significant result on any of
+them to be evidence for the same hypothesis, requires multiple testing
+correction.  Multiple comparisons%
+\index{multiple comparisons}
+arise when a statistical analysis involves multiple simultaneous
+statistical tests, each of which has a potential to produce a
+``discovery'', on the same dataset or dependent datasets.  Specifically,
+there is a chance that the hypothesis which is actually true is rejected
+by the test, a Type I error.  The error probability increases with
+multiple testing.  A stated confidence level generally applies only to
+each test considered individually, but often it is desirable to have a
+confidence level for the whole family of simultaneous tests.  Failure to
+compensate for multiple comparisons can have important consequences,
+illustrated by the following simple examples.
+\begin{itemize}
+    \item
+        Suppose the treatment is a new way of teaching writing to
+        students, and the control is the standard way of teaching
+        writing.  Students in the two groups can be compared in terms of
+        grammar, spelling, organization, content, and so on.  These
+        writing attributes might plausibly give dependent datasets.  As
+        more attributes are compared, it becomes increasingly likely
+        that the treatment and control groups will appear to differ on
+        at least one attribute due to random sampling error alone.
+    \item
+        Consider the efficacy of a drug in terms of the reduction of any
+        one of a number of disease symptoms.  As more symptoms are
+        considered, it becomes increasingly likely that the drug will
+        appear to be an improvement over existing drugs in terms of at
+        least one symptom, again due to random sampling error alone.
+\end{itemize}
+In both examples, as the number of comparisons increases, it becomes
+more likely that the groups being compared will appear to differ in
+terms of at least one attribute.  Confidence that a result will
+generalize to independent data should generally be weaker if it is
+observed as part of an analysis that involves multiple comparisons,
+rather than an analysis that involves only a single comparison.
+
+[The following paragraphs need a lot of explanation and expansion.]
+
+When applying Theorem~%
+\ref{thm:significance:thm3point1} directly in the current Markov chain
+situation, one cannot simply run \( m \) trajectories, observe the list \(
+\epsilon_1 , \epsilon_2, \dots, \epsilon_ m \) where each \( \epsilon_i \)
+is the minimum \( \epsilon_i \) for which \( \sigma_0 \) is an \(
+\epsilon_i \)-outlier on \( X^i \), and then, post-hoc, freely choose
+the parameters \( \alpha \) and \( \epsilon \) in Theorem~%
+\ref{thm:significance:thm3point1} to achieve some desired trade-off
+between \( \alpha \) and the significance \( p \).  [This needs some
+thought and explanation.] The problem, of course, is that in this case
+one is testing multiple hypotheses (infinitely many in fact; one for
+each possible pair \( \epsilon \) and \( \alpha \)) which would require
+a multiple hypothesis correction.  One way to avoid this problem is to
+essentially do a form of cross validation, where a few trajectories are
+run for the purposes of selecting suitable \( \epsilon \) and \( \alpha \).
+Then discard those few trajectories from the set of trajectories used
+for significance.  A simpler approach, however, is to simply set the
+parameter \( \epsilon \equiv \epsilon(t) \) as the \( t \)th-smallest
+element of the list \( \epsilon_1, \dots, \epsilon_m \) for some fixed
+value \( t \).  The case \( t = m \), for example, corresponds to taking
+\( \epsilon \) as the maximum value, leading to the application of
+Theorem~%
+\ref{thm:significance:thm5}
+
+The reason this avoids the need for a multiple hypothesis correction is
+that hypothesis events are ordered by containment.  In particular, when
+we apply this test with some value of \( t \), we will always have \(
+\mathcal{N} = t \).  Thus the significance obtained will depend just on
+the parameter \( \epsilon(t) \) returned by taking the \( t \)th
+smallest \( \epsilon_i \) and on the choice of \( \alpha \) (as opposed
+to say, the particular values of the other \( \epsilon_i \)'s which are
+not the \( t \)th smallest).  In particular, regardless of how the
+values \( \alpha \) and \( p \) trade off, the optimum choice of \(
+\alpha \) (for the fixed choice of \( t \)) will depend just on the
+value \( \epsilon(t) \).  In particular, take \( \alpha \) as a function
+\( \alpha(\epsilon(t) ) \), so applying Theorem~%
+\ref{thm:significance:thm3point1}, \( \epsilon = \epsilon(t) \),
+evaluates the single-parameter infinite family of hypotheses \( H_{\epsilon
+(t) \alpha(\epsilon(t)) } \), and multiple hypothesis correction is not
+required since the hypotheses are nested.  That is, since
+\[
+    \epsilon(t) \le \epsilon' (t) \implies H_{\epsilon(t),\alpha(\epsilon
+    (t) )} \subseteq H_{\epsilon' (t) ,\alpha(\epsilon(t) )}.
+\] Indeed,
+\[
+    \Prob{ \bigcup_{\epsilon(t) \le \beta } H_{\epsilon(t) ,\alpha(\epsilon
+    (t))} } = \Prob{H_{\beta, \alpha(\beta)}},
+\] which ensures that when applying Theorem~%
+\ref{thm:significance:thm3point1} in this scenario, the probability of
+returning a \( p \)-value less than or equal to \( p_0 \) for any fixed
+value \( p_0 \) will indeed be at most \( p_0 \).
+
+
+\subsection*{}
+
+\visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
+\section*{Section Ending Answer}
+
+\subsection*{Sources}
+This section is adapted from: 
+
+\nocite{}
+\nocite{}
+
+\hr
+
+\visual{Algorithms, Scripts, Simulations}{../../../../CommonInformation/Lessons/computer.png}
+\section*{Algorithms, Scripts, Simulations}
+
+\subsection*{Algorithm}
+
+\subsection*{Scripts}
+
+\input{ _scripts}
+
+\hr
+
+\visual{Problems to Work}{../../../../CommonInformation/Lessons/solveproblems.png}
+\section*{Problems to Work for Understanding}
+\renewcommand{\theexerciseseries}{}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\begin{exercise}
+  
+\end{exercise}
+\begin{solution}
+  
+\end{solution}
+\begin{exercise}
+  \begin{enumerate}[label=(\alpha*)]
+  \item 
+  \end{enumerate}
+\end{exercise}
+\begin{solution}
+  \begin{enumerate}[label=(\alpha*)]
+  \item 
+  \end{enumerate}
+\end{solution}
+
+\hr
+
+\visual{Books}{../../../../CommonInformation/Lessons/books.png}
+\section*{Reading Suggestion:}
+
+\bibliography{../../../../CommonInformation/bibliography}
+
+%   \begin{enumerate}
+%     \item 
+%     \item 
+%     \item 
+%   \end{enumerate}
+
+\hr
+
+\visual{Links}{../../../../CommonInformation/Lessons/chainlink.png}
+\section*{Outside Readings and Links:}
+\begin{enumerate}
+  \item  
+  \item  
+  \item  
+  \item 
+\end{enumerate}
+
+\section*{\solutionsname}
+\loadSolutions
+
+\hr
+
+\mydisclaim \myfooter
+
+Last modified:  \flastmod
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
