@@ -13,7 +13,7 @@
 
 \hr
 
-\sectiontitle{Parallel Two-Chain Significance}
+\sectiontitle{Parallel Multiple Chain Significance}
 
 \hr
 
@@ -122,17 +122,204 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
 \visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
 \section*{Mathematical Ideas}
 
-\subsection*{Serial Test}
+\subsection*{Introduction}
 
 A 1989 paper of Besag and Clifford
 \cite{besag89} described a test related to the \( \sqrt{\epsilon} \)
 test based on Proposition~%
-\ref{thm:significance:basethm}.  Recall, a real number \( \alpha_0 \) is
+\ref{thm:significance:basethm}.
+
+\begin{remark}
+    To prove Theorem~%
+    \ref{thm:parallelsignificance:thm3point1}, first prove the following, which
+    has a quantitative dependence on \( \epsilon \) which is nearly as
+    strong as in Theorem~%
+    \ref{thm:parallelsignificance:bc1}, while eliminating the need for the
+    random choice of \( \xi \).
+\end{remark}
+
+To simplify the interpretation of these tests, the approach in this
+subsection will show these tests can efficiently separate the measure of
+statistical significance from the question of the magnitude of the
+effect.  Recall from step~%
+\ref{enum:significance:basethm3} in the proof of
+Proposition~%
+\ref{thm:significance:basethm} the definition for \( 0 \le j \le n \) of
+\[
+    \rho(j; \ell, n) = \Prob{X_j \text{ is among-$\ell$-smallest
+    among } X_0, \dots, X_n }
+\] and
+\[
+  \rho(j; \ell, n \given \sigma) = \Prob{X_j
+    \text{ is among-$\ell$-smallest among } X_0, \dots, X_n%
+    \given X_j = \sigma }.
+\] With a slight change in the parameter notation, define the \( n+1 \)-vector
+\[ (\rho(0, \epsilon, n), \rho(1, \epsilon, n), \dots, \rho(1, \epsilon,
+  n)) \]
+where for each \( i \), \( \rho(i; \epsilon, n) \) is the
+probability that in a \( n \)-step stationary trajectory \( X_0, X_1,
+\dots X_k \), \( v(X_i) \) is among the smallest \( \epsilon
+\)-fraction of indices
+in the list \( v(X_0), v(X_1), \dots, v(X_n) \).  Define the probability
+\( \rho(0; \epsilon, k \given \sigma_0) \) to be the probability that on a
+trajectory \( \sigma_0 = X_0, X_1, \dots, X_n \), \( v(\sigma_0) \) is
+among the smallest \( \epsilon \)-fraction of values in the list \( v(X_0),
+v(X_1), \dots, v(X_k) \).
+
+\subsection*{The Two Chain Significance Test}
+
+\begin{lemma}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let \( Y_0, Y_1 \dots, Y_n \) and \( Z_0, Z_1, \dots Z_n \)
+            be \( 2 \) independent trajectories of length \( n \) from \(
+            X \) from a common starting point \( Y_0 = Z_0 = \sigma_0 \).
+        \item
+            Suppose \( \sigma_0 \sim \pi \).
+    \end{enumerate}
+    Then
+            \[
+                Y_n, Y_{n-1}, \dots, Y_1, \sigma_0, Z_1, Z_2, \dots, Z_n
+            \] is a \( \pi \)-stationary trajectory.
+\end{lemma}
+
+\begin{proof}
+            \begin{enumerate}
+                \item
+                    Stationarity implies that
+                    \[
+                        (Z_0, Z_1, \dots, Z_n) \sim (X_n, X_{n+1}, \dots,
+                        X_{2n}).
+                    \] 
+                  \item Stationarity and reversibility imply that
+                    \[
+                        (Y_n, Y_{n-1}, \dots, Y_1, Y_0) \sim (X_0, X_1,
+                        \dots, X_n).
+                    \]
+                \item
+                    The assumption that \( Y_1, Y_2, \dots \) and \( Z_1,
+                    Z_2, \dots \) are independent trajectories from \(
+                    \sigma_0 \) is equivalent to the condition that
+                    \begin{align*}
+                        & \Prob{ Z_j = z_j \given Z_{j-1}, \dots, Z_1 =
+                        z_1, Z_0 = Y_0=\sigma_0, Y_1=y_1, \dots, Y_n = y_n}
+                        \\
+                        & \qquad = \Prob{ Z_j = z_j \given Z_{j-1},
+                        \dots, Z_1 = z_1, Z_0 = \sigma_0} \\
+                        & \qquad = \Prob{ Z_j = z_j \given Z_{j-1}} \\
+                        &\qquad = \Prob{ X_{n+j} = z_j \given X_{n+j-1}}.
+                    \end{align*}
+                \item
+                    By induction on \( j \ge 1 \),
+                    \[
+                        (Y_n, Y_{n-1}, \dots, Y_0=Z_0, Z_1, \dots, Z_j)
+                        \sim (X_0, X_1, \dots, X_n, X_{n+1}, \dots, X_{n+j}).
+                    \]
+                \item
+                    In particular, taking \( j = n \)
+                    \[
+                        (Y_n, Y_{n-1}, \dots, \sigma_0, Z_1, \dots, Z_n)
+                        \sim (X_0, X_1, \dots, X_n, X_{n+1}, \dots, X_{2n}).
+                    \]
+            \end{enumerate}
+\end{proof}
+
+Recall, a real number \( \alpha_0 \) is
 an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
 \[
     \card{\setof{i \in 0, \dots, n}{ \alpha_i \le \alpha_0 }} \le
     \epsilon(k+1).
 \]
+
+\begin{theorem}[Parallel \(2 \epsilon\) Test]
+    \label{thm:parallelsignificance:twoepstest}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let \( Y_0, Y_1 \dots, Y_n \) and \( Z_0, Z_1, \dots Z_n \)
+            be \( 2 \) independent trajectories of length \( n \) from \(
+            X \) from a common starting point \( Y_0 = Z_0 = \sigma_0 \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Suppose \( \sigma_0 \sim \pi \).
+    \end{enumerate}
+    Then for any \( n \)
+    \[
+        \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier among } v(\sigma_0),
+        v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1), \dots, v(Z_n)} < 2
+        \epsilon.
+      \]
+      
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Given a Markov chain \( X \) with values \( v:  \mathcal{X}
+            \to \Reals \) and stationary distribution \( \pi \), define
+            for each \( j, \ell \le n \) the probability \( \rho(j; \ell,
+            n) \) that for a \( \pi \)-stationary trajectory \( X_1, X_2,
+            \dots, X_n \) the value \( v(X_j) \) is among-\( \ell \)-smallest
+            among \( v(X_1), v(X_2), \dots, v(X_n) \). Note that all \(
+            \pi \)-stationary trajectories \( X_1, X_2, \dots, X_n \) of
+            fixed length \( n \) are all identical in distribution so
+            that \( \rho(j; \ell, n) \) is well-defined. See the
+            exercises.
+        \item
+            If the sequence \( X_1, X_2, \dots X_n \) is a \(
+            \pi \)-stationary trajectory for \( X \), then \( (X_{n-j},
+            \dots X_n, \dots, X_{2n-j}) \), is an identically
+            distributed sequence.  Thus the probability that \( v(X_n) \)
+            is among-\( \ell \)-smallest among \( v(X_{n-j}), \dots, v(X_n),
+            \dots v(X_{2n-j}) \) is equal to \( \rho(j; \ell, n) \).  
+          \item In
+            particular, since the event
+            \[
+                [v(X_n) \text{ is among-$\ell$-smallest among } v(X_
+                {n-j}), \dots, v(X_n), \dots, v(X_{2n-j})]
+            \] is a sub-event of the event
+            \[
+                [v(X_n) \text{ is among-$\ell$-smallest among } v(X_0),
+                \dots, v(X_n), \dots, v(X_{2n})]
+            \] for all \( j = 0, \dots n \) it follows that \( \rho(n;
+            \ell, 2n) \le \rho(j; \ell, n) \).
+        \item
+            By linearity of expectation, the sum \( \sum_{\nu=0}^n \rho(
+            \nu; \ell, n) \) is the expected number of indices \( j \in
+            \set{0, \dots, n} \) such that \( v(X_j) \) is \( \ell \)-small
+            among \( v(X_0), \dots, v(X_n) \), so \( \sum_{\nu=0}^n \rho
+            (\nu; \ell, n) \le \ell + 1 \).
+        \item
+            Averaging the left and right sides over \( j \) from \( 0 \)
+            to \( n \),
+            \[
+                \rho(n; \ell, 2n) = \frac{1}{n+1} \sum_{\nu=0}^n \rho(\nu;
+                \ell, n) \le \frac{\ell + 1}{n+1} < 2 \cdot \frac{\ell+1}
+                {2n+1}.
+            \]
+        \item
+            Using the Lemma completes the proof by noting \( \rho(n; \ell,
+            2n) \) is a lower bound on each \( \rho(j; \ell, n) \) and
+            then applying the simple inequality
+            \begin{equation}
+                \label{eq:parallelsignificance:eight} \sum\limits_{j=0}^n \rho(j;
+                \ell, n) \le \ell + 1.
+            \end{equation}
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    Note that Theorem~%
+    \ref{thm:parallelsignificance:twoepstest} is equivalent to the statement that the
+    probabilities \( \rho(i; \epsilon, n) \) always satisfy \( \rho(n;
+    \epsilon, 2n) < 2\epsilon \). [Why?]  The remaining theoretical question is
+    what is the largest possible value of \( p(n; \epsilon, 2n) \) as a
+    function of \( \epsilon \).
+\end{remark}
 
 \begin{theorem}[Besag-Clifford Test]
     \label{thm:parallelsignificance:bc1}
@@ -147,7 +334,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
         \item
             Suppose that \( \sigma_0 \sim \pi \).
         \item
-            Integer \( \xi \) is chosen uniformly in \( \set{0,\dots, k}
+            Integer \( \xi \) is chosen uniformly in \( \set{0,\dots, n}
             \).
         \item
             Let two independent trajectories \( Y_0 , Y_1 \dots \) and \(
@@ -156,7 +343,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     Then for any \( n \)
     \[
         \Prob{(v(\sigma_0)) \text{ is an $\epsilon$-outlier among } v
-        (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_{k-\xi}
+        (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_{n-\xi}
         )} \le \epsilon.
     \]
 \end{theorem}
@@ -168,11 +355,6 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     Besag-Clifford Test.
 \end{remark}
 
-\begin{proof}
-    See below, following the proof of Theorem~%
-    \ref{thm:parallelsignificance:thm6}
-\end{proof}
-
 % The following figure is drawn with the primitive LaTeX picture
 % environment rather than the more sophisticated Asymptote, since it
 % is mostly math environments.  All positions, lengths, and parameters
@@ -182,12 +364,12 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     \centering
     \begin{picture}(100,60)(0,-25)
         \put(0,30){\( Y_0 \rightarrow Y_1 \rightarrow \cdots \rightarrow
-        Y_{\xi} \rightarrow \cdots \rightarrow Y_k \)}
+        Y_{\xi} \rightarrow \cdots \rightarrow Y_n \)}
         \put(0,15){\( \parallel \)}
         \put(0,0){\( \sigma_0 \)}
         \put(0,-15){\( \parallel \)}
         \put(0,-30){\( Z_0 \rightarrow Z_1 \rightarrow \cdots
-        \rightarrow Z_{k - \xi} \rightarrow \cdots \rightarrow Z_k \)}
+        \rightarrow Z_{n - \xi} \rightarrow \cdots \rightarrow Z_n \)}
         \put(90,27){\vector(-1,-1){45}}
     \end{picture}
     \caption{Schematic diagram of the Besag-Clifford Test.  The
@@ -196,6 +378,39 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     to the $ Z $ trajectory.}%
     \label{fig:parallelsignificance:BCtest}
 \end{figure}
+
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:parallelsignificance:bc1}]
+    \begin{enumerate}
+        \item
+            The proof uses only equation~%
+            \eqref{eq:parallelsignificance:eight}
+        \item
+            Recall from the proof of Theorem~%
+            \ref{thm:parallelsignificance:twoepstest} that the \( \rho(j; \ell, n) \)
+            are fixed real numbers associated to a stationary Markov
+            chain.
+        \item
+            If \( \ell \) and \( n \) are fixed, and \( \xi \) is chosen
+            uniformly at random from \( \set{0, \dots, n} \), then the
+            resulting \( \rho(j; \xi, n) \) is a random variable
+            uniformly distributed on the set of real numbers \( \set{\rho
+            (0; \ell, n), \dots, \rho(n; \ell, n)} \).
+        \item
+            Now write the probability that \( v(\sigma_0) \) is among-\(
+            \ell \)-smallest among \( v(\sigma_0), v(Y_1), \dots, v(Y_{\xi}),
+            v(Z_1), \dots, v(Z_ {n-\xi}) \) is
+            \[
+                \frac{1}{n+1} (\rho(0; \ell, n)+ \rho(1; \ell, n) +
+                \cdots + \rho(n; \ell, n) ) \le \frac{\ell + 1}{n + 1}
+            \] using equation~\eqref{eq:parallelsignificance:eight}.
+        \item
+            This observation uses a variant of the Lemma
+            that for any \( j \), \( Y_j, \dots, Y_1, \sigma_0, Z_1,
+            \dots, Z_{n-j} \) is a \( \pi \)-stationary trajectory.
+    \end{enumerate}
+\end{proof}
 
 \begin{remark}
     An intuitive interpretation of the theorem is that typical, i.e.\ %
@@ -243,34 +458,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     size and the statistical significance are not explicitly separated.
 \end{remark}
 
-To simplify the interpretation of these tests, the approach in this
-subsection will show these tests can efficiently separate the measure of
-statistical significance from the question of the magnitude of the
-effect.  Recall from step~%
-\ref{enum:significance:basethm3} in the proof of
-Proposition~%
-\ref{thm:significance:basethm} the definition for \( 0 \le j \le n \) of
-\[
-    \rho(j; \ell, n) = \Prob{X_j \text{ is among-$\ell$-smallest
-    among } X_0, \dots, X_n }
-\] and
-\[
-  \rho(j; \ell, n \given \sigma) = \Prob{X_j
-    \text{ is among-$\ell$-smallest among } X_0, \dots, X_n%
-    \given X_j = \sigma }.
-\] With a slight change in the parameter notation, define the \( n+1 \)-vector
-\[ (\rho(0, \epsilon, n), \rho(1, \epsilon, n), \dots, \rho(1, \epsilon,
-  n)) \]
-where for each \( i \), \( \rho(i; \epsilon, n) \) is the
-probability that in a \( n \)-step stationary trajectory \( X_0, X_1,
-\dots X_k \), \( v(X_i) \) is among the smallest \( \epsilon
-\)-fraction of indices
-in the list \( v(X_0), v(X_1), \dots, v(X_n) \).  Define the probability
-\( \rho(0; \epsilon, k \given \sigma_0) \) to be the probability that on a
-trajectory \( \sigma_0 = X_0, X_1, \dots, X_n \), \( v(\sigma_0) \) is
-among the smallest \( \epsilon \)-fraction of values in the list \( v(X_0),
-v(X_1), \dots, v(X_k) \).
-% first edit to here, Mon Dec 27 08:02:31 AM CST 2021
+\subsection*{The Multiple Chain Significance Test}
 
 \begin{definition}
     For a fixed value of \( n \), the state \( \sigma_0 \) is an \defn{\(
@@ -449,184 +637,7 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
 
   \end{theorem}
 
-\begin{remark}
-    To prove Theorem~%
-    \ref{thm:parallelsignificance:thm3point1}, first prove the following, which
-    has a quantitative dependence on \( \epsilon \) which is nearly as
-    strong as in Theorem~%
-    \ref{thm:parallelsignificance:bc1}, while eliminating the need for the
-    random choice of \( \xi \).
-\end{remark}
-
-\begin{theorem}
-    \label{thm:parallelsignificance:thm6}
-    \begin{enumerate}
-        \item
-            Let \( X \) be a reversible Markov chain.
-        \item
-            Let \( Y_0, Y_1 \dots, Y_n \) and \( Z_0, Z_1, \dots Z_n \)
-            be \( 2 \) independent trajectories of length \( n \) from \(
-            X \) from a common starting point \( Y_0 = Z_0 = \sigma_0 \).
-        \item
-            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
-        \item
-            Suppose \( \sigma_0 \sim \pi \).
-    \end{enumerate}
-    Then for any \( n \)
-    \[
-        \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier among } v(\sigma_0),
-        v(Y_0), v(Y_1) \dots, v(Y_k), v(Z_1), \dots, v(Z_k)} < 2
-        \epsilon.
-    \]
-\end{theorem}
-
-\begin{remark}
-    Note that Theorem~%
-    \ref{thm:parallelsignificance:thm6} is equivalent to the statement that the
-    probabilities \( \rho(i; \epsilon, n) \) always satisfy \( \rho(n;
-    \epsilon, 2k) < 2\epsilon \). [Why?]  The remaining theoretical question is
-    what is the largest possible value of \( p(n; \epsilon, 2k) \) as a
-    function of \( \epsilon \).
-\end{remark}
-
-\begin{proof}
-    \begin{enumerate}
-        \item
-            Given a Markov chain \( X \) with values \( v:  \mathcal{X}
-            \to \Reals \) and stationary distribution \( \pi \), define
-            for each \( j, \ell \le n \) the probability \( \rho(j; \ell,
-            k) \) that for a \( \pi \)-stationary trajectory \( X_1, X_2,
-            \dots, X_k \) the value \( v(X_j) \) is among-\( \ell \)-smallest
-            among \( v(X_1), v(X_2), \dots, v(X_n) \). Note that all \(
-            \pi \)-stationary trajectories \( X_1, X_2, \dots, X_n \) of
-            fixed length \( n \) are all identical in distribution so
-            that \( \rho(j; \ell, n) \) is well-defined. See the
-            exercises.
-        \item
-            Observe that if the sequence \( X_1, X_2, \dots X_n \) is a \(
-            \pi \)-stationary trajectory for \( X \), then \( (X_{n-j},
-            \dots X_k, \dots, X_{2k-j}) \), is an identically
-            distributed sequence.  Thus the probability that \( v(X_n) \)
-            is among-\( \ell \)-smallest among \( v(X_{n-j}), \dots, v(X_k),
-            \dots v(X_{2k-j}) \) is equal to \( \rho(j; \ell, n) \).  In
-            particular, since the event
-            \[
-                [v(X_k) \text{ is among-$\ell$-smallest among } v(X_
-                {k-j}), \dots, v(X_k), \dots, v(X_{2k-j})]
-            \] is a sub-event of the event
-            \[
-                [v(X_k) \text{ is among-$\ell$-smallest among } v(X_0),
-                \dots, v(X_k), \dots, v(X_{2k})]
-            \] for all \( j = 0, \dots n \) it follows that \( \rho(n;
-            \ell, 2k) \le \rho(j; \ell, k) \).
-        \item
-            By linearity of expectation, the sum \( \sum_{\nu=0}^n \rho(
-            \nu; \ell, k) \) is the expected number of indices \( j \in
-            \set{0, \dots, k} \) such that \( v(X_j) \) is \( \ell \)-small
-            among \( v(X_0), \dots, v(X_n) \), so \( \sum_{\nu=0}^n \rho
-            (\nu; \ell, k) \le \ell + 1 \).
-        \item
-            Averaging the left and right sides over \( j \) from \( 0 \)
-            to \( n \),
-            \[
-                \rho(k; \ell, 2k) = \frac{1}{k+1} \sum_{\nu=0}^k \rho(\nu;
-                \ell, k) \le \frac{\ell + 1}{k+1} < 2 \cdot \frac{\ell+1}
-                {2k+1}.
-            \]
-        \item
-            Claim:  Under the hypotheses of Theorem~%
-            \ref{thm:parallelsignificance:thm6}
-            \[
-                Y_k, Y_{k-1}, \dots, Y_1, \sigma_0, Z_1, Z_2, \dots, Z_k
-            \] is a \( \pi \)-stationary trajectory.
-            \begin{enumerate}
-                \item
-                    The hypothesis is that \( Y_0, Y_1, \dots, Y_n \)
-                    and \( Z_0, Z_1, \dots, Z_n \) are independent
-                    trajectories of length \( n \) in the reversible
-                    Markov chain \( X \) from the common initial state \(
-                    \sigma_0 \) chosen from the stationary distribution \(
-                    \pi \).
-                \item
-                    Stationarity implies that
-                    \[
-                        (Z_0, Z_1, \dots, Z_k) \sim (X_k, X_{k+1}, \dots,
-                        X_{2k})
-                    \] and stationarity and reversibility imply that
-                    \[
-                        (Y_k, Y_{k-1}, \dots, Y_1, Y_0) \sim (X_0, X_1,
-                        \dots, X_k).
-                    \]
-                \item
-                    The assumption that \( Y_1, Y_2, \dots \) and \( Z_1,
-                    Z_2, \dots \) are independent trajectories from \(
-                    \sigma_0 \) is equivalent to the condition that
-                    \begin{align*}
-                        & \Prob{ Z_j = z_j \given Z_{j-1}, \dots, Z_1 =
-                        z_1, Z_0 = Y_0=\sigma_0, Y_1=y_1, \dots, Y_k = y_k}
-                        \\
-                        & \qquad = \Prob{ Z_j = z_j \given Z_{j-1},
-                        \dots, Z_1 = z_1, Z_0 = \sigma_0} \\
-                        & \qquad = \Prob{ Z_j = z_j \given Z_{j-1}} \\
-                        &\qquad = \Prob{ X_{k+j} = z_j \given X_{k+j-1}}.
-                    \end{align*}
-                \item
-                    By induction on \( j \ge 1 \),
-                    \[
-                        (Y_k, Y_{k-1}, \dots, Y_0=Z_0, Z_1, \dots, Z_j)
-                        \sim (X_0, X_1, \dots, X_k, X_{k+1}, \dots, X_{k+j}).
-                    \]
-                \item
-                    In particular, taking \( j = n \)
-                    \[
-                        (Y_k, Y_{k-1}, \dots, \sigma_0, Z_1, \dots, Z_k)
-                        \sim (X_0, X_1, \dots, X_k, X_{k+1}, \dots, X_{2k}).
-                    \]
-                \item
-                    This establishes the claim.
-            \end{enumerate}
-        \item
-            The claim establishes the proof of Theorem~%
-            \ref{thm:parallelsignificance:thm6} by noting that \( \rho(n; \ell,
-            2k) \) is a lower bound on each \( \rho(j; \ell, n) \) and
-            then applying the simple inequality
-            \begin{equation}
-                \label{eq:parallelsignificance:eight} \sum\limits_{j=0}^k \rho(j;
-                \ell, k) \le \ell + 1.
-            \end{equation}
-    \end{enumerate}
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:parallelsignificance:bc1}]
-    \begin{enumerate}
-        \item
-            The proof uses only equation~%
-            \eqref{eq:parallelsignificance:eight}
-        \item
-            Recall from the proof of Theorem~%
-            \ref{thm:parallelsignificance:thm6} that the \( \rho(j; \ell, n) \)
-            are fixed real numbers associated to a stationary Markov
-            chain.
-        \item
-            If \( \ell \) and \( n \) are fixed, and \( \xi \) is chosen
-            uniformly at random from \( \set{0, \dots, n} \), then the
-            resulting \( \rho(j; \xi, n) \) is a random variable
-            uniformly distributed on the set of real numbers \( \set{\rho
-            (0; \ell, k), \dots, \rho(k; \ell, k)} \).
-        \item
-            Now write the probability that \( v(\sigma_0) \) is among-\(
-            \ell \)-smallest among \( v(\sigma_0), v(Y_1), \dots, v(Y_{\xi}),
-            v(Z_1), \dots, v(Z_ {k-\xi}) \) is
-            \[
-                \frac{1}{k+1} (\rho(0; \ell, k)+ \rho(1; \ell, k) +
-                \cdots + \rho(k; \ell, k) ) \le \frac{\ell + 1}{k + 1}
-            \] using equation~\eqref{eq:parallelsignificance:eight}.
-        \item
-            This observation uses a variant of the step in the proof
-            that for any \( j \), \( Y_j, \dots, Y_1, \sigma_0, Z_1,
-            \dots, Z_{k-j} \) is a \( \pi \)-stationary trajectory.
-    \end{enumerate}
-\end{proof}
+\subsection*{The Improved Multiple Chain Significance Test}
 
 \begin{proof}[Proof of Theorem~\ref{thm:parallelsignificance:thm3point1}]
     \begin{enumerate}
@@ -688,7 +699,7 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
             Equations~\eqref{eq:parallelsignificance:eleven} and~\eqref{eq:parallelsignificance:twelve}
             gives \( (p(0; \epsilon, n \given \sigma))^2 \le (p(k,
             \epsilon, 2k \given \sigma))^2 \) while Theorem~%
-            \ref{thm:parallelsignificance:thm6} gives \( (p(0; \epsilon, n
+            \ref{thm:parallelsignificance:twoepstest} gives \( (p(0; \epsilon, n
             \given \sigma))^2 \le 2\epsilon \).
         \item
             Taking expectations with respect to a random \( \sigma \sim
@@ -727,7 +738,7 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
     \]
 \end{corollary}
 
-\subsection*{Multiple Comparisons Correction}
+\subsection*{Multiple Hypothesis Considerations}
 
 Performing several tests, then allowing a significant result on any of
 them to be evidence for the same hypothesis, requires multiple testing
@@ -820,9 +831,6 @@ required since the hypotheses are nested.  That is, since
 \ref{thm:parallelsignificance:thm3point1} in this scenario, the probability of
 returning a \( p \)-value less than or equal to \( p_0 \) for any fixed
 value \( p_0 \) will indeed be at most \( p_0 \).
-
-
-\subsection*{}
 
 \visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
 \section*{Section Ending Answer}
