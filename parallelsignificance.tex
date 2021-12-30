@@ -118,6 +118,15 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
           \item \( N \) -- the random variable
             number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
             \) is an \( \epsilon \)-outlier.
+          \item \( p(j; \epsilon,k \given \sigma) \) -- the probability that
+\( v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \(
+v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
+\).
+   \item
+     \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m ) -- one of
+     \( m \) independent trajectories of length \( n \) from \(
+            X \) starting from a common starting point \( X_0^1 =
+            X_0^2 = \cdots = X_0^m = \sigma_0 \). 
 \end{enumerate}
 \visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
 \section*{Mathematical Ideas}
@@ -495,9 +504,79 @@ The following theorem enables asserting statistical significance for the
 property of being an \( (\epsilon, \alpha) \)-outlier.  In particular,
 while tests based on Proposition~%
 \ref{thm:significance:basethm} and Theorem~%
-\ref{thm:significance:powerthm} take as their null hypothesis that \(
-\sigma_0 \sim \pi \), the following theorem takes as its null hypothesis
+\ref{thm:significance:powerthm} take as their [null hypothesis that \(
+\sigma_0 \sim \pi \)], the following
+Theorem~\ref{thm:parallelsignificance:thm3point1}
+takes as its null hypothesis
 merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
+
+First make an auxiliary technical definition and accompanying lemma.
+Define \( p(j; \epsilon,k \given \sigma) \) to be the probability that
+\( v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \(
+v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
+\).
+
+\begin{lemma}
+     If \( \sigma_0 \) is not an \( (\epsilon,\alpha) \)-outlier, then
+     \begin{equation}
+     \label{eq:parallelsignificance:nine} p(0; \epsilon, n \given
+     \sigma_0) \le \sqrt{\frac{2 \epsilon}{\alpha}}.
+     \end{equation}
+\end{lemma}
+
+\begin{proof}
+          \item
+            Consider a \( \pi \)-stationary
+            trajectory \( X_0, \dots, X_n, \dots, X_{2n} \) and
+            condition on the event that \( X_n = \sigma \) for some
+            arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
+            reversible, we can view this trajectory as two independent
+            trajectories, \( X_{n+1}, \dots, X_{2k} \) and \( X_{n-1}, X_
+            {k-2}, \dots, X_0 \) both beginning from \( \sigma \).
+        \item
+            Let \( A \) and \( B \) be the events that \( v(X_n) \) is
+            an \( \epsilon \)-outlier among the lists \( v(X_0), \dots,
+            v(X_k) \) and \( v(X_n), \dots, v(X_{2k}) \), respectively.
+            Then
+            \begin{equation}
+                \label{eq:parallelsignificance:eleven} (p(0; \epsilon, n \given
+                \sigma))^2 = \Prob{ A \intersect B} \le (p(n; \epsilon,
+                2n \given \sigma))^2.
+            \end{equation}
+        \item
+            The assumption that the given \( \sigma_0 \in \mathcal{X} \)
+            is not an \( (\epsilon, \alpha) \)-outlier means that for a
+            random \( \sigma \sim \pi \)
+            \begin{equation}
+                \label{eq:parallelsignificance:twelve} \Prob{ p(0; \epsilon, n
+                \given \sigma) \ge p(0; \epsilon, n \given \sigma_0) }
+                \ge \alpha.
+            \end{equation}
+        \item
+            Equations~\eqref{eq:parallelsignificance:eleven} and~\eqref{eq:parallelsignificance:twelve}
+            give \( (p(0; \epsilon, n \given \sigma))^2 \le (p(n,
+            \epsilon, 2n \given \sigma))^2 \) while Theorem~%
+            \ref{thm:parallelsignificance:twoepstest} gives \( (p(0; \epsilon, n
+            \given \sigma))^2 \le 2\epsilon \).
+        \item
+            Taking expectations with respect to a random \( \sigma \sim
+            \pi \) gives
+            \[
+                \Esub{\sigma \sim \pi}{(p(0; \epsilon, n \given \sigma))^2
+                } \le \Esub{\sigma \sim \pi}{p(n; \epsilon, 2n \given
+                \sigma) } = p(n; \epsilon, 2n) \le 2\epsilon.
+            \]
+        \item
+            On the other hand, with~\eqref{eq:parallelsignificance:twelve}
+            \[
+                \Esub{\sigma \sim \pi}{(p(0; \epsilon, k \given \sigma))^2
+                } \ge \alpha \cdot (p(0; \epsilon, k \given \sigma))^2
+            \] so that
+            \[
+                (p(0; \epsilon, k \given \sigma))^2 \le \frac{2\epsilon}
+                {\alpha}.
+            \]
+\end{proof}
 
 \begin{theorem}
     \label{thm:parallelsignificance:thm3point1}
@@ -531,11 +610,32 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
     \]
 \end{theorem}
 
-\begin{proof}
-    The proof is below following some preliminary Theorems.
+\begin{proof}[Proof of Theorem~\ref{thm:parallelsignificance:thm3point1}]
+    \begin{enumerate}
+        \item
+            For a \( \pi \)-stationary trajectory the
+            probability \( p(0; \epsilon, n \given \sigma_0) \) is the
+            probability that on a trajectory \( \sigma_0 = X_0, X_1,
+            \dots, X_k \), \( v(\sigma_0) \) is among the smallest
+            values in the list \( v(X_0), v(X_1), \dots, v(X_n) \).
+        \item
+            Using the Lemma, recall the random variable \(
+            \mathcal{N} \) is the number of trajectories \( X^i \) from \(
+            \sigma_0 \) on which \( \sigma_0 \) is observed to be an
+            outlier with respect to the valueing \( v \).  The random
+            variable \( \mathcal{N} \) is thus the sum of \( m \)
+            independent Bernoulli random variables, each of which takes
+            value \( 1 \) with probability less than \( \sqrt{\frac{2
+            \epsilon}{\alpha}} \).  By Chernoff's bound
+            \[
+                \Prob{\mathcal{N} \ge (1 + \delta) m \sqrt{\frac{2e}{\alpha}}
+                } \le \EulerE^{ -\min (\delta, \delta^2 m \sqrt{\frac{2e}
+                {\alpha}}/3)}
+            \] establishing the theorem.
+    \end{enumerate}
 \end{proof}
 
-\begin{remark}
+  \begin{remark}
     Apart from separating measures of statistical significance from the
     quantification of a local outlier, Theorem~%
     \ref{thm:parallelsignificance:thm3point1} connects the intuitive Local
@@ -553,58 +653,6 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
 \end{remark}
 
 \begin{corollary}
-    \begin{enumerate}
-        \item
-            Let \( X \) be a reversible Markov chain.
-        \item
-            Let
-            \begin{align*}
-                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
-                &\vdots \\
-                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
-            \end{align*}
-            be \( m \) independent trajectories of length \( n \) from \(
-            X \) starting from a common starting point \( X_0^1 = X_0^2
-            = \cdots X_0^m = \sigma_0 \).
-        \item
-            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
-        \item
-            Define the random variable \( \mathcal{N} \) to be the
-            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
-            \) is an \( \epsilon \)-outlier.
-        \item
-            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
-    \end{enumerate}
-    Then
-    \[
-        \Prob{\mathcal{N} \ge K} \le \sum\limits_ {\nu=K}^m \binom{m}{\nu}
-        \left( \sqrt{\frac{2\epsilon} {\alpha}} \right)^k \left( 1 - \sqrt{\frac
-        {2\epsilon}{\alpha}} \right)^ {m-k}.
-    \]
-\end{corollary}
-
-\begin{example}
-    To compare the quantitative performance of Theorem~%
-    \ref{thm:parallelsignificance:thm3point1} to Proposition~%
-    \ref{thm:significance:basethm} and Theorem~%
-    \ref{thm:parallelsignificance:bc1}, consider the case of a state \( \sigma_0
-    \) for which a random trajectory \( \sigma_0 = X_0 , X_1 , \dots X_n
-    \) is likely (say with some constant probability \( p' \)) to find \(
-    \sigma_0 \) an \( \epsilon' \)-outlier.  For Proposition~%
-    \ref{thm:significance:basethm}, significance at \( p \approx \sqrt{2\epsilon}
-    \) would be obtained, while using Theorem~%
-    \ref{thm:parallelsignificance:bc1}, one would hope to obtain significance
-    approximately \( O(\epsilon') \).  Applying Theorem~%
-    \ref{thm:parallelsignificance:thm3point1}, we would expect to see \( p \)
-    around \( m p' \).  In particular, we could demonstrate that \(
-    \sigma_0 \) is an \( (\epsilon', \alpha) \)-outlier for \( \alpha =
-    \frac{3\epsilon} {(p')^2} \) (a linear relation on \( \epsilon \))
-    at a \( p \)-value which can be made arbitrarily small (at an
-    exponential rate) as we increase the number of observed trajectories
-    \( m \).  [This needs more explanation.]
-\end{example}
-
-\begin{theorem}
     \label{thm:parallelsignificance:thm5}
     \begin{enumerate}
         \item
@@ -635,92 +683,31 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
         \right)^{m/2}.
     \]
 
-  \end{theorem}
+  \end{corollary}
+
+\begin{example}
+    To compare the quantitative performance of Theorem~%
+    \ref{thm:parallelsignificance:thm3point1} to Proposition~%
+    \ref{thm:significance:basethm} and Theorem~%
+    \ref{thm:parallelsignificance:bc1}, consider the case of a state \( \sigma_0
+    \) for which a random trajectory \( \sigma_0 = X_0 , X_1 , \dots X_n
+    \) is likely (say with some constant probability \( p' \)) to find \(
+    \sigma_0 \) an \( \epsilon' \)-outlier.  For Proposition~%
+    \ref{thm:significance:basethm}, significance at \( p \approx \sqrt{2\epsilon}
+    \) would be obtained, while using Theorem~%
+    \ref{thm:parallelsignificance:bc1}, one would hope to obtain significance
+    approximately \( O(\epsilon') \).  Applying Theorem~%
+    \ref{thm:parallelsignificance:thm3point1}, we would expect to see \( p \)
+    around \( m p' \).  In particular, we could demonstrate that \(
+    \sigma_0 \) is an \( (\epsilon', \alpha) \)-outlier for \( \alpha =
+    \frac{3\epsilon} {(p')^2} \) (a linear relation on \( \epsilon \))
+    at a \( p \)-value which can be made arbitrarily small (at an
+    exponential rate) as we increase the number of observed trajectories
+    \( m \).  [This needs more explanation.]
+\end{example}
 
 \subsection*{The Improved Multiple Chain Significance Test}
 
-\begin{proof}[Proof of Theorem~\ref{thm:parallelsignificance:thm3point1}]
-    \begin{enumerate}
-        \item
-            Recall that for a \( \pi \)-stationary trajectory the
-            probability \( p(0; \epsilon, n \given \sigma_0) \) is the
-            probability that on a trajectory \( \sigma_0 = X_0, X_1,
-            \dots, X_k \), \( v(\sigma_0) \) is among the smallest
-            values in the list \( v(X_0), v(X_1), \dots, v(X_n) \).
-        \item
-            The claim is that if \( \sigma_0 \) is not an \( (\epsilon,
-            \alpha) \)-outlier, then
-            \begin{equation}
-                \label{eq:parallelsignificance:nine} p(0; \epsilon, k \given
-                \sigma_0) \le \sqrt{\frac{2e}{\alpha}}.
-            \end{equation}
-        \item
-            Given the claim is true, recall the random variable \(
-            \mathcal{N} \) is the number of trajectories \( X^i \) from \(
-            \sigma_0 \) on which \( \sigma_0 \) is observed to be an
-            outlier with respect to the valueing \( v \).  The random
-            variable \( \mathcal{N} \) is thus the sum of \( m \)
-            independent Bernoulli random variables, each of which takes
-            value \( 1 \) with probability less than \( \sqrt{\frac{2
-            \epsilon}{\alpha}} \).  By Chernoff's bound
-            \[
-                \Prob{\mathcal{N} \ge (1 - \delta) m \sqrt{\frac{2e}{\alpha}}
-                } \le \EulerE^{ -\min (\delta, \delta^2 m \sqrt{\frac{2e}
-                {\alpha}}/3)}
-            \] giving the theorem.
-        \item
-            To prove the claim, consider a \( \pi \)-stationary
-            trajectory \( X_0, \dots, X_n, \dots, X_{2k} \) and
-            condition on the event that \( X_n = \sigma \) for some
-            arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
-            reversible, we can view this trajectory as two independent
-            trajectories, \( X_{n+1}, \dots, X_{2k} \) and \( X_{n-1}, X_
-            {k-2}, \dots, X_0 \) both beginning from \( \sigma \).
-        \item
-            Let \( A \) and \( B \) be the events that \( v(X_n) \) is
-            an \( \epsilon \)-outlier among the lists \( v(X_0), \dots,
-            v(X_k) \) and \( v(X_n), \dots, v(X_{2k}) \), respectively.
-            Then
-            \begin{equation}
-                \label{eq:parallelsignificance:eleven} (p(0; \epsilon, k \given
-                \sigma))^2 = \Prob{ A \intersect B} \le (p(k; \epsilon,
-                2k \given \sigma))^2.
-            \end{equation}
-        \item
-            The assumption that the given \( \sigma_0 \in \mathcal{X} \)
-            is not an \( (\epsilon, \alpha) \)-outlier means that for a
-            random \( \sigma \sim \pi \)
-            \begin{equation}
-                \label{eq:parallelsignificance:twelve} \Prob{ p(0; \epsilon, k
-                \given \sigma) \ge p(0; \epsilon, k \given \sigma_0) }
-                \ge \alpha.
-            \end{equation}
-        \item
-            Equations~\eqref{eq:parallelsignificance:eleven} and~\eqref{eq:parallelsignificance:twelve}
-            gives \( (p(0; \epsilon, n \given \sigma))^2 \le (p(k,
-            \epsilon, 2k \given \sigma))^2 \) while Theorem~%
-            \ref{thm:parallelsignificance:twoepstest} gives \( (p(0; \epsilon, n
-            \given \sigma))^2 \le 2\epsilon \).
-        \item
-            Taking expectations with respect to a random \( \sigma \sim
-            \pi \) gives
-            \[
-                \Esub{\sigma \sim \pi}{(p(0; \epsilon, k \given \sigma))^2
-                } \le \Esub{\sigma \sim \pi}{p(k; \epsilon, 2k \given
-                \sigma) } = p(k; \epsilon, 2k) \le 2\epsilon.
-            \]
-        \item
-            On the other hand, with~\eqref{eq:parallelsignificance:twelve}
-            \[
-                \Esub{\sigma \sim \pi}{(p(0; \epsilon, k \given \sigma))^2
-                } \ge \alpha \cdot (p(0; \epsilon, k \given \sigma))^2
-            \] so that
-            \[
-                (p(0; \epsilon, k \given \sigma))^2 \le \frac{2\epsilon}
-                {\alpha}.
-            \]
-    \end{enumerate}
-\end{proof}
 
 \begin{remark}
     When \( m \) is not large, using the exact binomial tail in place of
@@ -735,6 +722,38 @@ merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
         \Prob{\mathcal{N} \ge K} \le \sum\limits_{\nu=K}^m \binom{m}{\nu}
         \left( \sqrt{\frac{2\epsilon}{\alpha}} \right)^{k} \left( 1 -
         \sqrt{\frac{2\epsilon}{\alpha}} \right)^{m-k}.
+    \]
+\end{corollary}
+
+
+\begin{corollary}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+            \end{align*}
+            be \( m \) independent trajectories of length \( n \) from \(
+            X \) starting from a common starting point \( X_0^1 = X_0^2
+            = \cdots X_0^m = \sigma_0 \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\mathcal{N} \ge K} \le \sum\limits_ {\nu=K}^m \binom{m}{\nu}
+        \left( \sqrt{\frac{2\epsilon} {\alpha}} \right)^k \left( 1 - \sqrt{\frac
+        {2\epsilon}{\alpha}} \right)^ {m-k}.
     \]
 \end{corollary}
 
