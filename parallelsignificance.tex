@@ -122,11 +122,18 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
 \( v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \(
 v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
 \).
+\item $\mu$ -- mean of a geometric distribution
    \item
      \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m ) -- one of
      \( m \) independent trajectories of length \( n \) from \(
             X \) starting from a common starting point \( X_0^1 =
             X_0^2 = \cdots = X_0^m = \sigma_0 \). 
+          \item $p(\mu; 0, \epsilon \given \sigma)$
+ -- 
+the probability that $v(X_j)$ is in the lowest $\epsilon$ fraction of the values
+$v(X_0), \dots, v(X_n)$, conditioned on the event that $X_0 = σ$ , where
+the length $n$ is chosen from a geometric distribution with mean $\mu$
+supported on $0,1,2,\dots$;
 \end{enumerate}
 \visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
 \section*{Mathematical Ideas}
@@ -706,15 +713,6 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
     \( m \).  [This needs more explanation.]
 \end{example}
 
-\subsection*{The Improved Multiple Chain Significance Test}
-
-
-\begin{remark}
-    When \( m \) is not large, using the exact binomial tail in place of
-    the Chernoff bound in~\eqref{eq:parallelsignificance:eleven} may be
-    sensible.  This gives the following Corollaries.
-\end{remark}
-
 \begin{corollary}
     Given the hypotheses in Theorem~%
     \ref{thm:parallelsignificance:thm3point1}, then
@@ -724,6 +722,165 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
         \sqrt{\frac{2\epsilon}{\alpha}} \right)^{m-k}.
     \]
 \end{corollary}
+
+\subsection*{The Improved Multiple Chain Significance Test}
+
+The following Theorem~\ref{thm:parallelsignificance:thm6point1} is the analog of
+Theorem~\ref{thm:parallelsignificance:thm3point1} using an analog of Besag and Clifford’s Theorem~\ref{thm:parallelsignificance:bc1} in
+place of Proposition~\ref{thm:significance:basethm} in the proof. This version pays the price of using a
+random \( n \) instead of a fixed \( n \) for the notion of an \(
+(\epsilon, \alpha) \)-outlier,
+but has the advantage that the constant \( 2 \) is eliminated from
+the bound. As in \ref{thm:parallelsignificance:thm3point1},
+the notion of \( (\epsilon, \alpha) \)-outlier here is still just defined with respect to a single
+path, although Theorem~\ref{thm:parallelsignificance:bc1} depends on using two independent
+trajectories.
+
+\begin{theorem}
+    \label{thm:parallelsignificance:thm6point1}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+          \item
+            Let \(n_1, \dots, n_m \) be \( m \) integers independently
+            drawn from a geometric distribution.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_{n_1}^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_{n_m}^m )\\
+            \end{align*}
+            be \( m \) independent trajectories, each respectively  of length \( n_{i} \), from \(
+            X \) starting from a common starting point \( X_0^1 =
+            X_0^2 = \cdots = X_0^m = \sigma_0 \). 
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\mathcal{N} \ge m \sqrt{\frac{\epsilon}{\alpha}} + r} \le
+        \EulerE^{-\min(r^2 \frac{\sqrt{\alpha/(\epsilon)}}{3m}, \frac{r}
+        {3})}.
+    \]
+\end{theorem}
+
+\begin{remark}
+  Observe carefully the difference in conclusions of this
+  Theorem~\ref{thm:parallelsignificance:thm6point1} from
+Theorem~\ref{thm:parallelsignificance:thm3point1} is the absence of
+the factor $2$, so Theorem~\ref{thm:parallelsignificance:thm6point1}
+an improvement in the probability estimates.  The improvement comes at
+the expense of a more complicated set of parallel Markov chains.
+\end{remark}
+
+\begin{proof}
+  \begin{enumerate}
+  \item For a $\pi$-stationary trajectory $X_0, \dots, X_k$
+and a real number $\mu$,  define $p(\mu; 0, \epsilon \given \sigma)$
+to be
+the probability that $v(X_j)$ is in the lowest $\epsilon$ fraction of the values
+$v(X_0), \dots, v(X_n)$, conditioned on the event that $X_0 = σ$ , where
+the length $n$ is chosen from a geometric distribution with mean $\mu$
+supported on $0,1,2,\dots$; that is,
+\[
+  \Prob{n = t} = \frac{1}{\mu+1}\left( 1 - \frac{1}{\mu+1} \right)^t.
+\]
+\item{enum:parallelchain:eq15}  It suffices to prove that if $\sigma_0$ is not
+an $(\epsilon, \sigma)$-outlier with respect to $n$ drawn from the geometric
+distribution with mean $\mu
+$, then
+\[
+  p(\mu; 0, \epsilon \given \sigma) \le
+  \sqrt{\frac{\epsilon}{\alpha}}.
+\]
+\item
+  To prove the previous assertion, suppose that $n_1$ and $n_2$ are
+  independent
+  random variables which are geometrically distributed with mean $\mu$,
+and consider a $\pi$-stationary trajectory
+$X_0, \dots,  X_n_1, \dots,  X_n_1 +n_2$
+of random length $n_1 + n_2$, and condition on the event that
+$X_n_1 = \sigma$ for some arbitrary $\sigma \in \mathcal{X}$. Since $X$ is reversible,
+we can view this trajectory as two independent trajectories $X_{n_1},
+X_{n_1 +1}, \dots,  X_{n_1 +n_2}$
+and $X_{n_1} , X_{n_1 −1} , X_{n_1 −2}, \dots,  X_0$ both
+beginning from $X_{n_1} = \sigma$ , of random lengths $n_2$ and $n_1$ ,
+respectively. 
+\item\label{enum:parallelchain:eq16} Letting $A$ and $B$ be the events
+that
+$v(X_n_1)$ is an $\epsilon$-outlier among the lists $v(X_0 ), \dots, v(X_{n_1})$ and
+$v(X_{n_1}), \dots, v(X_{n_1 +n_2})$, respectively,
+\[
+  p(\mu; 0, \epsilon \given \sigma)^2 = \Prob{v(X_{n_1}) \text{ is an
+      $\epsilon$-outlier among}  v(X_0 ), \dots, v(X_{n_1}),
+    v(X_{n_1}), \dots, v(X_{n_1 +n_2}) \given X_{n_1} = \sigma}
+\]
+where, in this last expression, $n_1$ and $n_2$ are random variables.
+\item The assumption that the given $\sigma_0 \in \mathcal{X}$ is not
+  an $(\epsilon, \alpha)$-outlier gives that for a random $\sigma ∼ \pi$ ,
+  \[
+    \Prob{p(\mu; 0, \epsilon | \sigma)} \ge \Prob{p(\mu; 0, \epsilon |
+      \sigma_{0}} \ge \alpha.
+  \]
+  \item\label{enum:parallelchain:eq18} 
+    Write
+    \[
+      \alpha \cdot p(\mu; 0, \epsilon | \sigma)^{2} \le \Esub{\sigma ~
+        \pi} \le \Prob{v(X_{n_1}) \text{ is an
+      $\epsilon$-outlier among}  v(X_0 ), \dots, v(X_{n_1}),
+    v(X_{n_1}), \dots, v(X_{n_1 +n_2})
+    \]
+where the last inequality follows from
+step~\ref{enum:parallelchain:eq16}.
+\item  Considering the right-hand side of
+  step~ref{enum:parallelchain:eq18},
+  conditioning on any value for the length
+$\ell= n_1 + n_2$ of the trajectory, $k_1$ is uniformly distributed in the
+range $0, \dots \ell$. This is ensured by the geometric distribution,
+simply because for any $\ell$ and any $x \in (0, \dots, \ell)$,
+the probability
+\begin{align*}
+  &\Prob{ n_1 = x \text{ and } n_2 = \ell-x} \\
+  &\quad = \left( \frac{1}{\mu+1}\left( 1 - \frac{1}{\mu+1} \right)^x
+    \right) \cdot \left( \frac{1}{\mu+1}\left( 1 - \frac{1}{\mu+1}
+    \right)^{\ell-x} \right) \\
+  &\quad = \left( \frac{1}{\mu+1} \right)^2 \left( 1 - \frac{1}{\mu+1} \right)^\ell
+\end{align*}
+is independent of $x$.
+\item In particular, conditioning on any particularl value for the
+  length $\ell = n_1 + n_2$, the probability $v(X_{n_1})$ is an
+  $\epsilon$-outlier on the trajectory is at most $\epsilon$ since
+  $X_{k_1}$ is a uniformly randomly chosen element of the trajectory
+  $X_0, \dots, X_{n_1 + n_2}$.  This part of the proof is exactly the
+  same as the proof of teh Besag-Clifford Theorem.
+\item In particular, for the right hand side of the inequality in
+  step~\ref{{enum:parallelchain:eq18}} 
+    \[
+      \alpha \cdot p(\mu; 0, \epsilon | \sigma)^{2}
+      \le \Prob{v(X_{n_1}) \text{ is an
+      $\epsilon$-outlier among}  v(X_0 ), \dots, v(X_{n_1}),
+    v(X_{n_1}), \dots, v(X_{n_1 +n_2})}
+      \le \max_i \Prob{v(X_{n_1}) \text{ is an
+      $\epsilon$-outlier among}  v(X_0 ), \dots, v(X_{n_1}),
+    v(X_{n_1}), \dots, v(X_{n_1 +n_2}) \given n_1 + n_2 = \ell}\le \epsilon.
+\]
+This establishes the required inequality in
+step~\ref{enum:parallelchain:eq15} and completes the proof.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    When \( m \) is not large, using the exact binomial tail in place of
+    the Chernoff bound in~\eqref{eq:parallelsignificance:eleven} may be
+    sensible.  This gives the following Corollary.
+\end{remark}
 
 
 \begin{corollary}
@@ -752,8 +909,8 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
     Then
     \[
         \Prob{\mathcal{N} \ge K} \le \sum\limits_ {\nu=K}^m \binom{m}{\nu}
-        \left( \sqrt{\frac{2\epsilon} {\alpha}} \right)^k \left( 1 - \sqrt{\frac
-        {2\epsilon}{\alpha}} \right)^ {m-k}.
+        \left( \sqrt{\frac{\epsilon} {\alpha}} \right)^k \left( 1 - \sqrt{\frac
+        {\epsilon}{\alpha}} \right)^ {m-k}.
     \]
 \end{corollary}
 
