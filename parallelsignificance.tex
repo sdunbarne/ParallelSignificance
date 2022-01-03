@@ -44,9 +44,120 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
 \section*{Key Concepts}
 
 \begin{enumerate}
-  \item 
-  \item 
-  \item 
+\item
+  \begin{theorem}[Parallel \(2 \epsilon\) Test]
+    \label{thm:parallelsignificance:twoepstest}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let \( Y_0, Y_1 \dots, Y_n \) and \( Z_0, Z_1, \dots Z_n \)
+            be \( 2 \) independent trajectories of length \( n \) from \(
+            X \) from a common starting point \( Y_0 = Z_0 = \sigma_0 \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Suppose \( \sigma_0 \sim \pi \).
+    \end{enumerate}
+    Then for any \( n \)
+    \[
+        \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier among } v(\sigma_0),
+        v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1), \dots, v(Z_n)} < 2
+        \epsilon.
+      \]
+      
+\end{theorem}
+  \item \begin{theorem}[Besag-Clifford Test]
+    \label{thm:parallelsignificance:bc1}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain on \( \mathcal{X} \)
+            with a stationary distribution \( \pi \).
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a label function.
+        \item
+            Fix a positive integer \( n \).
+        \item
+            Suppose that \( \sigma_0 \sim \pi \).
+        \item
+            Integer \( \xi \) is chosen uniformly in \( \set{0,\dots, n}
+            \).
+        \item
+            Let two independent trajectories \( Y_0 , Y_1 \dots \) and \(
+            Z_0, Z_1, \dots \) start from \( Y_0 = Z_0 = \sigma_0 \).
+    \end{enumerate}
+    Then for any \( n \)
+    \[
+        \Prob{(v(\sigma_0)) \text{ is an $\epsilon$-outlier among } v
+        (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_{n-\xi}
+        )} \le \epsilon.
+    \]
+\end{theorem}
+  \item \begin{theorem}
+    \label{thm:parallelsignificance:thm3point1}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+            \end{align*}
+            be \( m \) independent trajectories of length \( n \) from \(
+            X \) starting from a common starting point \( X_0^1 =
+            X_0^2 = \cdots = X_0^m = \sigma_0 \). 
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\mathcal{N} \ge m \sqrt{\frac{2\epsilon}{\alpha}} + r} \le
+        \EulerE^{-\min(r^2 \frac{\sqrt{\alpha/(2\epsilon)}}{3m}, \frac{r}
+        {3})}.
+    \]
+\end{theorem}
+\item \begin{theorem}
+    \label{thm:parallelsignificance:thm6point1}
+    \begin{enumerate}
+        \item
+            Let \( X \) be a reversible Markov chain.
+          \item
+            Let \(n_1, \dots, n_m \) be \( m \) integers independently
+            drawn from a geometric distribution.
+        \item
+            Let
+            \begin{align*}
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_{n_1}^1 )\\
+                &\vdots \\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_{n_m}^m )\\
+            \end{align*}
+            be \( m \) independent trajectories, each respectively  of length \( n_{i} \), from \(
+            X \) starting from a common starting point \( X_0^1 =
+            X_0^2 = \cdots = X_0^m = \sigma_0 \). 
+        \item
+            Let \( v :  \mathcal{X} \to \Reals \) be a value function.
+        \item
+            Define the random variable \( \mathcal{N} \) to be the
+            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
+            \) is an \( \epsilon \)-outlier.
+        \item
+            Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
+    \end{enumerate}
+    Then
+    \[
+        \Prob{\mathcal{N} \ge m \sqrt{\frac{\epsilon}{\alpha}} + r} \le
+        \EulerE^{-\min(r^2 \frac{\sqrt{\alpha/(\epsilon)}}{3m}, \frac{r}
+        {3})}.
+    \]
+\end{theorem}
 \end{enumerate}
 
 \hr
@@ -115,7 +226,7 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
   \item \( m \) -- number of independent trajectories of length \( n \) from \(
             X \) starting from a common starting point \( X_0^1 =
             X_0^2 = \cdots = X_0^m = \sigma_0 \). 
-          \item \( N \) -- the random variable
+          \item \( \mathcal{N} \) -- the random variable
             number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
             \) is an \( \epsilon \)-outlier.
           \item \( p(j; \epsilon,k \given \sigma) \) -- the probability that
@@ -660,7 +771,7 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
 \end{remark}
 
 \begin{corollary}
-    \label{thm:parallelsignificance:thm5}
+    \label{cor:parallelsignificance:cor32}
     \begin{enumerate}
         \item
             Let \( X \) be a reversible Markov chain.
@@ -689,8 +800,7 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
         {X}^1, \dots \mathbf{X}^m } \le \left( \frac{2\epsilon}{\alpha}
         \right)^{m/2}.
     \]
-
-  \end{corollary}
+\end{corollary}
 
 \begin{example}
     To compare the quantitative performance of Theorem~%
@@ -978,7 +1088,7 @@ element of the list \( \epsilon_1, \dots, \epsilon_m \) for some fixed
 value \( t \).  The case \( t = m \), for example, corresponds to taking
 \( \epsilon \) as the maximum value, leading to the application of
 Theorem~%
-\ref{thm:parallelsignificance:thm5}
+\ref{cor:parallelsignificance:cor32}
 
 The reason this avoids the need for a multiple hypothesis correction is
 that hypothesis events are ordered by containment.  In particular, when
@@ -1012,10 +1122,12 @@ value \( p_0 \) will indeed be at most \( p_0 \).
 \section*{Section Ending Answer}
 
 \subsection*{Sources}
-This section is adapted from: 
-
-\nocite{}
-\nocite{}
+This section is adapted from
+\cite{doi:10.1080/2330443X.2020.1806763}.  The definition and examples
+of multiple hypothesis correction is adapted from the Wikipedia
+article on
+\link{https://en.wikipedia.org/wiki/Multiple_comparisons_problem}{Multiple
+comparisons problem}
 
 \hr
 
