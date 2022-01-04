@@ -273,13 +273,13 @@ effect.  Recall from step~%
 Proposition~%
 \ref{thm:significance:basethm} the definition for \( 0 \le j \le n \) of
 \[
-    \rho(j; \ell, n) = \Prob{X_j \text{ is among-$\ell$-smallest
-    among } X_0, \dots, X_n }
+    \rho(j; \ell, n) = \Prob{v(X_j) \text{ is among-$\ell$-smallest
+    among } v(X_0), \dots, v(X_n) }
 \] and
 \[
-  \rho(j; \ell, n \given \sigma) = \Prob{X_j
-    \text{ is among-$\ell$-smallest among } X_0, \dots, X_n%
-    \given X_j = \sigma }.
+  \rho(j; \ell, n \given \sigma) = \Prob{v(X_j)
+    \text{ is among-$\ell$-smallest among } v(X_0), \dots, v(X_n)%
+    \given X_0 = \sigma }.
 \] With a slight change in the parameter notation, define the \( n+1 \)-vector
 \[ (\rho(0, \epsilon, n), \rho(1, \epsilon, n), \dots, \rho(1, \epsilon,
   n)) \]
@@ -1148,10 +1148,89 @@ comparisons problem}
 \renewcommand{\theexercise}{\arabic{exercise}}
 
 \begin{exercise}
-  
+   Evaluate the Parallel \(2 \epsilon\) Test by making some
+   simulations of the alternate Ehrenfest urn model.
+   Use the script to determine the proportion of trials for which the
+    state \( 0 \) is an \( 0.01 \)-outlier for the alternative Ehrenfest
+    urn model with \( N = 51 \) balls and path length of the
+    chain \( 199, 399, 599, 999 \) steps when executing \( 200, 400, 800
+    \) and \( 1600 \) trials.  Display the results in three charts, one
+    for each \( N \).
 \end{exercise}
 \begin{solution}
-  
+
+  \begin{lstlisting}{language = R}
+library(markovchain)
+
+N <- 51; p <- 1/2; q <- 1 - p;
+stateNames <- as.character( 0:N )
+## Be careful here, because states numbered from 0,
+## but R indexes from 1
+transMatrix <- matrix(0, N+1,N+1)
+transMatrix[1,1] <- q
+transMatrix[1,2] <- p
+transMatrix[N+1, N  ] <- q
+transMatrix[N+1, N+1] <- p
+for (row in 2:N) {
+    transMatrix[row, row-1] <- ((row-1)/N)*q
+    transMatrix[row,row] <- ((N-(row-1))/N)*q + ((row-1)/N)*p
+    transMatrix[row,row+1] <- ((N-(row-1))/N)*p
+}
+
+startState <- "0"
+
+altEhernfest <- new("markovchain", transitionMatrix=transMatrix,
+                 states=stateNames, name="AltEhernfest")
+
+
+pathLength <- c(199, 399, 599, 999)
+nTrials <- c(200, 400, 800, 1600)
+
+eps <- 0.01
+
+results <- matrix(0, length(pathLength), length(nTrials))
+
+for (pL in 1:length(pathLength)) {
+for  (nT in 1:length(nTrials)) {
+
+outlierThreshold <- floor( eps * ( 2 * pathLength[pL] + 1) ) + 1
+# Note the doubling of path length for both Y and Z chains
+nEpsOutlier<- 0
+
+for (i in 1:nTrials[nT]) {
+            
+    pathY <- rmarkovchain(n=pathLength[pL],
+                         object = altEhernfest,
+                         t0 = startState)
+    pathZ <- rmarkovchain(n=pathLength[pL],
+                         object = altEhernfest,
+                         t0 = startState)
+    fullPath <- c(startState, pathY, pathZ)
+    labelFullPath <- as.numeric(fullPath)
+    labelStartState <- as.numeric(startState)
+    if (!identical(sort(labelFullPath)[outlierThreshold], labelStartState)) {
+                nEpsOutlier <- nEpsOutlier + 1
+    }
+}
+
+probEpsOutlier <- nEpsOutlier/nTrials[nT]
+
+results[pL, nT] <- probEpsOutlier
+}
+}
+
+results
+  \end{lstlisting}
+
+\begin{verbatim*}
+  > results
+      [,1]  [,2]    [,3]     [,4]
+[1,] 0.705 0.670 0.66625 0.695625
+[2,] 0.970 0.975 0.95750 0.958125
+[3,] 0.985 1.000 0.99375 0.995625
+[4,] 1.000 1.000 1.00000 1.000000
+\end{verbatim*}
+
 \end{solution}
 \begin{exercise}
   \begin{enumerate}[label=(\alpha*)]
