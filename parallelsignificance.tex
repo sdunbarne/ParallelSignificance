@@ -37,6 +37,11 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
 
 \visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
 \section*{Section Starter Question}
+For what positive values of $\epsilon$ is $\epsilon < 2 \epsilon < \sqrt{2
+  \epsilon}$?  For purposes of this section, for what values of $\epsilon$
+is the ``Besag Clifford Test'' better than the
+``Parallel \( 2 \epsilon \) Test'' which in turn is more discriminating than the
+``Serial \( \sqrt{2 \epsilon} \) Test?
 
 \hr
 
@@ -78,7 +83,7 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
         \item
             Fix a positive integer \( n \).
         \item
-            Suppose that \( \sigma_0 \sim \pi \).
+            Suppose  \( \sigma_0 \sim \pi \).
         \item
             Integer \( \xi \) is chosen uniformly in \( \set{0,\dots, n}
             \).
@@ -174,7 +179,6 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
     being an \( (\epsilon, \alpha) \)-outlier measures the likelihood of
     \( \sigma_0 \) failing the local outlier test, ranked against all
     other states \( \sigma \sim \pi \) of the chain \( X \).
-  \item 
 \end{enumerate}
 
 \hr
@@ -231,7 +235,7 @@ Mathematically Mature: may contain mathematics beyond calculus with proofs.
             \) is an \( \epsilon \)-outlier.
           \item \( p(j; \epsilon,k \given \sigma) \) -- the probability that
 \( v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \(
-v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
+v(X_0), \dots, v(X_n) \) conditioned on the event \( X_j = \sigma
 \).
 \item $\mu$ -- mean of a geometric distribution
    \item
@@ -242,7 +246,7 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
           \item $p(\mu; 0, \epsilon \given \sigma)$
  -- 
 the probability that $v(X_j)$ is in the lowest $\epsilon$ fraction of the values
-$v(X_0), \dots, v(X_n)$, conditioned on the event that $X_0 = σ$ , where
+$v(X_0), \dots, v(X_n)$, conditioned on the event  $X_0 = \sigma$, where
 the length $n$ is chosen from a geometric distribution with mean $\mu$
 supported on $0,1,2,\dots$;
 \end{enumerate}
@@ -251,8 +255,8 @@ supported on $0,1,2,\dots$;
 
 \subsection*{Introduction}
 
-A 1989 paper of Besag and Clifford
-\cite{besag89} described a test related to the \( \sqrt{\epsilon} \)
+A 1989 paper of Besag and Clifford~\cite{besag89}
+described a test related to the \( \sqrt{\epsilon} \)
 test based on Proposition~%
 \ref{thm:significance:basethm}.
 
@@ -267,7 +271,7 @@ test based on Proposition~%
 
 To simplify the interpretation of these tests, the approach in this
 subsection will show these tests can efficiently separate the measure of
-statistical significance from the question of the magnitude of the
+statistical significance from the question of the size of the
 effect.  Recall from step~%
 \ref{enum:significance:basethm3} in the proof of
 Proposition~%
@@ -315,12 +319,12 @@ v(X_1), \dots, v(X_k) \).
 \begin{proof}
             \begin{enumerate}
                 \item
-                    Stationarity implies that
+                    Stationarity implies
                     \[
                         (Z_0, Z_1, \dots, Z_n) \sim (X_n, X_{n+1}, \dots,
                         X_{2n}).
                     \] 
-                  \item Stationarity and reversibility imply that
+                  \item Stationarity and reversibility imply
                     \[
                         (Y_n, Y_{n-1}, \dots, Y_1, Y_0) \sim (X_0, X_1,
                         \dots, X_n).
@@ -328,7 +332,7 @@ v(X_1), \dots, v(X_k) \).
                 \item
                     The assumption that \( Y_1, Y_2, \dots \) and \( Z_1,
                     Z_2, \dots \) are independent trajectories from \(
-                    \sigma_0 \) is equivalent to the condition that
+                    \sigma_0 \) is equivalent to the condition
                     \begin{align*}
                         & \Prob{ Z_j = z_j \given Z_{j-1}, \dots, Z_1 =
                         z_1, Z_0 = Y_0=\sigma_0, Y_1=y_1, \dots, Y_n = y_n}
@@ -380,8 +384,9 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
         v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1), \dots, v(Z_n)} < 2
         \epsilon.
       \]
-      
+
 \end{theorem}
+\index{Parallel \(2 \epsilon\) Test}
 
 \begin{proof}
     \begin{enumerate}
@@ -391,10 +396,10 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
             for each \( j, \ell \le n \) the probability \( \rho(j; \ell,
             n) \) that for a \( \pi \)-stationary trajectory \( X_1, X_2,
             \dots, X_n \) the value \( v(X_j) \) is among-\( \ell \)-smallest
-            among \( v(X_1), v(X_2), \dots, v(X_n) \). Note that all \(
+            among \( v(X_1), v(X_2), \dots, v(X_n) \).   All \(
             \pi \)-stationary trajectories \( X_1, X_2, \dots, X_n \) of
             fixed length \( n \) are all identical in distribution so
-            that \( \rho(j; \ell, n) \) is well-defined. See the
+            \( \rho(j; \ell, n) \) is well-defined. See the
             exercises.
         \item
             If the sequence \( X_1, X_2, \dots X_n \) is a \(
@@ -440,7 +445,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
 \end{proof}
 
 \begin{remark}
-    Note that Theorem~%
+    Theorem~%
     \ref{thm:parallelsignificance:twoepstest} is equivalent to the statement that the
     probabilities \( \rho(i; \epsilon, n) \) always satisfy \( \rho(n;
     \epsilon, 2n) < 2\epsilon \). [Why?]  The remaining theoretical question is
@@ -448,6 +453,17 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     function of \( \epsilon \).
 \end{remark}
 
+\begin{remark}
+  Using Markov chains is an inherently serial process, each step
+  follows from the previous step.  However,
+  as the name suggests, Theorem~%
+    \ref{thm:parallelsignificance:twoepstest} creates the opportunity
+    to use parallel computing to increase the  capability for
+    detecting outliers. Later Theorems will expand the capability to
+    multiple chains.
+  \end{remark}
+
+  
 \begin{theorem}[Besag-Clifford Test]
     \label{thm:parallelsignificance:bc1}
     \begin{enumerate}
@@ -459,7 +475,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
         \item
             Fix a positive integer \( n \).
         \item
-            Suppose that \( \sigma_0 \sim \pi \).
+            Suppose  \( \sigma_0 \sim \pi \).
         \item
             Integer \( \xi \) is chosen uniformly in \( \set{0,\dots, n}
             \).
@@ -478,7 +494,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
 
 \begin{remark}
     See Figure~%
-    \ref{fig:parallelsignificance:test} for a schematic diagram of the
+    \ref{fig:parallelsignificance:BCtest} for a schematic diagram of the
     Besag-Clifford Test.
 \end{remark}
 
@@ -561,7 +577,7 @@ an \( \epsilon \)-outlier among \( \alpha_0, \dots \alpha_n \) if
     theorem's more complicated intuitive interpretation.
 
     In applications of these statistical tests to aspects of public
-    policy such as the gerrymandering example in , it is desirable to have tests with simple, intuitive
+    policy such as the gerrymandering example in~\cite{doi:10.1080/2330443X.2020.1806763}, it is desirable to have tests with simple, intuitive
     interpretations.  To enable better significance testing in this
     sphere, one goal of this section is to prove a theorem enabling
     Markov chain significance testing which is intuitively interpretable
@@ -626,12 +642,12 @@ while tests based on Proposition~%
 \sigma_0 \sim \pi \)], the following
 Theorem~\ref{thm:parallelsignificance:thm3point1}
 takes as its null hypothesis
-merely that \( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
+\( \sigma_{0} \) is not an \( (\epsilon, \alpha) \)-outlier.
 
 First make an auxiliary technical definition and accompanying lemma.
 Define \( p(j; \epsilon,k \given \sigma) \) to be the probability that
 \( v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \(
-v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
+v(X_0), \dots, v(X_n) \) conditioned on the event \( X_j = \sigma
 \).
 
 \begin{lemma}
@@ -646,13 +662,13 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
           \item
             Consider a \( \pi \)-stationary
             trajectory \( X_0, \dots, X_n, \dots, X_{2n} \) and
-            condition on the event that \( X_n = \sigma \) for some
+            condition on the event \( X_n = \sigma \) for some
             arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
             reversible, we can view this trajectory as two independent
             trajectories, \( X_{n+1}, \dots, X_{2k} \) and \( X_{n-1}, X_
             {k-2}, \dots, X_0 \) both beginning from \( \sigma \).
         \item
-            Let \( A \) and \( B \) be the events that \( v(X_n) \) is
+            Let \( A \) and \( B \) be the events \( v(X_n) \) is
             an \( \epsilon \)-outlier among the lists \( v(X_0), \dots,
             v(X_k) \) and \( v(X_n), \dots, v(X_{2k}) \), respectively.
             Then
@@ -740,7 +756,7 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
             Using the Lemma, recall the random variable \(
             \mathcal{N} \) is the number of trajectories \( X^i \) from \(
             \sigma_0 \) on which \( \sigma_0 \) is observed to be an
-            outlier with respect to the valueing \( v \).  The random
+            outlier with respect to the valuing \( v \).  The random
             variable \( \mathcal{N} \) is thus the sum of \( m \)
             independent Bernoulli random variables, each of which takes
             value \( 1 \) with probability less than \( \sqrt{\frac{2
@@ -814,12 +830,12 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
     \) would be obtained, while using Theorem~%
     \ref{thm:parallelsignificance:bc1}, one would hope to obtain significance
     approximately \( O(\epsilon') \).  Applying Theorem~%
-    \ref{thm:parallelsignificance:thm3point1}, we would expect to see \( p \)
-    around \( m p' \).  In particular, we could demonstrate that \(
+    \ref{thm:parallelsignificance:thm3point1}, one expects to see \( p \)
+    around \( m p' \).  In particular, one could demonstrate that \(
     \sigma_0 \) is an \( (\epsilon', \alpha) \)-outlier for \( \alpha =
     \frac{3\epsilon} {(p')^2} \) (a linear relation on \( \epsilon \))
     at a \( p \)-value which can be made arbitrarily small (at an
-    exponential rate) as we increase the number of observed trajectories
+    exponential rate) by increasing the number of observed trajectories
     \( m \).  [This needs more explanation.]
 \end{example}
 
@@ -836,12 +852,12 @@ v(X_0), \dots, v(X_n) \) conditioned on the event that \( X_j = \sigma
 \subsection*{The Improved Multiple Chain Significance Test}
 
 The following Theorem~\ref{thm:parallelsignificance:thm6point1} is the analog of
-Theorem~\ref{thm:parallelsignificance:thm3point1} using an analog of Besag and Clifford’s Theorem~\ref{thm:parallelsignificance:bc1} in
+Theorem~\ref{thm:parallelsignificance:thm3point1} using an analog of Besag and Clifford's Theorem~\ref{thm:parallelsignificance:bc1} in
 place of Proposition~\ref{thm:significance:basethm} in the proof. This version pays the price of using a
 random \( n \) instead of a fixed \( n \) for the notion of an \(
 (\epsilon, \alpha) \)-outlier,
 but has the advantage that the constant \( 2 \) is eliminated from
-the bound. As in \ref{thm:parallelsignificance:thm3point1},
+the bound. As in Theorem~\ref{thm:parallelsignificance:thm3point1},
 the notion of \( (\epsilon, \alpha) \)-outlier here is still just defined with respect to a single
 path, although Theorem~\ref{thm:parallelsignificance:bc1} depends on using two independent
 trajectories.
@@ -887,7 +903,7 @@ trajectories.
 Theorem~\ref{thm:parallelsignificance:thm3point1} is the absence of
 the factor $2$, so Theorem~\ref{thm:parallelsignificance:thm6point1}
 an improvement in the probability estimates.  The improvement comes at
-the expense of a more complicated set of parallel Markov chains.
+the cost of a more complicated set of parallel Markov chains.
 \end{remark}
 
 \begin{proof}
@@ -896,7 +912,7 @@ the expense of a more complicated set of parallel Markov chains.
 and a real number $\mu$,  define $p(\mu; 0, \epsilon \given \sigma)$
 to be
 the probability that $v(X_j)$ is in the lowest $\epsilon$ fraction of the values
-$v(X_0), \dots, v(X_n)$, conditioned on the event that $X_0 = σ$ , where
+$v(X_0), \dots, v(X_n)$, conditioned on the event $X_0 = \sigma$, where
 the length $n$ is chosen from a geometric distribution with mean $\mu$
 supported on $0,1,2,\dots$; that is,
 \[
@@ -916,15 +932,14 @@ $, then
   random variables which are geometrically distributed with mean $\mu$,
 and consider a $\pi$-stationary trajectory
 $X_0, \dots,  X_n_1, \dots,  X_n_1 +n_2$
-of random length $n_1 + n_2$, and condition on the event that
+of random length $n_1 + n_2$, and condition on the event
 $X_n_1 = \sigma$ for some arbitrary $\sigma \in \mathcal{X}$. Since $X$ is reversible,
 we can view this trajectory as two independent trajectories $X_{n_1},
 X_{n_1 +1}, \dots,  X_{n_1 +n_2}$
-and $X_{n_1} , X_{n_1 −1} , X_{n_1 −2}, \dots,  X_0$ both
-beginning from $X_{n_1} = \sigma$ , of random lengths $n_2$ and $n_1$ ,
+and $X_{n_1}, X_{n_1 - 1}, X_{n_1 - 2}, \dots,  X_0$ both
+beginning from $X_{n_1} = \sigma$, of random lengths $n_2$ and $n_1$ ,
 respectively. 
 \item\label{enum:parallelchain:eq16} Letting $A$ and $B$ be the events
-that
 $v(X_n_1)$ is an $\epsilon$-outlier among the lists $v(X_0 ), \dots, v(X_{n_1})$ and
 $v(X_{n_1}), \dots, v(X_{n_1 +n_2})$, respectively,
 \[
@@ -933,19 +948,19 @@ $v(X_{n_1}), \dots, v(X_{n_1 +n_2})$, respectively,
     v(X_{n_1}), \dots, v(X_{n_1 +n_2}) \given X_{n_1} = \sigma}
 \]
 where, in this last expression, $n_1$ and $n_2$ are random variables.
-\item The assumption that the given $\sigma_0 \in \mathcal{X}$ is not
-  an $(\epsilon, \alpha)$-outlier gives that for a random $\sigma ∼ \pi$ ,
+\item The assumption the given $\sigma_0 \in \mathcal{X}$ is not
+an $(\epsilon, \alpha)$-outlier gives that for a random $\sigma \sim \pi$,
   \[
     \Prob{p(\mu; 0, \epsilon | \sigma)} \ge \Prob{p(\mu; 0, \epsilon |
-      \sigma_{0}} \ge \alpha.
+      \sigma_{0})} \ge \alpha.
   \]
   \item\label{enum:parallelchain:eq18} 
     Write
     \[
-      \alpha \cdot p(\mu; 0, \epsilon | \sigma)^{2} \le \Esub{\sigma ~
-        \pi} \le \Prob{v(X_{n_1}) \text{ is an
+      \alpha \cdot p(\mu; 0, \epsilon | \sigma)^{2} \le \Esub{\sigma \sim
+        \pi} \le \Prob{v(X_{n_1})} \text{ is an
       $\epsilon$-outlier among}  v(X_0 ), \dots, v(X_{n_1}),
-    v(X_{n_1}), \dots, v(X_{n_1 +n_2})
+    v(X_{n_1}), \dots, v(X_{n_1 +n_2}) 
     \]
 where the last inequality follows from
 step~\ref{enum:parallelchain:eq16}.
@@ -964,12 +979,12 @@ the probability
   &\quad = \left( \frac{1}{\mu+1} \right)^2 \left( 1 - \frac{1}{\mu+1} \right)^\ell
 \end{align*}
 is independent of $x$.
-\item In particular, conditioning on any particularl value for the
+\item In particular, conditioning on any particular value for the
   length $\ell = n_1 + n_2$, the probability $v(X_{n_1})$ is an
   $\epsilon$-outlier on the trajectory is at most $\epsilon$ since
   $X_{k_1}$ is a uniformly randomly chosen element of the trajectory
   $X_0, \dots, X_{n_1 + n_2}$.  This part of the proof is exactly the
-  same as the proof of teh Besag-Clifford Theorem.
+  same as the proof of the Besag-Clifford Theorem.
 \item In particular, for the right hand side of the inequality in
   step~\ref{{enum:parallelchain:eq18}} 
     \[
@@ -1032,7 +1047,7 @@ correction.  Multiple comparisons%
 \index{multiple comparisons}
 arise when a statistical analysis involves multiple simultaneous
 statistical tests, each of which has a potential to produce a
-``discovery'', on the same dataset or dependent datasets.  Specifically,
+``discovery'', on the same data set or dependent data sets.  Specifically,
 there is a chance that the hypothesis which is actually true is rejected
 by the test, a Type I error.  The error probability increases with
 multiple testing.  A stated confidence level generally applies only to
@@ -1046,9 +1061,9 @@ illustrated by the following simple examples.
         students, and the control is the standard way of teaching
         writing.  Students in the two groups can be compared in terms of
         grammar, spelling, organization, content, and so on.  These
-        writing attributes might plausibly give dependent datasets.  As
+        writing attributes might plausibly give dependent data sets.  As
         more attributes are compared, it becomes increasingly likely
-        that the treatment and control groups will appear to differ on
+        the treatment and control groups will appear to differ on
         at least one attribute due to random sampling error alone.
     \item
         Consider the efficacy of a drug in terms of the reduction of any
@@ -1120,10 +1135,16 @@ value \( p_0 \) will indeed be at most \( p_0 \).
 
 \visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
 \section*{Section Ending Answer}
+For $\epsilon > 0$, always $\epsilon < 2 \epsilon$ so the
+``Besag Clifford Test'' is always more discriminating than the
+``Parallel \( 2 \epsilon \) Test'' which in turn is more discriminating than the
+``Serial \( \sqrt{2 \epsilon} \) Test for $\epsilon < 1/2$.  Since
+$\epsilon$ will usually be taken to be one the traditional statistical
+significance values of $p = 0.05$, $p = 0.01$ or $p = 0.001$, the
+parallel tests will always be better.
 
 \subsection*{Sources}
-This section is adapted from
-\cite{doi:10.1080/2330443X.2020.1806763}.  The definition and examples
+This section is adapted from~\cite{doi:10.1080/2330443X.2020.1806763}.  The definition and examples
 of multiple hypothesis correction is adapted from the Wikipedia
 article on
 \link{https://en.wikipedia.org/wiki/Multiple_comparisons_problem}{Multiple
@@ -1138,7 +1159,7 @@ comparisons problem}
 
 \subsection*{Scripts}
 
-\input{ _scripts}
+\input{parallelsignificance_scripts}
 
 \hr
 
@@ -1148,7 +1169,7 @@ comparisons problem}
 \renewcommand{\theexercise}{\arabic{exercise}}
 
 \begin{exercise}
-   Evaluate the Parallel \(2 \epsilon\) Test by making some
+   Check the Parallel \(2 \epsilon\) Test by making some
    simulations of the alternate Ehrenfest urn model.
    Use the script to determine the proportion of trials for which the
     state \( 0 \) is an \( 0.01 \)-outlier for the alternative Ehrenfest
