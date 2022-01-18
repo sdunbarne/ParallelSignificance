@@ -17,7 +17,7 @@
 
 \hr
 
-\sectiontitle{Parallel Multiple Chain Significance}
+\sectiontitle{Parallel Chain Significance Testing}
 
 \hr
 
@@ -51,7 +51,7 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
 
 \visual{Key Concepts}{../../../../CommonInformation/Lessons/keyconcepts.png}
 \section*{Key Concepts}
-
+\renewcommand{\theenumii}{\arabic{enumii}}
 \begin{enumerate}
     \item
         \begin{theorem}[Parallel \(2 \epsilon\) Test]
@@ -71,11 +71,12 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
                     Suppose \( \sigma_0 \sim \pi \).
             \end{enumerate}
             Then for any \( n \)
-            \[
+            \begin{multline*}
                 \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier
-                among } v(\sigma_0), v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1),
+                    among } \right. \\
+                  \left. v(\sigma_0), v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1),
                 \dots, v(Z_n)} < 2 \epsilon.
-            \]
+            \end{multline*}
 
         \end{theorem}
     \item
@@ -102,11 +103,12 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
                     \sigma_0 \).
             \end{enumerate}
             Then for any \( n \)
-            \[
-                \Prob{(v(\sigma_0)) \text{ is an $\epsilon$-outlier
-                among } v (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1),
+            \begin{multline*}
+                \Prob{v(\sigma_0) \text{ is an $\epsilon$-outlier
+                    among } \right. \\
+                  \left. v (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1),
                 \dots, v(Z_{n-\xi} )} \le \epsilon.
-            \]
+            \end{multline*}
         \end{theorem}
     \item
         \begin{theorem}
@@ -117,9 +119,9 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
                 \item
                     Let
                     \begin{align*}
-                        \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                        \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_n^1 )\\
                         &\vdots \\
-                        \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+                        \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_n^m )\\
                     \end{align*}
                     be \( m \) independent trajectories of length \( n \)
                     from \( X \) starting from a common starting point \(
@@ -183,6 +185,7 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
             \]
         \end{theorem}
 \end{enumerate}
+\renewcommand{\theenumii}{\alph{enumii}}
 
 \hr
 
@@ -281,25 +284,17 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
 \visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
 \section*{Mathematical Ideas}
 
-\subsection*{Introduction}
-
 A 1989 paper of Besag and Clifford
-\cite{besag89} described a test related to the \( \sqrt{\epsilon} \)
+\cite{besag89} described a test related to the \( \sqrt{2\epsilon} \)
 test based on Proposition~%
 \ref{thm:significance:basethm}.
-
-\begin{remark}
-    To prove Theorem~%
-    \ref{thm:parallelsignificance:thm3point1}, first prove the
-    following, which has a quantitative dependence on \( \epsilon \)
-    which is nearly as strong as in Theorem~%
-    \ref{thm:parallelsignificance:bc1}, while eliminating the need for
-    the random choice of \( \xi \).
-\end{remark}
 
 To simplify the interpretation of these tests, the approach in this
 subsection will show these tests can efficiently separate the measure of
 statistical significance from the question of the size of the effect.
+
+\subsection*{The Two Chain Significance Test}
+
 Recall from step~%
 \ref{enum:significance:basethm3} in the proof of Proposition~%
 \ref{thm:significance:basethm} the definition for \( 0 \le j \le n \) of
@@ -313,7 +308,7 @@ Recall from step~%
     \given X_0 = \sigma}.
 \] With a slight change in the parameter notation, define the \( n+1 \)-vector
 \[
-    (\rho(0, \epsilon, n), \rho(1, \epsilon, n), \dots, \rho(1, \epsilon,
+    (\rho(0; \epsilon, n), \rho(1; \epsilon, n), \dots, \rho(n; \epsilon,
     n))
 \] where for each \( i \), \( \rho(i; \epsilon, n) \) is the probability
 that in a \( n \)-step stationary trajectory \( X_0, X_1, \dots X_k \), \(
@@ -323,8 +318,6 @@ the list \( v(X_0), v(X_1), \dots, v(X_n) \).  Define the probability \(
 trajectory \( \sigma_0 = X_0, X_1, \dots, X_n \), \( v(\sigma_0) \) is
 among the smallest \( \epsilon \)-fraction of values in the list \( v(X_0),
 v(X_1), \dots, v(X_k) \).
-
-\subsection*{The Two Chain Significance Test}
 
 \begin{lemma}
     \begin{enumerate}
@@ -349,7 +342,8 @@ v(X_1), \dots, v(X_k) \).
             Stationarity implies
             \[
                 (Z_0, Z_1, \dots, Z_n) \sim (X_n, X_{n+1}, \dots, X_{2n}).
-            \]
+              \]
+              [Check this, why is $Z_0 = \sigma_0 = X_n$?]
         \item
             Stationarity and reversibility imply
             \[
@@ -360,9 +354,9 @@ v(X_1), \dots, v(X_k) \).
             \dots \) are independent trajectories from \( \sigma_0 \) is
             equivalent to the condition
             \begin{align*}
-                & \Prob{ Z_j = z_j \given Z_{j-1}, \dots, Z_1 = z_1, Z_0
+                & \Prob{ Z_j = z_j \given Z_{j-1} = z_{j-1}, \dots, Z_1 = z_1, Z_0
                 = Y_0=\sigma_0, Y_1=y_1, \dots, Y_n = y_n} \\
-                & \qquad = \Prob{ Z_j = z_j \given Z_{j-1}, \dots, Z_1 =
+                & \qquad = \Prob{ Z_j = z_j \given Z_{j-1} = z_{j-1}, \dots, Z_1 =
                 z_1, Z_0 = \sigma_0} \\
                 & \qquad = \Prob{ Z_j = z_j \given Z_{j-1}} \\
                 &\qquad = \Prob{ X_{n+j} = z_j \given X_{n+j-1}}.
@@ -372,7 +366,8 @@ v(X_1), \dots, v(X_k) \).
             \[
                 (Y_n, Y_{n-1}, \dots, Y_0=Z_0, Z_1, \dots, Z_j) \sim (X_0,
                 X_1, \dots, X_n, X_{n+1}, \dots, X_{n+j}).
-            \]
+              \]
+              [Check about $X_{n = \sigma_0}$]
         \item
             In particular, taking \( j = n \)
             \[
@@ -404,11 +399,13 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             Suppose \( \sigma_0 \sim \pi \).
     \end{enumerate}
     Then for any \( n \)
-    \[
-        \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier among } v(\sigma_0),
+    \begin{multline*}
+      \Prob{v(\sigma_0) \text{is an $\epsilon$-outlier among }
+      \right. \\
+      \left.   v(\sigma_0),
         v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1), \dots, v(Z_n)} < 2
         \epsilon.
-    \]
+    \end{multline*}
 
 \end{theorem}
 \index{Parallel \(2 \epsilon\) Test}
@@ -424,14 +421,18 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             among \( v(X_1), v(X_2), \dots, v(X_n) \).  All \( \pi \)-stationary
             trajectories \( X_1, X_2, \dots, X_n \) of fixed length \( n
             \) are all identical in distribution so \( \rho(j; \ell, n) \)
-            is well-defined.  See the exercises.
+            is well-defined.  See the exercises. [Add exercise.]
         \item
             If the sequence \( X_1, X_2, \dots X_n \) is a \( \pi \)-stationary
             trajectory for \( X \), then \( (X_{n-j}, \dots X_n, \dots,
             X_{2n-j}) \), is an identically distributed sequence.  Thus
             the probability that \( v(X_n) \) is among-\( \ell \)-smallest
-            among \( v(X_{n-j}), \dots, v(X_n), \dots v(X_{2n-j}) \) is
-            equal to \( \rho(j; \ell, n) \).
+            among
+            \[
+              v(X_{n-j}), \dots, v(X_n), \dots v(X_{2n-j})
+            \]
+            is equal to \( \rho(j; \ell, n) \).
+            [Check: are the two displays reversed or backward?]
         \item
             In particular, since the event
             \[
@@ -456,7 +457,8 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
                 \rho(n; \ell, 2n) = \frac{1}{n+1} \sum_{\nu=0}^n \rho(\nu;
                 \ell, n) \le \frac{\ell + 1}{n+1} < 2 \cdot \frac{\ell+1}
                 {2n+1}.
-            \]
+              \]
+              [Rewrite similar to Step 10 in Prop 1 in Serial Significance]
         \item
             Using the Lemma completes the proof by noting \( \rho(n;
             \ell, 2n) \) is a lower bound on each \( \rho(j; \ell, n) \)
@@ -464,7 +466,8 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             \begin{equation}
                 \label{eq:parallelsignificance:eight} \sum\limits_{j=0}^n
                 \rho(j; \ell, n) \le \ell + 1.
-            \end{equation}
+              \end{equation}
+              [Is this the same as the previous step?]
     \end{enumerate}
 \end{proof}
 
@@ -474,7 +477,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     statement that the probabilities \( \rho(i; \epsilon, n) \) always
     satisfy \( \rho(n; \epsilon, 2n) < 2\epsilon \).  [Why?] The
     remaining theoretical question is what is the largest possible value
-    of \( p(n; \epsilon, 2n) \) as a function of \( \epsilon \).
+    of \( \rho(n; \epsilon, 2n) \) as a function of \( \epsilon \).
 \end{remark}
 
 \begin{remark}
@@ -507,11 +510,12 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             Z_0, Z_1, \dots \) start from \( Y_0 = Z_0 = \sigma_0 \).
     \end{enumerate}
     Then for any \( n \)
-    \[
-        \Prob{(v(\sigma_0)) \text{ is an $\epsilon$-outlier among } v
-        (\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_{n-\xi}
+    \begin{multline*}
+      \Prob{(v(\sigma_0)) \text{ is an $\epsilon$-outlier among }
+      \right. \\
+      \left.   v(\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_{n-\xi}
         )} \le \epsilon.
-    \]
+    \end{multline*}
 \end{theorem}
 \index{Besag-Clifford Test}
 
@@ -549,7 +553,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     \begin{enumerate}
         \item
             The proof uses only equation~%
-            \eqref{eq:parallelsignificance:eight}
+            \eqref{eq:parallelsignificance:eight}.
         \item
             Recall from the proof of Theorem~%
             \ref{thm:parallelsignificance:twoepstest} that the \( \rho(j;
@@ -563,16 +567,21 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             (0; \ell, n), \dots, \rho(n; \ell, n)} \).
         \item
             Now write the probability that \( v(\sigma_0) \) is among-\(
-            \ell \)-smallest among \( v(\sigma_0), v(Y_1), \dots, v(Y_{\xi}),
-            v(Z_1), \dots, v(Z_ {n-\xi}) \) is
+            \ell \)-smallest among
+            \[ v(\sigma_0), v(Y_1), \dots, v(Y_{\xi}),
+              v(Z_1), \dots, v(Z_ {n-\xi})
+            \] is
             \[
                 \frac{1}{n+1} (\rho(0; \ell, n)+ \rho(1; \ell, n) +
                 \cdots + \rho(n; \ell, n) ) \le \frac{\ell + 1}{n + 1}
             \] using equation~\eqref{eq:parallelsignificance:eight}.
         \item
             This observation uses a variant of the Lemma that for any \(
-            j \), \( Y_j, \dots, Y_1, \sigma_0, Z_1, \dots, Z_{n-j} \)
-            is a \( \pi \)-stationary trajectory.
+            j \),
+            \[
+              Y_j, \dots, Y_1, \sigma_0, Z_1, \dots, Z_{n-j}
+            \]
+            is a \( \pi \)-stationary trajectory. [Why?]
     \end{enumerate}
 \end{proof}
 
@@ -580,7 +589,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     An intuitive interpretation of the theorem is that typical, i.e.\ %
     stationary, states are unlikely to change, as measured by \( v \),
     in a consistent way under two sequences of chain transitions of
-    random complementary lengths.
+    random complementary lengths. [Is there a better way to state this?]
 \end{remark}
 
 \begin{remark}
@@ -648,7 +657,7 @@ fragility in the chain.
 
 \begin{example}
     For example, fix \( n = 10^9 \).  If \( \sigma_0 \) is a \( (10^{-6},
-    10^{-5}) \)-outlier in \( X \) and \( \pi \) is the uniform
+    10^{-5}) \)-outlier for \( X \) and \( \pi \) is the uniform
     distribution, this means that among all states \( \sigma \in
     \mathcal{X} \), \( \sigma_0 \) is more likely than all but a \( 10^{-5}
     \)-fraction of states to have an \( v \)-value in the least \( 10^{-6}
@@ -674,29 +683,31 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
 
 \begin{lemma}
     If \( \sigma_0 \) is not an \( (\epsilon,\alpha) \)-outlier, then
-    \begin{equation}
+    \[
         \label{eq:parallelsignificance:nine} p(0; \epsilon, n \given
         \sigma_0) \le \sqrt{\frac{2 \epsilon}{\alpha}}.
-    \end{equation}
+    \]
 \end{lemma}
 
 \begin{proof}
+  \begin{enumerate}
 \item
     Consider a \( \pi \)-stationary trajectory \( X_0, \dots, X_n, \dots,
     X_{2n} \) and condition on the event \( X_n = \sigma \) for some
     arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
     reversible, we can view this trajectory as two independent
-    trajectories, \( X_{n+1}, \dots, X_{2k} \) and \( X_{n-1}, X_ {k-2},
+    trajectories, \( X_{n+1}, \dots, X_{2n} \) and \( X_{n-1}, X_ {n-2},
     \dots, X_0 \) both beginning from \( \sigma \).
 \item
     Let \( A \) and \( B \) be the events \( v(X_n) \) is an \( \epsilon
-    \)-outlier among the lists \( v(X_0), \dots, v(X_k) \) and \( v(X_n),
-    \dots, v(X_{2k}) \), respectively. Then
+    \)-outlier among the lists \( v(X_0), \dots, v(X_n) \) and \( v(X_n),
+    \dots, v(X_{2n}) \), respectively. Then
     \begin{equation}
         \label{eq:parallelsignificance:eleven} (p(0; \epsilon, n \given
         \sigma))^2 = \Prob{ A \intersect B} \le (p(n; \epsilon, 2n
         \given \sigma))^2.
     \end{equation}
+        [Why is this true?]
 \item
     The assumption that the given \( \sigma_0 \in \mathcal{X} \) is not
     an \( (\epsilon, \alpha) \)-outlier means that for a random \(
@@ -723,12 +734,13 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
 \item
     On the other hand, with~\eqref{eq:parallelsignificance:twelve}
     \[
-        \Esub{\sigma \sim \pi}{(p(0; \epsilon, k \given \sigma))^2 } \ge
-        \alpha \cdot (p(0; \epsilon, k \given \sigma))^2
+        \Esub{\sigma \sim \pi}{(p(0; \epsilon, n \given \sigma))^2 } \ge
+        \alpha \cdot (p(0; \epsilon, n \given \sigma))^2
     \] so that
     \[
-        (p(0; \epsilon, k \given \sigma))^2 \le \frac{2\epsilon} {\alpha}.
+        (p(0; \epsilon, n \given \sigma))^2 \le \frac{2\epsilon} {\alpha}.
     \]
+  \end{enumerate}
 \end{proof}
 
 \begin{theorem}
@@ -739,9 +751,9 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
         \item
             Let
             \begin{align*}
-                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_n^1 )\\
                 &\vdots \\
-                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_n^m )\\
             \end{align*}
             be \( m \) independent trajectories of length \( n \) from \(
             X \) starting from a common starting point \( X_0^1 = X_0^2
@@ -763,8 +775,7 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
     \]
 \end{theorem}
 
-\begin{proof}[Proof of Theorem~\ref
-    {thm:parallelsignificance:thm3point1}]
+\begin{proof}
     \begin{enumerate}
         \item
             For a \( \pi \)-stationary trajectory the probability \( p(0;
@@ -815,9 +826,9 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
         \item
             Let
             \begin{align*}
-                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_n^1 )\\
                 &\vdots \\
-                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_n^m )\\
             \end{align*}
             be \( m \) independent trajectories of length \( n \) from \(
             X \) starting from a common starting point \( X_0^1 = X_0^2
@@ -865,8 +876,8 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
     \ref{thm:parallelsignificance:thm3point1}, then
     \[
         \Prob{\mathcal{N} \ge K} \le \sum\limits_{\nu=K}^m \binom{m}{\nu}
-        \left( \sqrt{\frac{2\epsilon}{\alpha}} \right)^{k} \left( 1 -
-        \sqrt{\frac{2\epsilon}{\alpha}} \right)^{m-k}.
+        \left( \sqrt{\frac{2\epsilon}{\alpha}} \right)^{\nu} \left( 1 -
+        \sqrt{\frac{2\epsilon}{\alpha}} \right)^{m-\nu}.
     \]
 \end{corollary}
 
@@ -936,7 +947,8 @@ trajectories.
     \begin{enumerate}
         \item
             For a \( \pi \)-stationary trajectory \( X_0, \dots, X_k \)
-            and a real number \( \mu \), define \( p(\mu; 0, \epsilon
+            and a real number \( \mu \), as a slight modification of a
+            previous notation define \( \rho(\mu; \epsilon
             \given \sigma) \) to be the probability that \( v(X_j) \) is
             in the lowest \( \epsilon \) fraction of the values \( v(X_0),
             \dots, v(X_n) \), conditioned on the event \( X_0 = \sigma \),
@@ -944,16 +956,16 @@ trajectories.
             distribution with mean \( \mu \) supported on \( 0,1,2,\dots
             \); that is,
             \[
-                \Prob{n = t} = \frac{1}{\mu+1}\left( 1 - \frac{1}{\mu+1}
-                \right)^t.
+                \Prob{n = \nu} = \frac{1}{\mu+1}\left( 1 - \frac{1}{\mu+1}
+                \right)^\nu.
             \]
         \item
-            {enum:parallelchain:eq15} It suffices to prove that if \(
+            \label{enum:parallelchain:eq15} It suffices to prove that if \(
             \sigma_0 \) is not an \( (\epsilon, \sigma) \)-outlier with
             respect to \( n \) drawn from the geometric distribution
             with mean \( \mu \), then
             \[
-                p(\mu; 0, \epsilon \given \sigma) \le \sqrt{\frac{\epsilon}
+                \rho(\mu; \epsilon \given \sigma) \le \sqrt{\frac{\epsilon}
                 {\alpha}}.
             \]
         \item
@@ -966,7 +978,7 @@ trajectories.
             arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
             reversible, we can view this trajectory as two independent
             trajectories \( X_{n_1}, X_{n_1 +1}, \dots, X_{n_1 +n_2} \)
-            and \( X_{n_1}, X_{n_1 - 1}, X_{n_1 - 2}, \dots, X_0 \) both
+            and \( X_{n_1}, X_{n_1 - 1}, \dots, X_0 \) both
             beginning from \( X_{n_1} = \sigma \), of random lengths \(
             n_2 \) and \( n_1 \) , respectively.
         \item
@@ -974,34 +986,38 @@ trajectories.
             be the events \( v(X_{n_1}) \) is an \( \epsilon \)-outlier
             among the lists \( v(X_0 ), \dots, v(X_{n_1}) \) and \( v(X_
             {n_1}), \dots, v(X_{n_1 +n_2}) \), respectively,
-            \[
-                p(\mu; 0, \epsilon \given \sigma)^2 = \Prob{v(X_{n_1})
-                \text{ is an $\epsilon$-outlier among} v(X_0 ), \dots,
+            \begin{multline*}
+                \rho(\mu; \epsilon \given \sigma)^2 = \Prob{v(X_{n_1})
+                  \text{ is an $\epsilon$-outlier among} \right. \\
+                  \left. v(X_0 ), \dots,
                 v(X_{n_1}), v(X_{n_1}), \dots, v(X_{n_1 +n_2}) \given X_
                 {n_1} = \sigma}
-            \] where, in this last expression, \( n_1 \) and \( n_2 \)
+            \end{multline*} where, in this last expression, \( n_1 \) and \( n_2 \)
             are random variables.
         \item
             The assumption the given \( \sigma_0 \in \mathcal{X} \) is
             not an \( (\epsilon, \alpha) \)-outlier gives that for a
             random \( \sigma \sim \pi \),
             \[
-                \Prob{p(\mu; 0, \epsilon | \sigma)} \ge \Prob{p(\mu; 0,
+                \Prob{\rho(\mu; \epsilon | \sigma)} \ge \Prob{p(\mu; 0,
                 \epsilon | \sigma_{0})} \ge \alpha.
             \]
         \item
             \label{enum:parallelchain:eq18} Write
-            \[
-                \alpha \cdot p(\mu; 0, \epsilon | \sigma)^{2} \le \Esub{\sigma
-                  \sim \pi} \le \Prob{v(X_{n_1})} \text{ is an
-                  $\epsilon$-outlier among} v(X_0 ), \dots, v(X_{n_1}), v(X_{n_1}),
-                \dots, v(X_{n_1 +n_2})
-            \] where the last inequality follows from step~%
+            \begin{multline*}
+                \alpha \cdot \rho(\mu; \epsilon | \sigma)^{2} \le \Esub{\sigma
+                  \sim \pi}{\rho(\mu; \epsilon | \sigma)^{2}} \\
+                \le \Prob{v(X_{n_1}) \text{ is an
+                  $\epsilon$-outlier among} \right. \\
+                \left. v(X_0 ), \dots, v(X_{n_1}), v(X_{n_1}),
+                \dots, v(X_{n_1 +n_2})}
+              \end{multline*}
+              where the last inequality follows from step~%
             \ref{enum:parallelchain:eq16}.
         \item
-            Considering the right-hand side of step~ref{enum:parallelchain:eq18},
+            Considering the right-hand side of step~\ref{enum:parallelchain:eq18},
             conditioning on any value for the length \( \ell= n_1 + n_2 \)
-            of the trajectory, \( k_1 \) is uniformly distributed in the
+            of the trajectory, \( n_1 \) is uniformly distributed in the
             range \( 0, \dots \ell \).  This is ensured by the geometric
             distribution, simply because for any \( \ell \) and any \( x
             \in (0, \dots, \ell) \), the probability
@@ -1018,7 +1034,7 @@ trajectories.
             In particular, conditioning on any particular value for the
             length \( \ell = n_1 + n_2 \), the probability \( v(X_{n_1})
             \) is an \( \epsilon \)-outlier on the trajectory is at most
-            \( \epsilon \) since \( X_{k_1} \) is a uniformly randomly
+            \( \epsilon \) since \( X_{n_1} \) is a uniformly randomly
             chosen element of the trajectory \( X_0, \dots, X_{n_1 + n_2}
             \).  This part of the proof is exactly the same as the proof
             of the Besag-Clifford Theorem.
@@ -1026,15 +1042,18 @@ trajectories.
             In particular, for the right hand side of the inequality in
             step~%
             \ref{{enum:parallelchain:eq18}}
-            \[
-                \alpha \cdot p(\mu; 0, \epsilon | \sigma)^{2} \le \Prob{v
-                (X_{n_1}) \text{ is an $\epsilon$-outlier among } v(X_0
-                ), \dots, v(X_{n_1}), v(X_{n_1}), \dots, v(X_{n_1 +n_2})}
+            \begin{multline*}
+                \alpha \cdot \rho(\mu; \epsilon | \sigma)^{2} \le \Prob{v
+                  (X_{n_1}) \text{ is an $\epsilon$-outlier among }
+                \right. \\
+                 \left.  v(X_0), \dots, v(X_{n_1}), v(X_{n_1}), \dots,
+                  v(X_{n_1 +n_2})} \\
               \le \max_i \Prob{v(X_{n_1}) \text{ is an
-                  $\epsilon$-outlier among} v(X_0 ), \dots, v(X_{n_1}), v(X_{n_1}),
+                  $\epsilon$-outlier among} \right. \\
+                \left. v(X_0 ), \dots, v(X_{n_1}), v(X_{n_1}),
                 \dots, v(X_{n_1 +n_2}) \given n_1 + n_2 = \ell}\le
                 \epsilon.
-            \] This establishes the required inequality in step~%
+            \end{multline*} This establishes the required inequality in step~%
             \ref{enum:parallelchain:eq15} and completes the proof.
     \end{enumerate}
 \end{proof}
@@ -1052,9 +1071,9 @@ trajectories.
         \item
             Let
             \begin{align*}
-                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_k^1 )\\
+                \mathbf{X}^1 &= (X_0^1, X_1^1, \dots, X_n^1 )\\
                 &\vdots \\
-                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_k^m )\\
+                \mathbf{X}^m &= (X_0^m, X_1^m, \dots, X_n^m )\\
             \end{align*}
             be \( m \) independent trajectories of length \( n \) from \(
             X \) starting from a common starting point \( X_0^1 = X_0^2
@@ -1079,7 +1098,7 @@ trajectories.
 \subsection*{Multiple Hypothesis Considerations}
 
 Performing several tests, then allowing a significant result on any of
-them to be evidence for the same hypothesis, requires multiple testing
+them to be evidence for the same hypothesis, requires a multiple testing
 correction.  Multiple comparisons%
 \index{multiple comparisons}
 arise when a statistical analysis involves multiple simultaneous
