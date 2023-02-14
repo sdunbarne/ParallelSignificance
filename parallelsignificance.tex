@@ -1,6 +1,12 @@
 %%% -*-LaTeX-*-
 %%% parallelsignificance.tex.orig
 %%% Prettyprinted by texpretty lex version 0.02 [21-May-2001]
+%%% on Fri Feb 10 09:55:23 2023
+%%% for Steve Dunbar (sdunbar@family-desktop)
+
+%%% -*-LaTeX-*-
+%%% parallelsignificance.tex.orig
+%%% Prettyprinted by texpretty lex version 0.02 [21-May-2001]
 %%% on Wed Dec 21 09:24:22 2022
 %%% for Steve Dunbar (sdunbar@family-desktop)
 
@@ -44,8 +50,8 @@ Mathematicians Only:  prolonged scenes of intense rigor.
 \section*{Section Starter Question} For what positive values of \(
 \epsilon \) is \( \epsilon < 2 \epsilon < \sqrt{2 \epsilon} \)?  For
 purposes of this section, for what values of \( \epsilon \) is the
-``Besag Clifford Test'' better than the ``Parallel \( 2 \epsilon \)
-Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
+``Besag-Clifford Test'' better than the ``Parallel \( 2 \epsilon \)
+Test'', which in turn is more discriminating than the ``Serial \( \sqrt{2
 \epsilon} \) Test?
 
 \hr
@@ -76,8 +82,8 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
             \begin{multline*}
                 \Prob{v(\sigma_0) \text{is an \( \epsilon \)-outlier
                 among } \right.  \\
-                \left.  v(\sigma_0), v(Y_0), v(Y_1) \dots, v(Y_n), v(Z_1),
-                \dots, v(Z_n)} < 2 \epsilon.
+                \left.  v(\sigma_0), v(Y_1) \dots, v(Y_n), v(Z_1), \dots,
+                v(Z_n)} < 2 \epsilon.
             \end{multline*}
 
         \end{theorem}
@@ -297,13 +303,17 @@ Test'' which in turn is more discriminating than the ``Serial \( \sqrt{2
 \section*{Mathematical Ideas}
 
 A 1989 paper of Besag and Clifford
-\cite{besag89} described a test related to the \( \sqrt{2\epsilon} \)
-test % based on Proposition~%\ref{thm:significance:basethm}
+\cite{besag89} described a more sensitive test related to the \( \sqrt{2\epsilon}
+\) test % based on Proposition~%\ref{thm:significance:basethm}
 to bound the probability that a state from a Markov chain is unusual.
-This section derives the Besag-Clifford Test and more sensitive
+This section derives the Besag-Clifford Test and even more sensitive
 statistical tests to detect that a given state from a stationary
-distribution of a reversible Markov chain is unusual.  The \emph{research
-hypothesis} is again:
+distribution of a reversible Markov chain is unusual. These tests based
+on parallel Markov chains can efficiently separate the probability of
+being unusual from the size of the effect. The separation simplifies the
+interpretation of these tests.
+
+The \emph{research hypothesis} is again:
 \begin{quote}
     The given state is unusual with respect to some value measure.
 \end{quote}
@@ -312,38 +322,34 @@ The \emph{null hypothesis} is again:
     The given state is not unusual with respect to some value measure.
 \end{quote}
 
-To simplify the interpretation of these tests, the approach in this
-subsection will show these tests can efficiently separate the
-probability of being unusual from the size of the effect.
-
 \subsection*{Two Chain Significance Tests}
 
 Recall
 % from the proof of Proposition~%\ref{thm:serialsignificance:basethm}
 the definitions
 \[
-    \rho(j; \ell, n) = \Prob{v(X_j) \text{ is among- \)\ell\( -smallest
-    among } v(X_0), \dots, v(X_n) }
+    \rho(j; \ell, n) = \Prob{v(X_j) \text{ is among-\( \ell \)-smallest
+    in } v(X_0), \dots, v(X_n) }
 \] and
 \[
-    \rho(j; \ell, n \given \sigma) = \Prob{v(X_j) \text{ is among- \)\ell\(
-    -smallest among } v(X_0), \dots, v(X_n)%
+    \rho(j; \ell, n \given \sigma) = \Prob{v(X_j) \text{ is among-\(
+    \ell \)-smallest in } v(X_0), \dots, v(X_n)%
     \given X_0 = \sigma}
-\] for \( 0 \le j, \ell \le n \). With a slight change in the parameter
+\] for \( 0 \le j, \ell \le n \).  With a slight change in the parameter
 notation, define the \( n+1 \)-vector
 \[
     (\rho(0; \epsilon, n), \rho(1; \epsilon, n), \dots, \rho(n; \epsilon,
     n))
 \] where for each \( i \), \( \rho(i; \epsilon, n) \) is the probability
-that in a \( n \)-step stationary trajectory \( X_0, X_1, \dots X_k \), \(
+that in a \( n \)-step stationary trajectory \( X_0, X_1, \dots X_n \), \(
 v(X_i) \) is among the smallest \( \epsilon \)-fraction of indices in
 the list \( v(X_0), v(X_1), \dots, v(X_n) \).  Define \( \rho(0;
 \epsilon, k \given \sigma_0) \) as the probability that on a trajectory \(
 \sigma_0 = X_0, X_1, \dots, X_n \), \( v(\sigma_0) \) is among the
 smallest \( \epsilon \)-fraction of values in the list \( v(X_0), v(X_1),
 \dots, v(X_k) \).  The goal of the next theorem is to get an improved
-bound on these probabilities using parallel Markov chains. First comes a
-simple lemma showing that joining two independent, reversible, and
+bound on these probabilities using parallel Markov chains.  First comes
+a simple lemma showing that joining two independent, reversible, and
 stationary chains still has the stationary distribution.
 
 \begin{lemma}
@@ -381,8 +387,8 @@ stationary chains still has the stationary distribution.
         \item
             \label{enum:parallelsignificance:lem1step3} The assumption
             that \( Y_1, Y_2, \dots \) and \( Z_1, Z_2, \dots \) are
-            independent trajectories from \( \sigma_0 \) is equivalent
-            to the condition
+            independent Markov chain trajectories from \( \sigma_0 \) is
+            equivalent to the condition
             \begin{align*}
                 & \Prob{ Z_j = z_j \given Z_{j-1} = z_{j-1}, \dots, Z_1
                 = z_1, Z_0 = Y_0=\sigma_0, Y_1=y_1, \dots, Y_n = y_n} \\
@@ -448,7 +454,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             for each \( j, \ell \le n \) the probability \( \rho(j; \ell,
             n) \) that for a \( \pi \)-stationary trajectory \( X_1, X_2,
             \dots, X_n \) the value \( v(X_j) \) is among-\( \ell \)-smallest
-            among \( v(X_1), v(X_2), \dots, v(X_n) \).  All \( \pi \)-stationary
+            in \( v(X_1), v(X_2), \dots, v(X_n) \).  All \( \pi \)-stationary
             trajectories \( X_1, X_2, \dots, X_n \) of fixed length \( n
             \) are all identical in distribution so \( \rho(j; \ell, n) \)
             is well-defined.  (See the exercises in the previous
@@ -458,7 +464,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             trajectory for \( X \), then \( (X_{n-j}, \dots X_n, \dots,
             X_{2n-j}) \) is an identically distributed sequence.  Thus
             the probability that \( v(X_n) \) is among-\( \ell \)-smallest
-            among
+            in
             \[
                 v(X_{n-j}), \dots, v(X_n), \dots v(X_{2n-j})
             \] is \( \rho(j; \ell, n) \).
@@ -466,14 +472,21 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             \label{enum:parallelsignifcance:step2} Observe that the
             event
             \[
-                [v(X_n) \text{ is among- \)\ell\( -smallest among } v(X_
-                {n-j}), \dots, v(X_n), \dots, v(X_{2n-j})]
+                [v(X_n) \text{ is among-\( \ell \)-smallest in } v(X_ {n-j}),
+                \dots, v(X_n), \dots, v(X_{2n-j})]
             \] occurs if the event
             \[
-                [v(X_n) \text{ is among- \)\ell\( -smallest among } v(X_0),
+                [v(X_n) \text{ is among-\( \ell \)-smallest in } v(X_0),
                 \dots, v(X_n), \dots, v(X_{2n})]
             \] occurs, for all \( j = 0, \dots n \).  It follows that \(
             \rho(n; \ell, 2n) \le \rho(j; \ell, n) \).
+        \item
+            \label{enum:parallelsignifcance:step4} By~%
+            \ref{enum:parallelsignifcance:step2},
+            \[
+                (n+1) \rho(n; \ell, 2n) \le \sum_{\nu=0}^n \rho(\nu;
+                \ell, n).
+            \]
         \item
             Let \( \xi_j \) be the indicator variable that is \( 1 \)
             whenever \( X_j \) is among-\( \ell \)-smallest among \( X_0,
@@ -481,32 +494,24 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             = \E{\sum_{\nu=0}^n \xi_{\nu}} \) is the expected number of
             indices \( j \in \set{0, \dots, n} \) such that \( v(X_j) \)
             is among-\( \ell \)-smallest from \( v(X_0), \dots, v(X_n) \),
-            so \( \sum_{\nu=0}^n \rho (\nu; \ell, n) \le \ell + 1 \).
-        \item
-            \label{enum:parallelsignifcance:step4} By~%
-            \ref{enum:parallelsignifcance:step2},
-            \[
-                (n+1) \rho(n; \ell, 2n) \le \sum_{\nu=0}^n \rho(\nu;
-                \ell, n).
-            \] Further
+            so
             \begin{equation}
                 \label{eq:parallelsignificance:eqn1} \sum_{\nu=0}^n \rho
-                (\nu; \ell, n) \le \ell + 1.
+                (\nu; \ell, n) \le \ell.
             \end{equation}
             (The proof of the next theorem also uses this inequality.)
         \item
             Then
             \[
                 \rho(n; \ell, 2n) = \frac{1}{n+1} \sum_{\nu=0}^n \rho(\nu;
-                \ell, n) \le \frac{\ell + 1}{n+1} < 2 \cdot \frac{\ell+1}
-                {2n+1}.
+                \ell, n) \le \frac{\ell}{n+1} < 2 \cdot \frac{\ell} {2n+1}.
             \]
         \item
             As in the section on Serial Significance, use the slight
             abuse of notation that \( \rho(i; \epsilon, n) \) is the
             probability that in a \( n \)-step stationary trajectory \(
             X_0, X_1, \dots X_n \), \( v(X_i) \) is among-\( \lfloor
-            \epsilon(n+1) \rfloor \)-smallest in the list \( v(X_0), v(X_1),
+            \epsilon(n+1) \rfloor \)-smallest in \( v(X_0), v(X_1),
             \dots, v(X_n) \).
         \item
             Then
@@ -518,8 +523,8 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
 \end{proof}
 
 \begin{remark}
-    The remaining theoretical question is what is the largest possible
-    value of \( \rho(n; \epsilon, 2n) \) as a function of \( \epsilon \).
+    The remaining theoretical question is the largest possible value of \(
+    \rho(n; \epsilon, 2n) \) as a function of \( \epsilon \).
 \end{remark}
 
 \begin{remark}
@@ -535,17 +540,18 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     Consider a specific simple case of the alternative Ehrenfest urn
     model.%
     \index{Ehrenfest urn model}
-    The setup of the urn model is repeated here again for convenient
-    reference. Two urns, labeled \( A \) and \( B \), contain a total of
-    \( N = 7 \) balls.  At each step a ball is selected at random with
-    all selections equally likely.  Then an urn is selected, urn \( A \)
+    The setup of the urn model is repeated for convenient reference.
+    Two urns, labeled \( A \) and \( B \), contain a total of \( N = 7 \)
+    balls.  At each step a ball is selected at random with all
+    selections equally likely.  Then an urn is selected, urn \( A \)
     with probability \( p = \frac{1}{2} \) and urn \( B \) with
     probability \( q = 1-p = \frac {1}{2} \) and the ball is moved to
     that urn.  The state at each step is the number of balls in the urn \(
-    A \), from \( 0 \) to \( N \).  Start from state \( 0 \), with no
-    balls in urn \( A \).  All states are accessible and all states
+    A \), from \( 0 \) to \( N \).  Start from a random state chosen
+    from the binomial distribution, which is the stationary distribution
+    for this chain.  All states are accessible and all states
     communicate, so the chain is irreducible.  All states are recurrent
-    with no transient states.  The chain is periodic with period \( 1 \)
+    with no transient states.  The chain is periodic with period \( 1 \),
     so it is regular.  The standard Ehrenfest urn model, without the
     random choice of urns at each step, is periodic with period \( 2 \).
     Having period \( 1 \) makes interpretation of the results simpler.
@@ -556,16 +562,16 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     model limits the possibilities for value functions.
 
     This example uses the reproducible simulation of the alternate
-    Ehrenfest urn model in \texttt{simParRhoProb.R}. The path length, or
-    number of steps, is \( 10 \), short enough to be comprehensible,
+    Ehrenfest urn model in \texttt{simParRhoProb.R}.  The path length,
+    or number of steps, is \( 10 \), short enough to be comprehensible,
     long enough have some content.  Including the start state, the
-    Markov chain has \( 11 \) values. The number of trials is \( 15 \),
+    Markov chain has \( 11 \) values.  The number of trials is \( 15 \),
     enough to illustrate the variety of sample paths, but not too many
     to overwhelm.
 
     For each trial, first the simulation generates a chain of length \(
     11 \) and the values along the paths are recorded in the rows of an \(
-    15 \times 11 \) matrix. Then for each given step \( j \) along the
+    15 \times 11 \) matrix.  Then for each given step \( j \) along the
     path, the count of other step values along the path less than or
     equal to the given step value is compared to \( \ell \).  If the
     count is less than or equal to \( \ell \), that makes the given step
@@ -575,7 +581,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     estimate of \( \rho(j; 0 ,n) \).  This is just as in the example in
     the section on Serial Significance.  Summing down each column gives
     the values in Table~%
-    \ref{tab:parallelsignificance:sumofrhoprobs}. The table illustrates
+    \ref{tab:parallelsignificance:sumofrhoprobs}.  The table illustrates
     the inequality \( \sum_{\nu=0}^n \rho (\nu; \ell, n) \le \ell + 1 \)
     in step~%
     \ref{enum:parallelsignifcance:step4} in the proof of the Parallel \(
@@ -583,13 +589,18 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
 
     \begin{table}
         \centering
-        \begin{tabular}{c|ccccccccccc}
-            \( \ell +1 \)                           & 1     & 2     & 3     & 4     & 5     & 6     & 7     & 8     & 9     & 10    & 11     \\ 
+        \begin{tabular}{c|cccccc}
+            \( \ell \)                              & 1     & 2     & 3     & 4     & 5      & 6     \\ 
             \hline
-            \( \sum_{\nu=0}^n \rho(\nu; \ell, n) \) & 0.267 & 0.667 & 1.733 & 2.600 & 3.067 & 3.467 & 4.133 & 4.933 & 7.933 & 8.933 & 11.000 \\ 
+            \( \sum_{\nu=0}^n \rho(\nu; \ell, n) \) & 0.267 & 0.667 & 1.733 & 2.600 & 3.067  & 3.467 \\ 
+            \( \ell \)                             & 7     & 8     & 9     & 10    & 11     &       \\
+            \hline
+            \( \sum_{\nu=0}^n \rho(\nu; \ell, n) \) & 4.133 & 4.933 & 7.933 & 8.933 & 11.000 &       \\ 
         \end{tabular}
-        \caption{Empirical values of to illustrate the inequality in the
-        proof of }%
+        \caption{Empirical values of \( \sum_{\nu=0}^n \rho(\nu; \ell, n)
+        \) to illustrate the inequality~\eqref{enum:parallelsignifcance:step4}
+        in the proof of Theorem~%
+        \ref{thm:parallelsignificance:twoepstest}}%
         \label{tab:parallelsignificance:sumofrhoprobs}
     \end{table}
 
@@ -599,22 +610,21 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     second chain and the values along the paths are recorded in the rows
     of an \( 15 \times 21 \) matrix.  This creates trials for paths as
     in Lemma~%
-    \ref{lem:parallelsignificance:stationary}. Then for starting step \(
-    11 \) value along the concatenated path, the count of other step
-    values along the path less than or equal to the starting step value
-    is compared to \( \ell \).  If the count is less than or equal to \(
-    \ell \), that makes the given step value at \( 11 \) among-\( \ell \)-smallest
-    and the count in an \( 11 \) vector is incremented.  When done,
-    divide the vector by the number of trials, \( 15 \), to give an
-    empirical estimate of \( \rho(n; \ell , 2n) \) as in step~%
-    \ref{enum:parallelsignifcance:step2} of the proof. Comparing the
+    \ref{lem:parallelsignificance:stationary}.  For the starting step
+    value (the \( 11 \)th along the concatenated path), the count of other
+    step values along the path less than or equal to the starting step
+    value is compared to \( \ell \).  If the count is less than or equal
+    to \( \ell \), that makes the given step value at \( 11 \) among-\(
+    \ell \)-smallest and the count in an \( 11 \) vector is incremented.
+    When done, divide the vector by the number of trials, \( 15 \), to
+    give an empirical estimate of \( \rho(n; \ell , 2n) \) as in step~%
+    \ref{enum:parallelsignifcance:step2} of the proof.  Comparing the
     empirical probabilities illustrates \( \rho(n; \ell, 2n) \le \rho(j;
     \ell, n) \) with this simulation.
 
     Finally, for \( \epsilon = 0.1 \), the empirical probability of the
-    starting value being an \( \epsilon \)-outlier among the values form
-    the concatenated path is the empirical probability \( \rho(10, 2, 20)
-    = 0 \) which is less than \( \epsilon \).
+    starting value being an \( \epsilon \)-outlier among the values from
+    the concatenated path is less than \( \epsilon \).
 \end{example}
 
 \begin{theorem}[Besag-Clifford Test]
@@ -638,7 +648,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     \end{enumerate}
     Then for any \( n \)
     \begin{multline*}
-        \Prob{(v(\sigma_0)) \text{ is an \( \epsilon \)-outlier among }
+        \Prob{ v(\sigma_0) \text{ is an \( \epsilon \)-outlier among }
         \right.  \\
         \left.  v(\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots,
         v(Z_{n-\xi} )} \le \epsilon.
@@ -650,10 +660,11 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     See Figure~%
     \ref{fig:parallelsignificance:BCtest} for a schematic diagram of the
     Besag-Clifford Test.  Note that \( \sigma_0, Y_1, \dots, Y_{\xi}, Z_1,
-    \dots, Z_{n-\xi} \) may not be a valid Markov chain.  For instance
-    the transition \( Y_{\xi} \) to \( Z_1 \) may have probability \( 0 \).
-    Since the Theorem only considers the probability of a set of values,
-    failure to be a valid Markov chain sequence is not a problem.
+    \dots, Z_{n-\xi} \) may not be a valid Markov chain.  For instance,
+    the transition \( Y_{\xi} \) to \( Z_1 \) may not be an allowed
+    transition. Since the Theorem only considers the probability of a
+    set of values, failure to be a valid Markov chain sequence is not a
+    problem.
 \end{remark}
 
 % The following figure is drawn with the primitive LaTeX picture
@@ -698,14 +709,14 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
             (0; \ell, n), \dots, \rho(n; \ell, n)} \).
         \item
             The probability that \( v(\sigma_0) \) is among-\( \ell \)-smallest
-            from
+            in
             \[
                 v(\sigma_0), v(Y_1), \dots, v(Y_{\xi}), v(Z_1), \dots, v
                 (Z_ {n-\xi})
             \] is
             \[
                 \frac{1}{n+1} (\rho(0; \ell, n)+ \rho(1; \ell, n) +
-                \cdots + \rho(n; \ell, n) ) \le \frac{\ell + 1}{n + 1}
+                \cdots + \rho(n; \ell, n) ) \le \frac{\ell}{n + 1}
             \] using equation~\eqref{eq:parallelsignificance:eqn1}.
         \item
             This observation uses a variant of Lemma~%
@@ -729,14 +740,13 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     of independent random uniform samples from \( [0,1] \) with the
     identity as the value function.  The values of the \( Y \) and \( Z \)
     trajectories would then be a collection of \( 2n + 1 \) random
-    uniform samples from \( [0,1] \) and the probability of \( \Prob{v(\sigma_0)}
-    \) is an \( \epsilon \)-outlier would be \( \epsilon \).
+    uniform samples from \( [0,1] \) and the probability \( v(\sigma_0) \)
+    is an \( \epsilon \)-outlier would be \( \epsilon \).
 
     The striking thing about Theorem~%
-    \ref{thm:parallelsignificance:bc1} is that it achieves a
-    best-possible dependence on the parameter \( \epsilon \).  The
-    sacrifice is in the theorem's more complicated intuitive
-    interpretation.
+    \ref{thm:parallelsignificance:bc1} is that it has a better
+    dependence on the parameter \( \epsilon \).  The sacrifice is in the
+    theorem's more complicated intuitive interpretation.
 
     In applications of these statistical tests to aspects of public
     policy such as the gerrymandering example in~%
@@ -744,7 +754,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     tests with simple, intuitive interpretations.  To enable better
     significance testing in the policy domain, one goal of this section
     is to prove a theorem enabling Markov chain significance testing
-    which is intuitively interpretable in the sense of Proposition~%
+    that is intuitively interpretable in the sense of Proposition~%
     \ref{thm:serialsignificance:basethm} while having linear dependence
     on \( \epsilon \), as in Theorem~%
     \ref{thm:parallelsignificance:bc1}.
@@ -752,7 +762,7 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
 
 \begin{remark}
     One common feature of the tests based on Proposition~%
-    \ref{thm:significance:basethm} and~%
+    \ref{thm:serialsignificance:basethm} and~%
     \ref{thm:parallelsignificance:bc1} is the use of randomness.  In
     particular, the probability space underneath these theorems includes
     both the random choice of \( \sigma_0 \) assumed by the null
@@ -770,12 +780,12 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     Ehrenfest urn model with \( N = 7 \) balls.%
     \index{Ehrenfest urn model}
     This example uses the reproducible simulation of the alternate
-    Ehrenfest urn model in \texttt{simBesagClifford.R}. The path length,
-    or number of steps, is \( 10 \), short enough to be comprehensible,
-    long enough have some content.  Including the start state, the
-    Markov chain has \( 11 \) values. The number of trials is \( 15 \),
-    enough to illustrate the variety of sample paths, but not too many
-    to overwhelm.
+    Ehrenfest urn model in \texttt{simBesagClifford.R}.  The path
+    length, or number of steps, is \( 10 \), short enough to be
+    comprehensible, long enough have some content.  Including the start
+    state, the Markov chain has \( 11 \) values.  The number of trials
+    is \( 15 \), enough to illustrate the variety of sample paths, but
+    not too many to overwhelm.
 
     For each trial, the simulation generates two independent chains of
     length \( 11 \) starting from the common starting state.  Choosing
@@ -783,121 +793,51 @@ Recall, a real number \( \alpha_0 \) is an \( \epsilon \)-outlier among \(
     values \( v(\sigma_0), v(Y_1), \dots, v(Y_{\xi} ), v(Z_1), \dots, v(Z_
     {n-\xi}) \) are recorded in the rows of an \( 15 \times 11 \)
     matrix.  This creates trials as in Theorem~%
-    \ref{thm:parallelsignificance:bc1}. Then for starting step \( 11 \)
+    \ref{thm:parallelsignificance:bc1}.  Then for each starting step
     value along the concatenated path, the count of other step values
     along the path less than or equal to the starting step value is
     compared to \( \ell \).  If the count is less than or equal to \(
-    \ell \), that makes the given step value at \( 11 \) among-\( \ell \)-smallest
+    \ell \), that makes the starting step value among-\( \ell \)-smallest
     and the count in an \( 11 \) vector is incremented.  When done,
     divide the vector by the number of trials, \( 15 \), to give an
     empirical estimate of the probability of an outlier as in Theorem~%
-    \ref{thm:parallelsignificance:bc1}. Comparing the empirical
+    \ref{thm:parallelsignificance:bc1}.  Comparing the empirical
     probabilities illustrates the Besag-Clifford Test with this
     simulation.
 
     Finally, for \( \epsilon = 0.1 \), the empirical probability of the
-    starting value being an \( \epsilon \)-outlier among the values form
+    starting value being an \( \epsilon \)-outlier among the values from
     the concatenated path is the empirical probability of being among-\(
-    1 \)-smallest, namely \( 0 \) which is less than \( \epsilon \).
+    1 \)-smallest, namely \( 0 \), which is less than \( \epsilon \).
 
 \end{example}
 \subsection*{The Multiple Chain Significance Test}
 
-Extend the slight abuse of notation adopted in the previous section. For
-each \( i \), let \( \rho(j; \epsilon, n \given \sigma) \) be the
+Extend the slight abuse of notation adopted in the previous section.
+For each \( j \), let \( \rho(j; \epsilon, n \given \sigma) \) be the
 probability that in an \( n \)-step stationary trajectory \( X_0, X_1,
 \dots X_n \), \( v(X_i) \) is among-\( \lfloor \epsilon(n+1) \rfloor \)-smallest
-in the list \( v(X_0), v(X_1), \dots, v(X_n) \) given that \( X_j =
-\sigma \).
+in \( v(X_0), v(X_1), \dots, v(X_n) \) given that \( X_j = \sigma \).
 
 \begin{definition}
-    For a fixed value of \( n \), the state \( \sigma_0 \) is an \defn{\(
-    (\epsilon, \alpha) \)-outlier} in \( \mathcal{X} \) if, among all
-    states in \( \mathcal{X} \), \( \rho(0; \epsilon, n \given \sigma_{0})
-    \) is in the largest \( \alpha \) fraction of the values of \( \rho(0;
-    \epsilon, n \given \sigma_{0}) \) over all states \( \sigma \in
-    \mathcal{X} \), weighted according to \( \pi \).  In particular,
-    being an \( (\epsilon, \alpha) \)-outlier measures the likelihood of
-    \( \sigma_0 \) failing the local outlier test, ranked against all
-    other states \( \sigma \sim \pi \) of the chain \( X \).
+    Let \( 0 < \epsilon \ll 1 \) and \( 0 < \alpha \ll 1 \). For a fixed
+    value of \( n \), the state \( \sigma_0 \) is an \defn{\( (\epsilon,
+    \alpha) \)-outlier} in \( \mathcal{X} \) if, among all states in \(
+    \mathcal{X} \), \( \rho(0; \epsilon, n \given \sigma_{0}) \) is in
+    the fraction \( \alpha \) of the values of \( \rho(0; \epsilon, n
+    \given \sigma) \) over all states \( \sigma \in \mathcal{X} \),
+    weighted according to \( \pi \).  In particular, being an \( (\epsilon,
+    \alpha) \)-outlier measures the likelihood of \( \sigma_0 \) failing
+    the local outlier test, ranked against all other states \( \sigma
+    \sim \pi \) of the chain \( X \).
 \end{definition}
 
 Whether \( \sigma_0 \) is an \( (\epsilon, \alpha) \)-outlier is a
 deterministic question about the properties of \( \sigma_0 \), \( X \),
 and \( v \).  It is a deterministic measure (defined in terms of the
-Markov chain distribution) of the extent to which \( \sigma_0 \) could
-be unusual in value compared to all of \( \mathcal{X} \), keeping in
-mind the stationary distribution chain as starting value.
-
-\begin{example}
-    Yet once again, consider a specific simple case of the alternative
-    Ehrenfest urn model with \( N = 7 \) balls.%
-    \index{Ehrenfest urn model}
-    This example uses the reproducible simulation of the alternate
-    Ehrenfest urn model in \texttt{simEpsAlpha.R}. The path length, or
-    number of steps, is \( n = 10 \), short enough to be comprehensible,
-    long enough have a little content.  This is not long enough to
-    converge to the stationary distribution, so the example is is
-    explanatory reasons only.  Including the start state, each
-    simulation of the Markov chain has \( 11 \) values. For the example
-    take \( \epsilon = 0.1 \), so the smallest fraction of values will
-    be \( \lfloor \epsilon (n+1) \rfloor = \lfloor 0.1 \cdot 11 \rfloor
-    = 1 \) value.  That is, the value under consideration must be the
-    unique minimum of the set of chain values. For this example, in turn use each
-    possible state as the starting state. The number of trials for each
-    start state is \( 15 \), enough to illustrate the variety of sample
-    paths, but not too many to overwhelm. Simulate the Markov chain from
-    the start state for each trial and record the path.  The record of
-    paths will be a \( 3 \)-dimensional array of size \( 15 \times
-    11 \times 8 \).  The array has \( 8 \) planes, one for each start
-    state.  Each plane has \( 15 \) rows for the trials, and the \( 11 \)
-    columns are the step number, recording the state at that step for
-    that trial.  For each trial tally the number of states, aside from
-    the start state, which are less than or equal to the start state.
-    If that tally is less than or equal to \( 1 \), the start state is
-    the unique minimum, and increment the count of ``start state as
-    unique minimum'' from the trials. Dividing by the number of trials
-    gives an approximation for the empirical probability (from the few
-    trials in the simulation) of being an \( \epsilon \)-outlier \emph{starting
-    from that state.} According to the definition, the probability
-    should be weighted according to \( \pi \).  Table~%
-    \ref{tab:parallelsignificance:epsalpha} gives the approximate
-    probability of being an \( \epsilon \)-outlier
-    starting from the state and the probability of being an
-    \(epsilon \)-outlier weighted by the stationary distribution.
-    \begin{table}
-        \centering
-        \begin{tabular}{l|cccccccc}
-            State    & 0     & 1     & 2     & 3     & 4     & 5     & 6     & 7     \\ 
-                     & 0.467 & 0.333 & 0.267 & 0.067 & 0.000 & 0.000 & 0.000 & 0.000 \\ 
-            \( \pi \)& 0.008 & 0.055 & 0.164 & 0.273 & 0.273 & 0.164 & 0.055 & 0.008 \\ 
-                     & 0.004 & 0.018 & 0.044 & 0.018 & 0.000 & 0.000 & 0.000 & 0.000 \\ 
-        \end{tabular}
-        \caption{Empirical estimates of being an \( (\epsilon, \alpha) \)
-        outlier for the small alternate Ehrenfest urn model.  The second
-        row is the rough probability of being a \( \epsilon \)-outlier
-        starting from the state in the top row rounded to three places.
-        The third row is the stable distribution \(
-        \operatorname{Bin}
-        (7, 0.5) \) rounded to three places.  The fourth row is the
-        weighted approximation of being an \( \epsilon \)-outlier.  }%
-        \label{tab:parallelsignificance:epsalpha}
-    \end{table}
-
-    The rough fraction of chains starting from a random state from the
-    stationary distribution and resulting in the starting state being an
-    \( \epsilon \)-outlier is \( 0.004 + 0.018 + 0.044 + 0.018 = 0.084 \).
-    The rough fraction of chains starting from a random state from the
-    stationary distribution other than \( 0 \) and resulting in the
-    starting state being an \( \epsilon \)-outlier is \( 0.018 + 0.044 +
-    0.018 = 0.080 \).  This means that starting from a random state from
-    the stationary distribution,
-    \( 0 \) is more likely than all but about a \( 0.080 \)-fraction of
-    states to have an \( v \)-value in the least \( 0.1 \)-fraction of
-    values.  Therefore, from this small and rough but comprehensible
-    example, \( 0 \) is an \( (0.1, 0.08) \)-outlier.
-
-\end{example}
+Markov chain distribution) of the extent \( \sigma_0 \) could be unusual
+in value compared to all of \( \mathcal{X} \), keeping in mind the
+stationary distribution for the starting value.
 
 \begin{example}
     For another example, fix \( n = 10^9 \).  If \( \sigma_0 \) is a \(
@@ -911,9 +851,81 @@ mind the stationary distribution chain as starting value.
     \) from \( X \).
 \end{example}
 
+\begin{example}
+    Once again consider a specific simple case of the alternative
+    Ehrenfest urn model with \( N = 7 \) balls.%
+    \index{Ehrenfest urn model}
+    This example uses the reproducible simulation of the alternate
+    Ehrenfest urn model in \texttt{simEpsAlpha.R}.  The path length, or
+    number of steps, is \( n = 10 \), short enough to be comprehensible,
+    long enough have some content.  This is not long enough to converge
+    to the stationary distribution, so the example is only explanatory.
+    Including the start state, each simulation of the Markov chain has \(
+    11 \) values.  For the example take \( \epsilon = 0.1 \), so the
+    smallest fraction of values will be \( \lfloor \epsilon (n+1)
+    \rfloor = \lfloor 0.1 \cdot 11 \rfloor = 1 \) value.  That is, the
+    value under consideration must be the unique minimum of the set of
+    chain values.  For this example, in turn use each possible state as
+    the starting state.  The number of trials for each start state is \(
+    15 \), enough to illustrate the variety of sample paths, but not too
+    many to overwhelm.  Simulate the Markov chain from the start state
+    for each trial and record the path.  The record of paths will be a \(
+    3 \)-dimensional array of size \( 15 \times 11 \times 8 \).  The
+    array has \( 8 \) planes, one for each start state.  Each plane has \(
+    15 \) rows for the trials, and the \( 11 \) columns are the step
+    number, recording the state at that step for that trial.  For each
+    trial tally the number of states less than or equal to the start
+    state. If that tally is less than or equal to \( 1 \), the start
+    state is the unique minimum, and increment the count of ``start
+    state as unique minimum'' from the trials.  Dividing by the number
+    of trials gives an approximation for the empirical probability (from
+    the few trials in the simulation) of being an \( \epsilon \)-outlier
+    \emph{starting from that state.} According to the definition, the
+    probability should be weighted according to \( \pi \).  Table~%
+    \ref{tab:parallelsignificance:epsalpha} gives the empirical
+    probability of being an \( \epsilon \)-outlier starting from the
+    state and the probability of being an \( \epsilon \)-outlier
+    weighted by the stationary distribution.
+    \begin{table}
+        \centering
+        \begin{tabular}{l|cccccccc}
+            State                                   & 0     & 1     & 2     & 3     & 4      & 5     & 6     & 7     \\ 
+                                                    & 0.467 & 0.333 & 0.267 & 0.067 & 0.000  & 0.000 & 0.000 & 0.000 \\ 
+            \( \pi \)                               & 0.008 & 0.055 & 0.164 & 0.273 & 0.273  & 0.164 & 0.055 & 0.008 \\ 
+                                                    & 0.004 & 0.018 & 0.044 & 0.018 & 0.000  & 0.000 & 0.000 & 0.000 \\ 
+        \end{tabular}
+        \caption{Empirical estimates of being an \( (\epsilon, \alpha) \)
+        outlier for the small alternate Ehrenfest urn model.  The second
+        row is the rough probability of being a \( \epsilon \)-outlier (\(
+        \epsilon = 0.1 \)) starting from the state in the top row,
+        rounded to three places. The third row is the stable
+        distribution \(
+        \operatorname{Bin}
+        (7, 0.5) \) rounded to three places.  The fourth row is the
+        weighted approximation of being an \( \epsilon \)-outlier as a
+        product of the second and third rows.  }%
+        \label{tab:parallelsignificance:epsalpha}
+    \end{table}
+
+    The rough fraction of chains starting from a random state from the
+    stationary distribution and resulting in the starting state being an
+    \( \epsilon \)-outlier is \( 0.004 + 0.018 + 0.044 + 0.018 = 0.084 \).
+    The rough fraction of chains starting from a random state from the
+    stationary distribution other than \( 0 \) and resulting in the
+    starting state being an \( \epsilon \)-outlier is \( 0.018 + 0.044 +
+    0.018 = 0.080 \).  This means that starting from a random state from
+    the stationary distribution, \( 0 \) is more likely than all but
+    about a \( 0.080 \)-fraction of states to have an \( v \)-value in
+    the least \( 0.1 \)-fraction of values.  Therefore, from this small
+    and rough but comprehensible example, \( 0 \) is an \( (0.1, 0.08) \)-outlier.
+
+\end{example}
+
 % The following theorem enables asserting statistical significance for the
-% property of being an \( (\epsilon, \alpha) \)-outlier.  In particular,
-While tests based on Proposition~%
+% property of being an \( (\epsilon, \alpha) \)-outlier.  In
+% particular,
+The following theorem is an analogue of Proposition~%
+\ref{thm:serialsignificance:basethm}. While tests based on Proposition~%
 \ref{thm:serialsignificance:basethm} and Theorem~%
 \ref{thm:serialsignificance:powerthm} take as their null hypothesis that
 \( \sigma_0 \sim \pi \) is not unusual in the value function, the
@@ -939,10 +951,10 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
             Consider a \( \pi \)-stationary trajectory \( X_0, \dots, X_n,
             \dots, X_{2n} \) and condition on the event \( X_n = \sigma \)
             for some arbitrary \( \sigma \in \mathcal{X} \).  Since \( X
-            \) is reversible, we can view this trajectory as two
-            independent trajectories, \( X_n, X_{n+1}, \dots, X_{2n} \)
-            and \( X_n, X_{n-1}, X_ {n-2}, \dots, X_0 \) both beginning
-            from \( \sigma \).
+            \) is reversible, this trajectory is two independent
+            trajectories, \( X_n, X_{n+1}, \dots, X_{2n} \) and \( X_n,
+            X_{n-1}, X_ {n-2}, \dots, X_0 \) both beginning from \(
+            \sigma \).
         \item
             Let \( A \) and \( B \) be the events \( v(X_n) \) is an \(
             \epsilon \)-outlier among the lists \( v(X_0), \dots, v(X_n)
@@ -982,9 +994,9 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
         \item
             On the other hand, with~\eqref{eq:parallelsignificance:twelve}
             \[
+                \alpha \cdot (\rho(0; \epsilon, n \given \sigma))^2 \le
                 \Esub{\sigma \sim \pi}{(\rho(0; \epsilon, n \given
-                \sigma))^2 } \ge \alpha \cdot (\rho(0; \epsilon, n
-                \given \sigma))^2
+                \sigma))^2 }
             \] so that
             \[
                 (\rho(0; \epsilon, n \given \sigma))^2 \le \frac{2\epsilon}
@@ -1039,12 +1051,11 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
             \sigma_0 \) is observed to be an \( \epsilon \)-outlier with
             respect to the valuing \( v \).  Using the Lemma, the random
             variable \( \mathcal{N} \) is the sum of \( m \) independent
-            Bernoulli random variables each of which takes value \( 1 \)
-            with probability less than \( \sqrt{\frac{2 \epsilon}{\alpha}}
-            \).
+            Bernoulli random variables with value \( 1 \) with
+            probability less than \( \sqrt{\frac{2 \epsilon}{\alpha}} \).
         \item
             Then \( \E{\mathcal{N}} \le m \sqrt{\frac{2 \epsilon}{\alpha}}
-            \). By Chernoff's bound (in the form
+            \).  By Chernoff's bound (in the form
             \[
                 \Prob{X \ge (1 + \delta) \mu } \le \EulerE^{-\delta^2\mu/
                 (2 + \delta)}
@@ -1099,7 +1110,7 @@ v(X_j) \) is in the lowest \( \epsilon \) fraction of the values \( v(X_0),
     Theorem~%
     \ref{thm:parallelsignificance:thm3point1}, then
     \[
-        \Prob{\sigma_0 \text{ is an \)\epsilon\( -outlier on all of }
+        \Prob{\sigma_0 \text{ is an \( \epsilon \) -outlier on all of }
         \mathbf {X}^1, \dots \mathbf{X}^m } \le \left( \frac{2\epsilon}{\alpha}
         \right)^{m/2}.
     \]
@@ -1166,15 +1177,15 @@ trajectories.
             Let \( v :  \mathcal{X} \to \Reals \) be a value function.
         \item
             Define the random variable \( \mathcal{N} \) to be the
-            number of trajectories \( \mathbf{X}^i \) on which \( \sigma_0
-            \) is an \( \epsilon \)-outlier.
+            number of trajectories \( \mathbf{X}^i \) with \( \sigma_0 \)
+            as an \( \epsilon \)-outlier.
         \item
             Suppose \( \sigma_0 \) is not an \( (\epsilon, \alpha) \)-outlier.
     \end{enumerate}
     Then
     \[
-        \Prob{\mathcal{N} \ge m \sqrt{\frac{\epsilon}{\alpha}} + r} \le
-        \EulerE^{r^2/( m \sqrt{\alpha/(\epsilon)} + r)}.
+        \Prob{\mathcal{N} \ge m \sqrt{ \frac{\epsilon}{\alpha}} + r} \le
+        \EulerE^{-r^2/( 2 m \sqrt{\epsilon/\alpha} + r)}.
     \]
 \end{theorem}
 
@@ -1182,10 +1193,10 @@ trajectories.
     Observe carefully the difference in conclusions of this Theorem~%
     \ref{thm:parallelsignificance:thm6point1} from Theorem~%
     \ref{thm:parallelsignificance:thm3point1} is the absence of the
-    factor \( 2 \), so Theorem~%
-    \ref{thm:parallelsignificance:thm6point1} is an improvement in the
-    probability estimates.  The improvement comes at the cost of a more
-    complicated set of parallel Markov chains.
+    factor \( 2 \) in the square root, so Theorem~%
+    \ref{thm:parallelsignificance:thm6point1} is a slight improvement in
+    the probability estimates.  The improvement comes at the cost of a
+    more complicated set of parallel Markov chains.
 \end{remark}
 
 \begin{proof}
@@ -1201,7 +1212,8 @@ trajectories.
             mean \( \mu \) supported on \( \nu = 0,1,2,\dots \).  The
             modification substitutes the geometric distribution
             parameter \( \mu \) for the fixed trajectory length.  Recall
-            the definition of the geometric distribution
+            the definition of the geometric distribution with mean\( \mu
+            0,1,2,\dots \) supported on
             \[
                 \Prob{n = \nu} = \frac{1}{\mu+1}\left( 1 - \frac{1}{\mu+1}
                 \right)^\nu.
@@ -1218,13 +1230,13 @@ trajectories.
             \ref{thm:parallelsignificance:thm3point1}.
         \item
             To prove the previous assertion, suppose that \( n_1 \) and \(
-            n_2 \) are independent random variables which are
-            geometrically distributed with mean \( \mu \), and consider
-            a \( \pi \)-stationary trajectory \( X_0, \dots, X_{n_1},
-            \dots, X_{n_1 +n_2} \) of random length \( n_1 + n_2 \), and
-            condition on the event \( X_{n_1} = \sigma \) for some
-            arbitrary \( \sigma \in \mathcal{X} \).  Since \( X \) is
-            reversible, we can view this trajectory as two independent
+            n_2 \) are independent geometrically distributed random
+            variables with mean \( \mu \), and consider a \( \pi \)-stationary
+            trajectory \( X_0, \dots, X_{n_1}, \dots, X_{n_1 +n_2} \) of
+            random length \( n_1 + n_2 \), and condition on the event \(
+            X_{n_1} = \sigma \) for some arbitrary \( \sigma \in
+            \mathcal{X} \).  Since the Markov chain \( X \) is
+            reversible, view this trajectory as two independent
             trajectories \( X_{n_1}, X_{n_1 +1}, \dots, X_{n_1 +n_2} \)
             and \( X_{n_1}, X_{n_1 - 1}, \dots, X_0 \) both beginning
             from \( X_{n_1} = \sigma \), of random lengths \( n_2 \) and
@@ -1254,8 +1266,9 @@ trajectories.
         \item
             \label{enum:parallelchain:eq18} Write
             \begin{align*}
-                \alpha \cdot \rho(0; \epsilon, \mu | \sigma)^{2} \le
-                \Esub{\sigma \sim \pi}{\rho(0; \epsilon, | \sigma)^{2}}
+                \alpha \cdot \rho(0; \epsilon, \mu | \sigma)^{2}
+                & \le \Esub{\sigma \sim \pi}{\rho(0; \epsilon, | \sigma)^
+                {2}} \\
                 &\le \Prob{v(X_{n_1}) \text{ is an \( \epsilon \)-outlier
                 among} \right.  \\
                 &\quad\left.  v(X_0 ), \dots, v(X_{n_1}), v(X_{n_1}),
@@ -1266,9 +1279,9 @@ trajectories.
         \item
             Now a simple fact about geometric random variables,
             motivated by considering the right-hand side of step~%
-            \ref{enum:parallelchain:eq18}. Conditioning on the value for
-            the length \( \ell= n_1 + n_2 \) of the trajectory, \( n_1 \)
-            is uniformly distributed in the range \( 0, \dots \ell \).
+            \ref{enum:parallelchain:eq18}.  Conditioning on the value
+            for the length \( \ell= n_1 + n_2 \) of the trajectory, \( n_1
+            \) is uniformly distributed in the range \( 0, \dots \ell \).
             This is ensured by the geometric distribution, simply
             because for any \( \ell \) and any \( x \in (0, \dots, \ell)
             \), the probability
@@ -1294,9 +1307,9 @@ trajectories.
             step~%
             \ref{enum:parallelchain:eq18}
             \begin{multline*}
-                \alpha \cdot \rho(\mu; \epsilon | \sigma)^{2} \le \Prob{v
-                (X_{n_1}) \text{ is an \( \epsilon \)-outlier among }
-                \right.  \\
+                \alpha \cdot \rho(0; \epsilon, \mu | \sigma)^{2} \le
+                \Prob{v (X_{n_1}) \text{ is an \( \epsilon \)-outlier
+                among } \right.  \\
                 \left.  v(X_0), \dots, v(X_{n_1}), v(X_{n_1}), \dots, v(X_
                 {n_1 +n_2})} \\
                 \le \max_i \Prob{v(X_{n_1}) \text{ is an \( \epsilon \)-outlier
@@ -1325,6 +1338,13 @@ trajectories.
     \]
 \end{corollary}
 
+More refined parallel test are discussed in~%
+\cite{doi:10.1080/2330443X.2020.1806763}, including an extension of the
+Besag-Clifford Test to multiple parallel chains, an extension to tree
+structures of Markov chains, and to state spaces with a product
+structure.  The extensions are applied to examples of detecting claims
+of gerrymandering of political districts.
+
 \subsection*{Multiple Testing Considerations}
 
 Theorem~%
@@ -1333,15 +1353,15 @@ which has a probability of having the starting state \( \sigma_0 \)
 being an \( \epsilon \)-outlier where \( \epsilon \) is chosen small.
 For any one specific chain, the probability of erroneously rejecting the
 null hypothesis is small.  However, the probability of \emph{at least
-one} false report is much higher. Performing several tests, then
+one} false report is much higher.  Performing several tests, then
 allowing a significant result on any of them to be evidence for
 rejecting the hypothesis requires a multiple testing correction.
-Multiple testing%
+Multiple testing,%
 \index{multiple testing}
 also called multiple comparisons, arises when a statistical analysis
-involves multiple simultaneous statistical tests, each of which has a
+involves multiple simultaneous statistical tests, each having a
 potential to produce a ``discovery'', on the same data set or dependent
-data sets. Specifically, there is a chance that the hypothesis which is
+data sets.  Specifically, there is a chance that the hypothesis which is
 actually true is rejected by the test, a Type I error.  The error
 probability increases with multiple testing.  A stated confidence level
 generally applies only to each test considered individually, but often
@@ -1354,12 +1374,13 @@ The wrong way to apply Theorem~%
 chains is the following.  Run \( m \) trajectories, record the minimum \(
 \epsilon_i \) for which the starting state \( \sigma_0 \) is an \(
 \epsilon_i \)-outlier on \( X^i \).  That is, the \( i \)th trajectory
-has \( j \) values \( v(X_{\nu_1}^i, \dots v(X_{\nu_j} \) less than \( v
-(\sigma_0) \), so \( v(\sigma_0) \) is a \( \epsilon_i = \frac{j+1}{n} \)-outlier.
-This creates a list of outlier values \( \epsilon_1 , \epsilon_2, \dots,
-\epsilon_ m \).  Then post-hoc, freely choose the parameters \( \alpha \)
-and \( \epsilon \) in Theorem~%
-\ref{thm:parallelsignificance:thm3point1} to achieve some desired
+has \( j_i \) values \( v(X_{\nu_1}^i), \dots, v(X_{\nu_{j_i}}) \) less
+than or equal to \( v (\sigma_0) \), so \( v(\sigma_0) \) is a \(
+\epsilon_i = \frac{j_{i}}{n} \)-outlier. This creates a list of outlier
+values \( \epsilon_1 , \epsilon_2, \dots, \epsilon_ m \).  Then
+post-hoc, freely choose the parameters \( \alpha \) and \( \epsilon \)
+in Theorem~%
+\ref{thm:parallelsignificance:thm3point1} to obtain some desired
 trade-off between \( \alpha \) and the \( p \)-value.
 
 A solution is to set the parameter \( \epsilon \equiv \epsilon(t) \) as
@@ -1367,27 +1388,29 @@ the \( t \)th-smallest element of the list \( \epsilon_1, \dots,
 \epsilon_m \) for some fixed value \( t \).  The case \( t = m \), for
 example, corresponds to taking \( \epsilon \) as the maximum value,
 leading to the application of Corollary~%
-\ref{cor:parallelsignificance:cor32}
+\ref{cor:parallelsignificance:cor32}.  More details and further
+discussion are in
+\cite{doi:10.1080/2330443X.2020.1806763}.
 
-The reason this avoids the need for a multiple hypothesis correction is
-that hypothesis events are ordered by containment.  Recall the random
-variable \( \mathcal{N} \) is the number of trajectories \( \mathbf{X}^i
-\) on which \( \sigma_0 \) is an \( \epsilon \)-outlier.  In particular,
-applying this test with some value of \( t \), we will always have \(
-\mathcal{N} = t \). Thus the \( p \)-value obtained will depend just on
-the parameter \( \epsilon_t) \) returned by taking the \( t \)th
-smallest \( \epsilon_i \) and on the choice of \( \alpha \).  The \( p \)-value
-will not depend on the particular values of the other \( \epsilon_i \)'s
-which are not the \( t \)th smallest).  Furthermore, for \( 0 < \alpha
-\le 1 \),
-\[
-    \EulerE^{ -r^{2}/ (2 m\sqrt{2\epsilon/\alpha} + r)} \le \EulerE^{ -r^
-    {2}/ (2 m\sqrt{2\epsilon} + r)}
-\] and then for \( \epsilon < \epsilon' \),
-\[
-    \EulerE^{ -r^{2}/ (2 m\sqrt{2\epsilon} + r)} \le \EulerE^{ -r^{2}/ (2
-    m\sqrt{2\epsilon'} + r)}.
-\] % In particular, regardless of how the values
+% The reason this avoids the need for a multiple hypothesis correction is
+% that hypothesis events are ordered by containment.  Recall the random
+% variable \( \mathcal{N} \) is the number of trajectories \( X^i
+% \) on which \( \sigma_0 \) is an \( \epsilon \)-outlier.  In particular,
+% applying this test with some value of \( t \) will always have \(
+% \mathcal{N} = t \). Thus the \( p \)-value obtained will depend just on
+% the parameter \( \epsilon_t \) returned by taking the \( t \)th
+% smallest \( \epsilon_i \) and on the choice of \( \alpha \).  The \( p \)-value
+% will not depend on the particular values of the other \( \epsilon_i \)'s
+% which are not the \( t \)th smallest).  Furthermore, for \( 0 < \alpha
+% \le 1 \),
+% \[
+%     \EulerE^{ -r^{2}/ (2 m\sqrt{2\epsilon/\alpha} + r)} \le \EulerE^{ -r^
+%     {2}/ (2 m\sqrt{2\epsilon} + r)}
+% \] and then for \( \epsilon < \epsilon' \),
+% \[
+%     \EulerE^{ -r^{2}/ (2 m\sqrt{2\epsilon} + r)} \le \EulerE^{ -r^{2}/ (2
+%     m\sqrt{2\epsilon'} + r)}.
+% \] % In particular, regardless of how the values
 % \( \alpha \) and \( p \) trade off, the optimum choice of \( \alpha \)
 % (for the fixed choice of \( t \)) will depend just on the value
 % \( \epsilon(t) \).  In particular, take \( \alpha \) as the optimum
@@ -1396,12 +1419,12 @@ which are not the \( t \)th smallest).  Furthermore, for \( 0 < \alpha
 % \ref{thm:parallelsignificance:thm3point1} with
 % \( \epsilon = \epsilon_t \), evaluates the single-parameter infinite
 % family of hypotheses \( H_{\epsilon (t) \alpha(\epsilon(t)) } \), and
-Multiple testing correction is not required since the hypotheses are
-nested.  That is, \( \epsilon \le \epsilon' \) implies the probability
-of erroneously rejecting the null hypothesis with Theorem~%
-\ref{thm:parallelsignificance:thm3point1} is less.  Thus, the
-probability of returning a \( p \)-value with \( p < p_0 \) for fixed \(
-p_0 \) is at most \( p_0 \).
+% Multiple testing correction is not required since the hypotheses are
+% nested.  That is, \( \epsilon \le \epsilon' \) implies the probability
+% of erroneously rejecting the null hypothesis with Theorem~%
+% \ref{thm:parallelsignificance:thm3point1} is less.  Thus, the
+% probability of returning a \( p \)-value with \( p < p_0 \) for fixed \(
+% p_0 \) is at most \( p_0 \).
 
 % H_{\epsilon(t),\alpha(\epsilon
 %     (t) )} \subseteq H_{\epsilon' (t) ,\alpha(\epsilon(t) )}.
@@ -1416,15 +1439,15 @@ p_0 \) is at most \( p_0 \).
 
 \visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
 \section*{Section Ending Answer} For \( \epsilon > 0 \), always \(
-\epsilon < 2 \epsilon \) so the ``Besag Clifford Test'' is always more
-discriminating than the ``Parallel \( 2 \epsilon \) Test'' which in turn
-is more discriminating than the ``Serial \( \sqrt{2 \epsilon} \) Test
-for \( \epsilon < 1/2 \).  Since \( \epsilon \) will usually be taken to
-be one of the traditional statistical significance values of \( p = 0.05
-\), \( p = 0.01 \) or \( p = 0.001 \), the parallel tests will always be
-better.
+\epsilon < 2 \epsilon \) so the ``Besag-Clifford Test'' is always more
+discriminating than the ``Parallel \( 2 \epsilon \) Test'', which in
+turn is more discriminating than the ``Serial \( \sqrt{2 \epsilon} \)
+Test for \( \epsilon < 1/2 \).  Since \( \epsilon \) will usually be
+taken to be one of the traditional statistical significance values of \(
+p = 0.05 \), \( p = 0.01 \) or \( p = 0.001 \), the parallel tests will
+always be better.
 
-\subsection*{Sources} This section is adapted from
+\subsection*{Sources} This section is adapted from~%
 \cite{doi:10.1080/2330443X.2020.1806763}.  The definition and examples
 of multiple hypothesis correction is adapted from the Wikipedia article
 on \link{https://en.wikipedia.org/wiki/Multiple_comparisons_problem}{Multiple
@@ -1437,9 +1460,93 @@ comparisons problem}
 
 \subsection*{Algorithm}
 
+\begin{algorithm}[H]
+    \DontPrintSemicolon \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output}
+
+    \Input{Number of balls \( N \) and probability of urn switch, \( p \)}
+    \Output{Alternate Ehrenfest transition probability matrix.}
+    \BlankLine \( N \leftarrow 7 \), \( p \leftarrow 1/2 \), \( q
+    \leftarrow 1-p \)\; \tcp{Build \( (N+1) \times (N+1) \) transition
+    probability matrix} \( P_{11} \leftarrow q \), \( P_{12} \leftarrow
+    p \)\; \( P_{N+1,N} \leftarrow q \), \( P_{N+1, N+1} \leftarrow p \)\;
+    \For{\( r \leftarrow 2 \) \KwTo \( N \)}{ \( P_{r,r-1} \leftarrow (r-1)/N
+    \cdot q \)\; \( P_{r,r} \leftarrow (N-(r-1))/N \cdot q + (r-1)/N
+    \cdot p \)\; \( P_{r,r-1} \leftarrow (N-(r-1))/N \cdot p \)\; }
+    \caption{Algorithm for defining alternate Ehrenfest transition
+    probability matrix.}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \DontPrintSemicolon \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output}
+    \SetKwData{pL}{pathLength} \SetKwData{nT}{nTrials} \SetKwData{rhoN}{rhoN}
+    \SetKwData{rhoNl2n}{rhoN2ln}
+
+    \Input{Number of balls \( N \) and probability of urn switch, \( p \)}
+    \Output{Table of empirical probabilities of \( \epsilon \)-Outlier
+    Test success.} \BlankLine Build Markov chain object with alternate
+    Ehrenfest matrix\; \BlankLine Set \pL, \nT\; Initialize matrices to
+    hold Markov chain paths\; Initialize matrices \rhoN \rhoN2ln to hold
+    simulation results\; \ForEach{element in \nT} { Choose a start state
+    from stationary distribution\; Create Markov chain path \( X \) and
+    record it\; \ForEach{\( j \leftarrow 1 \) \KwTo \pL+1 }{ \ForEach{\(
+    l \leftarrow 1 \) \KwTo \pL+1 }{ Increment \rhoN entry if \( j \) is
+    among-\( l \)-smallest\; } } Choose a start state from stationary
+    distribution\; Create independent Markov chain paths \( Y \), \( Z \)\;
+    Concatenate \( Y \), \( Z \) and record \ForEach{\( l \leftarrow 1 \)
+    \KwTo \pL+1 }{ Increment \rhoN2ln entry if \( j \) is among-\( l \)-smallest\;
+    } }
+
+    Divide \rhoN and \rhoN2ln by \nT and report results table\;
+
+    \caption{Algorithm for simulation of \( \rho \) probabilities in the
+    alternate Ehrenfest model as an example for understanding.}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \DontPrintSemicolon \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output}
+    \SetKwData{pL}{pathLength} \SetKwData{nT}{nTrials} \SetKwData{rhoN}{rhoN}
+
+    \Input{Number of balls \( N \) and probability of urn switch, \( p \)}
+    \Output{Table of empirical probabilities of \( \epsilon \)-Outlier
+    Test success.} \BlankLine Build Markov chain object with alternate
+    Ehrenfest matrix\; \BlankLine Set \pL, \nT\; Initialize matrices to
+    hold Markov chain paths\; Initialize matrices \rhoN to hold
+    simulation results\; \ForEach{element in \nT} { Choose a start state
+    from stationary distribution\; Create Markov chain paths \( Y \), \(
+    Z \) and record them\; Draw random integer from \( 1 \) to \pL \( +1
+    \)\; Create random concatenated path\; \ForEach{\( l \leftarrow 1 \)
+    \KwTo \pL+1 }{ Increment \rhoN entry if \( j \) is among-\( l \)-smallest\;
+    } } \ForEach{\( l \leftarrow 1 \) \KwTo \pL+1 }{ Increment \rhoN2ln
+    entry if \( j \) is among-\( l \)-smallest\; } Divide \rhoN by \nT
+    and report results probability table\;
+
+    \caption{Algorithm for simulation of \( \rho \) probabilities in the
+    alternate Ehrenfest model as an example for understanding.}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \DontPrintSemicolon \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output}
+    \SetKwData{pL}{pathLength} \SetKwData{nT}{nTrials} \SetKwData{rhoCount}
+    {rhoCount}
+
+    \Input{Number of balls \( N \) and probability of urn switch, \( p \)}
+    \Output{Table of empirical probabilities of \( \epsilon \)-outlier
+    status for each state.} \BlankLine Build Markov chain object with
+    alternate Ehrenfest matrix\; \BlankLine Set \pL, \nT\; Initialize
+    matrices to hold Markov chain paths\; Initialize matrices \rhoCount
+    to hold simulation results\; \ForEach{state} { \ForEach{element in
+    \nT} { Create Markov chain paths from that state and record them\;
+    Increment \rhoCount entry if start state is \( \epsilon \)-outlier\;
+    } }
+
+    Divide \rhoCount by \nT and report results probability table\;
+    \caption{Algorithm for simulation of alternate Ehrenfest model as an
+    example for understanding the definition of \( (\epsilon, \alpha) \)-outlier.}
+\end{algorithm}
+
 \subsection*{Scripts}
 
-%% \input{parallelsignificance_scripts}
+\input{parallelsignificance_scripts}
 
 \hr
 
@@ -1452,152 +1559,200 @@ comparisons problem}
     Express the slight changes in notation:
     \begin{itemize}
         \item
-            \( \rho(i; \epsilon, n) \) is the probability that in a \( n
-            \)-step stationary trajectory \( X_0, X_1, \dots X_k \), \(
-            v(X_i) \) is among the smallest \( \epsilon \)-fraction of
-            indices in the list \( v(X_0), v(X_1), \dots, v(X_n) \) and
+            \( \rho(j; \epsilon, n) \) is the probability that in an \(
+            n \)-step stationary Markov chain trajectory \( X_0, X_1,
+            \dots X_n \), \( v(X_j) \) is among the smallest \( \epsilon
+            \)-fraction of indices from \( v(X_0), v(X_1), \dots, v(X_n)
+            \), and
         \item
             \( \rho(0; \epsilon, k \given \sigma_0) \) is the
-            probability that on a trajectory \( \sigma_0 = X_0, X_1,
-            \dots, X_n \), \( v(\sigma_0) \) is among the smallest \(
-            \epsilon \)-fraction of values in the list \( v(X_0), v(X_1),
-            \dots, v(X_k) \)
+            probability that in an \( n \)-step stationary Markov chain
+            trajectory \( \sigma_0 = X_0, X_1, \dots, X_n \), \( v(\sigma_0)
+            \) is among the smallest \( \epsilon \)-fraction of values
+            in the list \( v(X_0), v(X_1), \dots, v(X_k) \)
     \end{itemize}
     in terms of the original notations \( \rho(j; \ell, n) \) and \(
     \rho(j; \ell, n \given \sigma) \).
 \end{exercise}
 \begin{solution}
-    To be in the smallest \( \epsilon \)-fraction of indices in the list
-    \( v(X_0), v(X_1), \dots, v(X_n) \) means to be among the least \(
-    \lfloor \epsilon (n+1) \rfloor \) values.  That is, in terms of the
-    original definitions \( \rho(i; \epsilon, n) = \rho(i; \lfloor
-    \epsilon (n+1) \rfloor, n) \) and \( \rho(i; \epsilon, n \given
-    \sigma) = \rho(i; \lfloor \epsilon (n+1) \rfloor, n \given \sigma) \).
+    To be in the smallest \( \epsilon \)-fraction of indices from \( v(X_0),
+    v(X_1), \dots, v(X_n) \) means to be among the least \( \lfloor
+    \epsilon (n+1) \rfloor \) values.  That is, in terms of the original
+    definitions \( \rho(j; \epsilon, n) = \rho(j; \lfloor \epsilon (n+1)
+    \rfloor, n) \) and \( \rho(j; \epsilon, n \given \sigma) = \rho(j;
+    \lfloor \epsilon (n+1) \rfloor, n \given \sigma) \).
 
 \end{solution}
 \begin{exercise}
     Check the Parallel \( 2 \epsilon \) Test by making some simulations
     of the alternate Ehrenfest urn model.  Use the script to find the
-    proportion of trials for which the state \( 0 \) is an \( 0.01 \)-outlier
-    for the alternative Ehrenfest urn model with \( N = 51 \) balls and
-    path length of the chain \( 199, 399, 599, 999 \) steps when
-    executing \( 200, 400, 800 \) and \( 1600 \) trials.  Display the
-    results in three charts, one for each \( N \).
+    proportion of trials for which the starting state, chosen from the
+    stationary distribution, is an \( 0.01 \)-outlier for the
+    alternative Ehrenfest urn model with \( N = 51 \) balls and path
+    length of the chain \( 199, 399, 599, 999 \) steps when executing \(
+    200, 400, 800 \) and \( 1600 \) trials.  Display the results in a \(
+    4 \times 4 \) matrix.
 \end{exercise}
 \begin{solution}
 
-\begin{lstlisting}{language = R}
-library(markovchain)
+    \begin{lstlisting}{language = R}
+        library(markovchain)
 
-N <- 51; p <- 1/2; q <- 1 - p;
-stateNames <- as.character( 0:N )
-## Be careful here, because states numbered from 0,
-## but R indexes from 1
-transMatrix <- matrix(0, N+1,N+1)
-transMatrix[1,1] <- q
-transMatrix[1,2] <- p
-transMatrix[N+1, N  ] <- q
-transMatrix[N+1, N+1] <- p
-for (row in 2:N) {
-    transMatrix[row, row-1] <- ((row-1)/N)*q
-    transMatrix[row,row] <- ((N-(row-1))/N)*q + ((row-1)/N)*p
-    transMatrix[row,row+1] <- ((N-(row-1))/N)*p
-}
+        N <- 51 p <- 1 / 2 q <- 1 - p stateNames <- as.character(0:N) ##
+        Be careful here, because states numbered from 0, ## but R
+        indexes from 1 transMatrix <- matrix(0, N + 1, N + 1)
+        transMatrix[1, 1] <- q transMatrix[1, 2] <- p transMatrix[N + 1,
+        N] <- q transMatrix[N + 1, N + 1] <- p for (row in 2:N) {%
+        transMatrix[row, row - 1] <- ((row - 1) / N) * q transMatrix[row,
+        row] <- ((N - (row - 1)) / N) * q + ((row - 1) / N) * p
+        transMatrix[row, row + 1] <- ((N - (row - 1)) / N) * p }
 
-startState <- "0"
+        altEhrenfest <- new("markovchain", transitionMatrix =
+        transMatrix, states = stateNames, name = "AltEhernfest" )
 
-altEhernfest <- new("markovchain", transitionMatrix=transMatrix,
-                 states=stateNames, name="AltEhernfest")
+        pathLength <- c(199, 399, 599, 999) nTrials <- c(200, 400, 800,
+        1600) results <- matrix(0, length(pathLength), length(nTrials))
 
+        eps <- 0.01
 
-pathLength <- c(199, 399, 599, 999)
-nTrials <- c(200, 400, 800, 1600)
+        for (pL in pathLength) { outlierThreshold <- floor(eps * (2 * pL
+        + 1)) # Note the doubling of path length for both Y and Z chains
+        for (nT in nTrials) { nEpsOutlier <- 0
 
-eps <- 0.01
+        for (i in 1:nT) { startState <- as.character(rbinom(1, N, p))
 
-results <- matrix(0, length(pathLength), length(nTrials))
+        pathY <- rmarkovchain( n = pL, object = altEhrenfest, t0 =
+        startState ) pathZ <- rmarkovchain( n = pL, object =
+        altEhrenfest, t0 = startState ) fullPath <- c(startState, pathY,
+        pathZ) valueFullPath <- as.numeric(fullPath) valueStartState <-
+        as.numeric(startState) # In following, use strict < to avoid the
+        duplicates problem if (valueStartState < sort(valueFullPath)[outlierThreshold])
+        { nEpsOutlier <- nEpsOutlier + 1 } }
 
-for (pL in 1:length(pathLength)) {
-for  (nT in 1:length(nTrials)) {
+        probEpsOutlier <- nEpsOutlier / nT
 
-outlierThreshold <- floor( eps * ( 2 * pathLength[pL] + 1) ) + 1
-# Note the doubling of path length for both Y and Z chains
-nEpsOutlier<- 0
+        results[match(pL, pathLength), match(nT, nTrials)] <-
+        probEpsOutlier } }
 
-for (i in 1:nTrials[nT]) {
-            
-    pathY <- rmarkovchain(n=pathLength[pL],
-                         object = altEhernfest,
-                         t0 = startState)
-    pathZ <- rmarkovchain(n=pathLength[pL],
-                         object = altEhernfest,
-                         t0 = startState)
-    fullPath <- c(startState, pathY, pathZ)
-    labelFullPath <- as.numeric(fullPath)
-    labelStartState <- as.numeric(startState)
-    if (!identical(sort(labelFullPath)[outlierThreshold], labelStartState)) {
-                nEpsOutlier <- nEpsOutlier + 1
-    }
-}
-
-probEpsOutlier <- nEpsOutlier/nTrials[nT]
-
-results[pL, nT] <- probEpsOutlier
-}
-}
-
-results
-\end{lstlisting}
+        results
+    \end{lstlisting}
 
 \begin{verbatim*}
-  > results
-      [,1]  [,2]    [,3]     [,4]
-[1,] 0.705 0.670 0.66625 0.695625
-[2,] 0.970 0.975 0.95750 0.958125
-[3,] 0.985 1.000 0.99375 0.995625
-[4,] 1.000 1.000 1.00000 1.000000
+results
+      [,1]   [,2]    [,3]     [,4]
+[1,] 0.000 0.0025 0.00375 0.001875
+[2,] 0.005 0.0050 0.00125 0.003750
+[3,] 0.000 0.0075 0.00250 0.005000
+[4,] 0.000 0.0075 0.00875 0.003750
 \end{verbatim*}
 
 \end{solution}
 
 \begin{exercise}
-    This exercise expands the simulation of the alternate Ehrenfest urn
-    model in \texttt{simEpsAlpha.R}. Extend the path length, or number
-    of steps, and the number of trials in order to sharpen the rough
-    estimates of \( 0 \) being an \( (\epsilon, \alpha) \)-outlier.
+    Check the Besag-Clifford Test by making some simulations of the
+    alternate Ehrenfest urn model.  Use the script to find the
+    proportion of trials for which the state \( 0 \) is an \( 0.01 \)-outlier
+    for the alternative Ehrenfest urn model with \( N = 51 \) balls and
+    path length of the chain \( 199, 399, 599, 999 \) steps when
+    executing \( 200, 400, 800 \) and \( 1600 \) trials.  Display the
+    results in a \( 4 \times 4 \) matrix.
 \end{exercise}
 \begin{solution}
-    In \texttt{epsAlpha.R} change \texttt{pathLength} to \( 100 \)
-    steps and \textt{nTrials} to \( 200 \).  The parameter \textt{eps}
-    is still \( 0.1 \).  The smallest fraction of values will
-    be \( \lfloor \epsilon (n+1) \rfloor = \lfloor 0.1 \cdot 101 \rfloor
-    = 10 \) values.  That is, the value under consideration must be in
-    the least \( 10 \) of the values in the chain.
-    The table gives the approximate (rounded to \( 3 \) places)
-    probability of being an \( \epsilon \)-outlier
-    starting from the state and the probability of being an
-    \(epsilon \)-outlier weighted by the stationary distribution.
+    \begin{lstlisting}[language=R]
+        library(markovchain)
+
+        N <- 51 p <- 1 / 2 q <- 1 - p stateNames <- as.character(0:N) ##
+        Be careful here, because states numbered from 0, ## but R
+        indexes from 1 transMatrix <- matrix(0, N + 1, N + 1)
+        transMatrix[1, 1] <- q transMatrix[1, 2] <- p transMatrix[N + 1,
+        N] <- q transMatrix[N + 1, N + 1] <- p for (row in 2:N) {%
+        transMatrix[row, row - 1] <- ((row - 1) / N) * q transMatrix[row,
+        row] <- ((N - (row - 1)) / N) * q + ((row - 1) / N) * p
+        transMatrix[row, row + 1] <- ((N - (row - 1)) / N) * p }
+
+        altEhrenfest <- new("markovchain", transitionMatrix =
+        transMatrix, states = stateNames, name = "AltEhrenfest" )
+
+        pathLength <- c(199, 399, 599, 999) nTrials <- c(200, 400, 800,
+        1600) results <- matrix(0, length(pathLength), length(nTrials))
+
+        eps <- 0.01
+
+        for (pL in pathLength) { outlierThreshold <- floor(eps * (pL + 1))
+        for (nT in nTrials) { nEpsOutlier <- 0
+
+        for (i in 1:nT) { startState <- as.character(rbinom(1, N, p)) #
+        choose start from stable pathY <- markovchainSequence( n = pL,
+        altEhrenfest, t0 = startState, include.t0 = TRUE ) pathZ <-
+        markovchainSequence( n = pL, altEhrenfest, t0 = startState,
+        include.t0 = TRUE ) xi <- sample.int(pL + 1, size = 1) - 1 # 0
+        to pL # Caution:  R indexes from 1, but Theorem from 0, so 1:(pL+1),
+        subtract 1 # Caution:  Concatening works if xi == 0, cat [1:1]
+        to [2:pL+1] # because pathY[1] == pathZ[1], so get pathZ # But
+        if xi == pathLength, just want pathY, don't cat pathZ[2:1] if (xi
+        < pL) { pathRandomYZ <- c(pathY[1:(xi + 1)], pathZ[2:((pL + 1) -
+        (xi + 1) + 1)]) } else { # xi == pL pathRandomYZ <- pathY }
+        valueRandomYZPath <- as.numeric(pathRandomYZ) valueStartState <-
+        as.numeric(startState) # In following, use strict < to avoid the
+        duplicates problem if (valueStartState < sort(valueRandomYZPath)
+        [outlierThreshold+1]) { nEpsOutlier <- nEpsOutlier + 1 } }
+        probEpsOutlier <- nEpsOutlier / nT
+
+        results[match(pL, pathLength), match(nT, nTrials)] <-
+        probEpsOutlier } }
+
+        results
+    \end{lstlisting}
+
+\begin{verbatim*}
+> results
+      [,1]   [,2]    [,3]     [,4]
+[1,] 0.010 0.0025 0.00125 0.002500
+[2,] 0.005 0.0025 0.00125 0.002500
+[3,] 0.010 0.0100 0.00875 0.002500
+[4,] 0.010 0.0075 0.00375 0.006875
+\end{verbatim*}
+\end{solution}
+
+\begin{exercise}
+    This exercise expands the simulation of the alternate Ehrenfest urn
+    model in \texttt{simEpsAlpha.R}.  Extend the path length, or number
+    of steps, and the number of trials to sharpen the rough estimates of
+    \( 0 \) being an \( (\epsilon, \alpha) \)-outlier.
+\end{exercise}
+\begin{solution}
+    In \texttt{simEpsAlpha.R} change \lstinline[language=R]{pathLength}
+    to \( 100 \) steps and \lstinline[language=R]{nTrials} to \( 200 \).
+    The parameter \lstinline[language=R]{eps} is still \( 0.1 \).  The
+    smallest fraction of values will be \( \lfloor \epsilon (n+1)
+    \rfloor = \lfloor 0.1 \cdot 101 \rfloor = 10 \) values.  That is,
+    the value under consideration must be in the least \( 10 \) of the
+    values in the chain. The table gives the approximate (rounded to \(
+    3 \) places) probability of being an \( \epsilon \)-outlier starting
+    from the state and the probability of being an \( epsilon \)-outlier
+    weighted by the stationary distribution.
     \begin{table}
         \centering
         \begin{tabular}{l|cccccccc}
-            State    & 0     & 1     & 2     & 3     & 4     & 5     & 6     & 7     \\ 
-                     & 0.985 & 0.640 & 0.095 & 0.005 & 0.000 & 0.000 & 0.000 & 0.000 \\ 
-            \( \pi \)& 0.008 & 0.055 & 0.164 & 0.273 & 0.273 & 0.164 & 0.055 & 0.008 \\ 
-                     & 0.008 & 0.035 & 0.016 & 0.001 & 0.000 & 0.000 & 0.000 & 0.000 \\ 
+            State                                   & 0     & 1     & 2     & 3     & 4      & 5     & 6     & 7     \\ 
+                                                    & 0.985 & 0.640 & 0.095 & 0.005 & 0.000  & 0.000 & 0.000 & 0.000 \\ 
+            \( \pi \)                               & 0.008 & 0.055 & 0.164 & 0.273 & 0.273  & 0.164 & 0.055 & 0.008 \\ 
+                                                    & 0.008 & 0.035 & 0.016 & 0.001 & 0.000  & 0.000 & 0.000 & 0.000 \\ 
         \end{tabular}
+    \end{table}
 
     The rough fraction of chains starting from a random state from the
     stationary distribution and resulting in the starting state being an
     \( \epsilon \)-outlier is \( 0.008 + 0.035 + 0.016 + 0.001 = 0.06 \).
     The rough fraction of chains starting from a random state from the
     stationary distribution other than \( 0 \) and resulting in the
-    starting state being an \( \epsilon \)-outlier is \( 0.035 + 0.016
-    + 0.001 = 0.052 \).  This means that among all states \( 0, \dots, 7 \),
+    starting state being an \( \epsilon \)-outlier is \( 0.035 + 0.016 +
+    0.001 = 0.052 \).  This means that among all states \( 0, \dots, 7 \),
     \( 0 \) is more likely than all but about a \( 0.05 \)-fraction of
     states to have an \( v \)-value in the least \( 0.1 \)-fraction of
-    values.  Therefore, from this less rough
-    example, \( 0 \) is an \( (0.1, 0.05) \)-outlier.
-   
+    values.  Therefore, from this less rough example, \( 0 \) is an \( (0.1,
+    0.05) \)-outlier.
+
 \end{solution}
 
 \begin{exercise}
